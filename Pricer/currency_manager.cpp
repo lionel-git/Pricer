@@ -4,7 +4,7 @@
 const currency_manager& 
 currency_manager::instance()
 {
-	static currency_manager manager;
+	static const currency_manager manager;
 	return manager;
 }
 
@@ -27,8 +27,9 @@ currency_manager::get_currency(amount amt)
 
 currency_manager::currency_manager()
 {
-	currency_map_.emplace(currency_code::USD, currency(currency_code::USD));
-	currency_map_.emplace(currency_code::JPY, currency(currency_code::JPY));
+	const currency_code all_currencies[] = { currency_code::USD, currency_code::JPY, currency_code::EUR, currency_code::HKD };
+	for (const auto ccy : all_currencies)
+		currency_map_.emplace(ccy, currency(ccy));
 }
 
 double 

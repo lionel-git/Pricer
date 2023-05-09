@@ -30,7 +30,7 @@ void test2()
 	std::cout << fxfwd2.pv() << std::endl;
 }
 
-int main(int argc, char** argv)
+int main(int /*argc*/, char** /*argv*/)
 {
 	try
 	{

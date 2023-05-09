@@ -2,7 +2,7 @@
 #include <string>
 #include "defines.h"
 
-enum class currency_code { USD, JPY };
+enum class currency_code { USD, JPY, EUR, HKD };
 std::string enumToText(currency_code ccy);
 
 class currency

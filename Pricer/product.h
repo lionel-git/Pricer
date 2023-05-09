@@ -5,6 +5,7 @@ class product
 {
 public:
 	product(date_t expiry, amount base_amount);
+	virtual ~product() = default;
 
 	virtual amount pv() const;
 
