@@ -8,10 +8,10 @@ class fx_forward : public product
 public:
 	fx_forward(date_t expiry, amount asset_amount, amount base_amount);
 
-	virtual amount pv() const;
+	amount pv(currency_code target_ccy) const override;
 
 protected:
-	fx_key fx_key_;
+	const fx& fx_;
 	amount asset_amount_;
 	const currency& asset_ccy_;
 };

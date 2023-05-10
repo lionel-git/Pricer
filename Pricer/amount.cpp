@@ -2,7 +2,7 @@
 #include "fx_manager.h"
 #include <stdexcept>
 
-amount::amount(double notional, currency_code ccy): 
+amount::amount(double notional, currency_code ccy) :
 	notional_(notional), currency_(ccy)
 {
 }
@@ -13,7 +13,7 @@ amount::operator*(double mult) const
 	return amount(mult * notional_, currency_);
 }
 
-amount 
+amount
 amount::operator+(amount value) const
 {
 	if (currency_ != value.currency_)
@@ -21,19 +21,22 @@ amount::operator+(amount value) const
 	return amount(notional_ + value.notional_, currency_);
 }
 
-amount 
+amount
 amount::operator-() const
 {
 	return amount(-notional_, currency_);
 }
 
-amount 
+amount
 amount::countervalue(currency_code target_ccy) const
 {
-	return amount(notional_* fx_manager::get_fx(currency_, target_ccy).getSpot(), target_ccy);
+	double spot = 1.0;
+	if (target_ccy != currency_)
+		spot = fx_manager::get_fx(currency_, target_ccy).getSpot();
+	return amount(notional_ * spot, target_ccy);
 }
 
-amount 
+amount
 amount::strike_countervalue(currency_code target_ccy, double strike) const
 {
 	return amount(notional_ * strike, target_ccy);

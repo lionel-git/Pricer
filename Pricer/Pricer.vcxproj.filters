@@ -13,57 +13,87 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\products">
+      <UniqueIdentifier>{f73c4290-cd6b-4066-a3f7-6c1c6b7d4aa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\products">
+      <UniqueIdentifier>{cce47c53-c256-4956-82d5-d995e5b15e2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\market_data">
+      <UniqueIdentifier>{11cac9a4-8739-4436-9e41-eb20d1bea761}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\market_data">
+      <UniqueIdentifier>{708ffcaa-a611-4b65-ad2f-9d6b30de3c90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\utils">
+      <UniqueIdentifier>{d51a3dab-0da8-4215-9763-480e1a11e835}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\utils">
+      <UniqueIdentifier>{f7b683b9-2b64-48cb-8f62-ed4d06a044ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="fx_forward.cpp">
+      <Filter>Source Files\products</Filter>
+    </ClCompile>
+    <ClCompile Include="fx_option.cpp">
+      <Filter>Source Files\products</Filter>
+    </ClCompile>
     <ClCompile Include="product.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\products</Filter>
     </ClCompile>
     <ClCompile Include="currency.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\market_data</Filter>
     </ClCompile>
     <ClCompile Include="currency_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="fx_forward.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="amount.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="fx.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\market_data</Filter>
     </ClCompile>
     <ClCompile Include="fx_manager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\market_data</Filter>
+    </ClCompile>
+    <ClCompile Include="fx.cpp">
+      <Filter>Source Files\market_data</Filter>
+    </ClCompile>
+    <ClCompile Include="amount.cpp">
+      <Filter>Source Files\products</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>Source Files\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="product.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="defines.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="currency.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="currency_manager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\products</Filter>
     </ClInclude>
     <ClInclude Include="fx_forward.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\products</Filter>
     </ClInclude>
-    <ClInclude Include="amount.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="fx_option.h">
+      <Filter>Header Files\products</Filter>
+    </ClInclude>
+    <ClInclude Include="currency.h">
+      <Filter>Header Files\market_data</Filter>
+    </ClInclude>
+    <ClInclude Include="currency_manager.h">
+      <Filter>Header Files\market_data</Filter>
     </ClInclude>
     <ClInclude Include="fx.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\market_data</Filter>
     </ClInclude>
     <ClInclude Include="fx_manager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\market_data</Filter>
+    </ClInclude>
+    <ClInclude Include="amount.h">
+      <Filter>Header Files\products</Filter>
+    </ClInclude>
+    <ClInclude Include="defines.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>Header Files\utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

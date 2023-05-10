@@ -105,6 +105,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -120,6 +121,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -135,8 +137,10 @@
     <ClCompile Include="fx.cpp" />
     <ClCompile Include="fx_forward.cpp" />
     <ClCompile Include="fx_manager.cpp" />
+    <ClCompile Include="fx_option.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="product.cpp" />
+    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="amount.h" />
@@ -146,7 +150,9 @@
     <ClInclude Include="fx.h" />
     <ClInclude Include="fx_forward.h" />
     <ClInclude Include="fx_manager.h" />
+    <ClInclude Include="fx_option.h" />
     <ClInclude Include="product.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

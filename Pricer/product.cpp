@@ -8,7 +8,7 @@ product::product(date_t expiry, amount base_amount) :
 }
 
 amount
-product::pv() const
+product::pv(currency_code target_ccy) const
 {
-	return base_amount_*base_ccy_.getDF(expiry_);
+	return (base_amount_ * base_ccy_.getDF(expiry_)).countervalue(target_ccy);
 }
