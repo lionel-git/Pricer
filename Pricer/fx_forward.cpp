@@ -2,7 +2,9 @@
 #include "currency_manager.h"
 
 fx_forward::fx_forward(date_t expiry, amount asset_amount, amount base_amount) :
-	product(expiry, base_amount), asset_amount_(asset_amount), asset_ccy_(currency_manager::get_currency(asset_amount))
+	product(expiry, base_amount), 
+	asset_amount_(asset_amount), asset_ccy_(currency_manager::get_currency(asset_amount)),
+	fx_key_(std::make_pair(asset_amount.currency_, base_amount.currency_))
 {
 }
 

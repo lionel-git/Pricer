@@ -12,9 +12,9 @@ public:
 
 	friend class currency_manager;
 private:
-	currency(currency_code ccy);
+	currency(currency_code ccy, double discount_rate);
 
+	currency_code ccy_;
 	double exp_discount_rate_; // exponential annual rate for discount
-	double fxspot_;            // fxspot USDXXX (how many XXX for 1USD)
 };
 

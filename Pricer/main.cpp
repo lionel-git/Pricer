@@ -1,5 +1,6 @@
 #include <iostream>
 #include "currency_manager.h"
+#include "fx_manager.h"
 #include "fx_forward.h"
 
 void test1()
@@ -20,10 +21,10 @@ void test2()
 	auto fxfwd = fx_forward(expiry, amount_asset, -amount_asset.strike_countervalue(100.0, currency_code::JPY));
 	std::cout << fxfwd.pv() << std::endl;
 
-	double spot = currency_manager::get_fxspot(currency_code::USD, currency_code::JPY);
+	double spot = fx_manager::get_fx(currency_code::USD, currency_code::JPY).getSpot();
 	std::cout << spot << std::endl;
 
-	double fwd = currency_manager::get_fxfwd(expiry, currency_code::USD, currency_code::JPY);
+	double fwd = fx_manager::get_fx(currency_code::USD, currency_code::JPY).getFwd(expiry);
 	std::cout << fwd << std::endl;
 
 	auto fxfwd2 = fx_forward(expiry, amount_asset, -amount_asset.strike_countervalue(fwd, currency_code::JPY));

@@ -1,6 +1,7 @@
 #pragma once
 #include "product.h"
 #include "amount.h"
+#include "fx.h"
 
 class fx_forward : public product
 {
@@ -10,6 +11,7 @@ public:
 	virtual amount pv() const;
 
 protected:
+	fx_key fx_key_;
 	amount asset_amount_;
 	const currency& asset_ccy_;
 };

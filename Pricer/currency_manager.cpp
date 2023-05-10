@@ -16,7 +16,6 @@ currency_manager::get_currency(currency_code ccy)
 	if (it == manager.currency_map_.end())
 		throw std::runtime_error("cannot find cur: " + enumToText(ccy));
 	return it->second;
-
 }
 
 const currency& 
@@ -25,37 +24,18 @@ currency_manager::get_currency(amount amt)
 	return get_currency(amt.currency_);
 }
 
+
+void 
+currency_manager::add_currency(currency_code ccy, double discount_rate)
+{
+	currency_map_.emplace(ccy, currency(ccy, discount_rate));
+}
+
 currency_manager::currency_manager()
 {
-	const currency_code all_currencies[] = { currency_code::USD, currency_code::JPY, currency_code::EUR, currency_code::HKD };
-	for (const auto ccy : all_currencies)
-		currency_map_.emplace(ccy, currency(ccy));
+	add_currency(currency_code::USD, 3.5 / 100.0);
+	add_currency(currency_code::JPY, 0.6 / 100.0);
+	add_currency(currency_code::EUR, 2.9 / 100.0);
+	add_currency(currency_code::HKD, 3.1 / 100.0);
 }
 
-double 
-currency_manager::get_fxspot(currency_code asset, currency_code basis)
-{
-	const auto& ccy_asset = get_currency(asset);
-	const auto& ccy_basis = get_currency(basis);
-	return ccy_asset.fxspot_ / ccy_basis.fxspot_;
-}
-
-double
-currency_manager::get_fxspot(amount asset, amount basis)
-{
-	return  get_fxspot(asset.currency_, basis.currency_);
-}
-
-double
-currency_manager::get_fxfwd(date_t expiry, currency_code asset, currency_code basis)
-{
-	const auto& ccy_asset = get_currency(asset);
-	const auto& ccy_basis = get_currency(basis);
-	return (ccy_asset.fxspot_ / ccy_basis.fxspot_) * (ccy_asset.getDF(expiry) / ccy_basis.getDF(expiry));
-}
-
-double
-currency_manager::get_fxfwd(date_t expiry, amount asset, amount basis)
-{
-	return get_fxfwd(expiry, asset.currency_, basis.currency_);
-}

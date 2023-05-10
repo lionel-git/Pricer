@@ -132,7 +132,9 @@
     <ClCompile Include="amount.cpp" />
     <ClCompile Include="currency.cpp" />
     <ClCompile Include="currency_manager.cpp" />
+    <ClCompile Include="fx.cpp" />
     <ClCompile Include="fx_forward.cpp" />
+    <ClCompile Include="fx_manager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="product.cpp" />
   </ItemGroup>
@@ -141,7 +143,9 @@
     <ClInclude Include="currency.h" />
     <ClInclude Include="currency_manager.h" />
     <ClInclude Include="defines.h" />
+    <ClInclude Include="fx.h" />
     <ClInclude Include="fx_forward.h" />
+    <ClInclude Include="fx_manager.h" />
     <ClInclude Include="product.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

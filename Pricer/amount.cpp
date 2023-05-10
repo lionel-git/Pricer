@@ -1,5 +1,5 @@
 #include "amount.h"
-#include "currency_manager.h"
+#include "fx_manager.h"
 #include <stdexcept>
 
 amount::amount(double notional, currency_code ccy): notional_(notional), currency_(ccy)
@@ -27,10 +27,9 @@ amount::operator-() const
 }
 
 amount 
-amount::countervalue(currency_code ccy) const
+amount::countervalue(currency_code target_ccy) const
 {
-	auto spot = currency_manager::get_fxspot(currency_, ccy);
-	return amount(notional_ * spot, ccy);
+	return amount(notional_* fx_manager::get_fx(currency_, target_ccy).getSpot(), target_ccy);
 }
 
 amount 
