@@ -2,7 +2,8 @@
 #include "fx_manager.h"
 #include <stdexcept>
 
-amount::amount(double notional, currency_code ccy): notional_(notional), currency_(ccy)
+amount::amount(double notional, currency_code ccy): 
+	notional_(notional), currency_(ccy)
 {
 }
 
@@ -33,9 +34,9 @@ amount::countervalue(currency_code target_ccy) const
 }
 
 amount 
-amount::strike_countervalue(double strike, currency_code ccy) const
+amount::strike_countervalue(currency_code target_ccy, double strike) const
 {
-	return amount(notional_ * strike, ccy);
+	return amount(notional_ * strike, target_ccy);
 }
 
 std::ostream& operator<<(std::ostream& os, const amount& amt)

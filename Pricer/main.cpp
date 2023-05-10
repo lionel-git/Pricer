@@ -18,7 +18,7 @@ void test2()
 	double expiry = 1.0;
 	amount amount_asset(10'000, currency_code::USD);
 
-	auto fxfwd = fx_forward(expiry, amount_asset, -amount_asset.strike_countervalue(100.0, currency_code::JPY));
+	auto fxfwd = fx_forward(expiry, amount_asset, -amount_asset.strike_countervalue(currency_code::JPY, 100.0));
 	std::cout << fxfwd.pv() << std::endl;
 
 	double spot = fx_manager::get_fx(currency_code::USD, currency_code::JPY).getSpot();
@@ -27,7 +27,7 @@ void test2()
 	double fwd = fx_manager::get_fx(currency_code::USD, currency_code::JPY).getFwd(expiry);
 	std::cout << fwd << std::endl;
 
-	auto fxfwd2 = fx_forward(expiry, amount_asset, -amount_asset.strike_countervalue(fwd, currency_code::JPY));
+	auto fxfwd2 = fx_forward(expiry, amount_asset, -amount_asset.strike_countervalue(currency_code::JPY, fwd));
 	std::cout << fxfwd2.pv() << std::endl;
 }
 

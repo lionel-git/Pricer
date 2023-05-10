@@ -10,9 +10,9 @@ struct amount
 	amount operator+(amount value) const;
 	amount operator-() const;
 
-	amount countervalue(currency_code ccy) const;
+	amount countervalue(currency_code target_ccy) const;
 
-	amount strike_countervalue(double strike, currency_code ccy) const;
+	amount strike_countervalue(currency_code target_ccy, double strike) const;
 
 
 	// Notional is signed!

@@ -16,8 +16,8 @@ public:
 
 private:
 	fx_key fx_key_;
-	currency asset_;
-	currency basis_;
+	const currency& asset_;
+	const currency& basis_;
 	double fxspot_;
 	double fxvol_;
 };
