@@ -4,12 +4,12 @@
 fx_option::fx_option(date_t expiry, amount asset_amount, amount base_amount) :
 	fx_forward(expiry, asset_amount, base_amount)
 {
-	// on a l'option d'exerser le forward: Na (AAA) + Nb (BBB) (Na & Nb have oposite signs) 
+	// on a l'option d'exercer le forward: Na (AAA) + Nb (BBB) (Na & Nb have oposite signs) 
 	// on exerce si la valeur est positive
 	// spot S = AAABBB
 	// en base currency, pv_forward = Na.S + Nb = Na. (S + Nb/Na)
 	// pv_forward = Na. (S - K) avec K = -Nb/Na
-	// pv_forward = |Na| . (sign.(S - K)) avec sign = sign(Na)
+	// pv_forward = |Na| . (sign.(S - K)) avec sign = sign(Na), rem : |Na| = sign * Na
 	// pv_option = |Na| . E[(sign.(S - K))+]
 	strike_ = -base_amount.notional_ / asset_amount_.notional_; // should be positive
 	sign_ = check_sign(asset_amount.notional_); // Eqv to call/put

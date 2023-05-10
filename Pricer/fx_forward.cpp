@@ -16,5 +16,4 @@ fx_forward::pv(currency_code target_ccy) const
 {
 	return (asset_amount_ * asset_ccy_.getDF(expiry_)).countervalue(target_ccy) +
 		   (base_amount_  * base_ccy_.getDF(expiry_)).countervalue(target_ccy);
-
 }
