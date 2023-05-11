@@ -31,6 +31,12 @@
     <Filter Include="Source Files\utils">
       <UniqueIdentifier>{f7b683b9-2b64-48cb-8f62-ed4d06a044ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\model">
+      <UniqueIdentifier>{76ba2213-4e48-4ebb-af1b-e90bc8e9a393}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\model">
+      <UniqueIdentifier>{84f99740-7451-4304-aa04-e63a10fc2173}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -63,6 +69,18 @@
     <ClCompile Include="utils.cpp">
       <Filter>Source Files\utils</Filter>
     </ClCompile>
+    <ClCompile Include="model.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="black_scholes.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="normal.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="pricer_exception.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="product.h">
@@ -93,6 +111,18 @@
       <Filter>Header Files\utils</Filter>
     </ClInclude>
     <ClInclude Include="utils.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="model.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="black_scholes.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="normal.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="pricer_exception.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
   </ItemGroup>

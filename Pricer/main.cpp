@@ -3,7 +3,8 @@
 #include "fx_manager.h"
 #include "fx_forward.h"
 #include "fx_option.h"
-
+#include "model.h"
+#include "pricer_exception.h"
 
 void test1()
 {
@@ -23,10 +24,10 @@ void test2()
 	auto fxfwd = fx_forward(expiry, amount_asset, -amount_asset.strike_countervalue(currency_code::JPY, 100.0));
 	std::cout << fxfwd.pv(fxfwd.base_currency()) << std::endl;
 
-	double spot = fx_manager::get_fx(currency_code::USD, currency_code::JPY).getSpot();
+	double spot = fx_manager::get_fx(currency_code::USD, currency_code::JPY).get_spot();
 	std::cout << spot << std::endl;
 
-	double fwd = fx_manager::get_fx(currency_code::USD, currency_code::JPY).getFwd(expiry);
+	double fwd = fx_manager::get_fx(currency_code::USD, currency_code::JPY).get_fwd(expiry);
 	std::cout << fwd << std::endl;
 
 	auto fxfwd2 = fx_forward(expiry, amount_asset, -amount_asset.strike_countervalue(currency_code::JPY, fwd));
@@ -41,16 +42,21 @@ void test3()
 	auto fxo1 = fx_option(expiry, amount_asset, -amount_asset.strike_countervalue(currency_code::JPY, 100.0));
 	std::cout << fxo1.pv(fxo1.base_currency()) << std::endl;
 
-	double spot = fx_manager::get_fx(currency_code::USD, currency_code::JPY).getSpot();
+	double spot = fx_manager::get_fx(currency_code::USD, currency_code::JPY).get_spot();
 	std::cout << spot << std::endl;
 
-	double fwd = fx_manager::get_fx(currency_code::USD, currency_code::JPY).getFwd(expiry);
+	double fwd = fx_manager::get_fx(currency_code::USD, currency_code::JPY).get_fwd(expiry);
 	std::cout << fwd << std::endl;
 
 	auto fxo2 = fx_option(expiry, amount_asset, -amount_asset.strike_countervalue(currency_code::JPY, fwd));
 	std::cout << fxo2.pv(fxo2.base_currency()) << std::endl;
 }
 
+void test4()
+{
+	auto model = model::get_model(model_type::BLACK_SCHOLES);
+	model->set_numerical_method(numerical_method::CLOSED_F);
+}
 
 int main(int /*argc*/, char** /*argv*/)
 {
@@ -59,6 +65,7 @@ int main(int /*argc*/, char** /*argv*/)
 //		test1();
 		test2();
 		test3();
+		test4();
 	}
 	catch (const std::exception& e)
 	{

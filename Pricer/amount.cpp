@@ -1,6 +1,6 @@
 #include "amount.h"
 #include "fx_manager.h"
-#include <stdexcept>
+#include "pricer_exception.h"
 
 amount::amount(double notional, currency_code ccy) :
 	notional_(notional), currency_(ccy)
@@ -17,7 +17,7 @@ amount
 amount::operator+(amount value) const
 {
 	if (currency_ != value.currency_)
-		throw std::runtime_error("Different currencies!");
+		THROW("Different currencies!");
 	return amount(notional_ + value.notional_, currency_);
 }
 
@@ -32,7 +32,7 @@ amount::countervalue(currency_code target_ccy) const
 {
 	double spot = 1.0;
 	if (target_ccy != currency_)
-		spot = fx_manager::get_fx(currency_, target_ccy).getSpot();
+		spot = fx_manager::get_fx(currency_, target_ccy).get_spot();
 	return amount(notional_ * spot, target_ccy);
 }
 

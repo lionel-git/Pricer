@@ -14,7 +14,16 @@ fx::fx(fx_key fx_key, double fxspot, double fxvol):
 }
 
 double 
-fx::getFwd(date_t expiry) const
+fx::get_fwd(date_t expiry) const
 {
-	return getSpot() * asset_.getDF(expiry) / basis_.getDF(expiry);
+	return get_spot() * asset_.getDF(expiry) / basis_.getDF(expiry);
+}
+
+double 
+fx::get_normal_vol() const
+{
+	// We have dS = SigmaBS.S.dW
+	// We have dS = SigmaN.dW
+	// SigmaN = SigmaBS.S
+	return fxvol_ * fxspot_;
 }

@@ -10,9 +10,10 @@ class fx
 public:
 	fx(fx_key fx_key, double fxspot, double fxvol);
 
-	double getSpot() const { return fxspot_; }
-	double getFwd(date_t expiry) const;
-	double getVol() const { return fxvol_; }
+	double get_spot() const { return fxspot_; }
+	double get_fwd(date_t expiry) const;
+	double get_bs_Vol() const { return fxvol_; }
+	double get_normal_vol() const;
 
 private:
 	fx_key fx_key_;

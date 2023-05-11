@@ -1,5 +1,5 @@
 #include "currency.h"
-#include <stdexcept>
+#include "pricer_exception.h"
 #include <cmath>
 
 std::string
@@ -16,7 +16,7 @@ enumToText(currency_code ccy)
 	case currency_code::HKD:
 		return "HKD";
 	default:
-		throw std::runtime_error("Unkown ccy ?");
+		THROW("Unkown ccy ?");
 	}
 }
 

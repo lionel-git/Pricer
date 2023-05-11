@@ -1,4 +1,5 @@
 #include "fx_manager.h"
+#include "pricer_exception.h"
 
 const fx_manager&
 fx_manager::instance()
@@ -27,7 +28,7 @@ fx_manager::get_fx(fx_key fx_key)
 	const auto& manager = instance();
 	auto it = manager.fx_map_.find(fx_key);
 	if (it == manager.fx_map_.end())
-		throw std::runtime_error("cannot find fxspot: " + to_string(fx_key));
+		THROW("cannot find fxspot: " + to_string(fx_key));
 	return it->second;
 }
 

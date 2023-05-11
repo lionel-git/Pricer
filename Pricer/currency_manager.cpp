@@ -1,5 +1,5 @@
 #include "currency_manager.h"
-#include <stdexcept>
+#include "pricer_exception.h"
 
 const currency_manager& 
 currency_manager::instance()
@@ -14,7 +14,7 @@ currency_manager::get_currency(currency_code ccy)
 	const auto& manager = instance();
 	auto it = manager.currency_map_.find(ccy);
 	if (it == manager.currency_map_.end())
-		throw std::runtime_error("cannot find cur: " + enumToText(ccy));
+		THROW("cannot find cur: " + enumToText(ccy));
 	return it->second;
 }
 

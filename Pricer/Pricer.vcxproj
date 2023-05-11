@@ -132,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="amount.cpp" />
+    <ClCompile Include="black_scholes.cpp" />
     <ClCompile Include="currency.cpp" />
     <ClCompile Include="currency_manager.cpp" />
     <ClCompile Include="fx.cpp" />
@@ -139,11 +140,15 @@
     <ClCompile Include="fx_manager.cpp" />
     <ClCompile Include="fx_option.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="model.cpp" />
+    <ClCompile Include="normal.cpp" />
+    <ClCompile Include="pricer_exception.cpp" />
     <ClCompile Include="product.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="amount.h" />
+    <ClInclude Include="black_scholes.h" />
     <ClInclude Include="currency.h" />
     <ClInclude Include="currency_manager.h" />
     <ClInclude Include="defines.h" />
@@ -151,6 +156,9 @@
     <ClInclude Include="fx_forward.h" />
     <ClInclude Include="fx_manager.h" />
     <ClInclude Include="fx_option.h" />
+    <ClInclude Include="model.h" />
+    <ClInclude Include="normal.h" />
+    <ClInclude Include="pricer_exception.h" />
     <ClInclude Include="product.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
