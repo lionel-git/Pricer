@@ -3,5 +3,7 @@
 
 class normal : public model
 {
+	virtual model_type get_model_type() const { return model_type::NORMAL; }
+
 };
 

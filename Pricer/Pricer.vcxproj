@@ -160,6 +160,7 @@
     <ClInclude Include="normal.h" />
     <ClInclude Include="pricer_exception.h" />
     <ClInclude Include="product.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

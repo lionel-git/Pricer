@@ -47,3 +47,12 @@ model::get_model(model_type mt)
 		THROW("Unkown numerical method?");
 	}
 }
+
+void 
+model::initialize()
+{
+
+
+}
+
+
