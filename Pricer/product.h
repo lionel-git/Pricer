@@ -14,6 +14,8 @@ public:
 	// without notional
 	virtual double payoff(double St) const;
 
+	date_t get_expiry() const { return expiry_; }
+
 protected:
 	date_t expiry_;
 	amount base_amount_;

@@ -56,6 +56,7 @@ void test4()
 {
 	auto model = model::get_model(model_type::BLACK_SCHOLES);
 	model->set_numerical_method(numerical_method::CLOSED_F);
+
 	std::cout << enumToText(model->get_model_type()) << std::endl;
 }
 
