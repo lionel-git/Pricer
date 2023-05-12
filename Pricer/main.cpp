@@ -54,7 +54,13 @@ void test3()
 
 void test4()
 {
-	auto model = model::get_model(model_type::BLACK_SCHOLES);
+	double expiry = 1.0;
+	amount amount_asset(10'000, currency_code::USD);
+
+	auto fxo1 = fx_option(expiry, amount_asset, -amount_asset.strike_countervalue(currency_code::JPY, 100.0));
+	std::cout << fxo1.pv(fxo1.base_currency()) << std::endl;
+
+	auto model = model::get_model(model_type::BLACK_SCHOLES, fxo1);
 	model->set_numerical_method(numerical_method::CLOSED_F);
 
 	std::cout << enumToText(model->get_model_type()) << std::endl;

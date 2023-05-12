@@ -1,5 +1,6 @@
 #pragma once
 #include "defines.h"
+#include "product.h"
 #include <string>
 #include <memory>
 #include <vector>
@@ -15,12 +16,12 @@ class model
 public:
 	virtual ~model() = default;
 
-	static std::unique_ptr<model> get_model(model_type mt);
+	static std::unique_ptr<model> get_model(model_type mt, const product& product);
 	void set_numerical_method(numerical_method nm) { numerical_method_ = nm; }
 
 	virtual model_type get_model_type() const = 0;
 
-	void set_time_parameters(date_t expiry, int time_points) { expiry_ = expiry; time_points_ = time_points; }
+	void set_time_parameters(int time_points) { time_points_ = time_points; }
 	void set_edp_parameters(double x_min, double x_max, int x_points) { x_min_ = x_min; x_max_ = x_max; x_points_ = x_points; }
 	void set_mc_parameters(int simuls) { simuls_ = simuls; }
 
@@ -31,11 +32,12 @@ private:
 	void initialize_edp();
 	void initialize_mc();
 
-private:
+protected:
+	model(const product& product);
 	numerical_method numerical_method_{ numerical_method::CLOSED_F };
 
 	// common
-	date_t expiry_;
+	const product& product_;
 	int time_points_;
 	std::vector<double> t_;
 

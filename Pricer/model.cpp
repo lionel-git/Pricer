@@ -35,17 +35,21 @@ enumToText(numerical_method nm)
 }
 
 std::unique_ptr<model> 
-model::get_model(model_type mt)
+model::get_model(model_type mt, const product& product)
 {
 	switch (mt)
 	{
 	case model_type::BLACK_SCHOLES:
-		return std::make_unique<black_scholes>();
+		return std::make_unique<black_scholes>(product);
 	case model_type::NORMAL:
-		return std::make_unique<normal>();
+		return std::make_unique<normal>(product);
 	default:
 		THROW("Unkown numerical method?");
 	}
+}
+
+model::model(const product& product) : product_(product)
+{
 }
 
 static
@@ -62,7 +66,7 @@ void initialize_points(std::vector<double>& v, double min, double max, int nb_po
 void
 model::initialize_common()
 {
-	initialize_points(t_, 0.0, expiry_, time_points_);
+	initialize_points(t_, 0.0, product_.get_expiry(), time_points_);
 }
 
 void 
