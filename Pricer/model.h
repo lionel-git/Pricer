@@ -36,7 +36,4 @@ protected:
 
 	// edp
 	std::vector<double> x_;
-
-	// mc
-	int simuls_;
 };

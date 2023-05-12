@@ -36,6 +36,7 @@ model::get_model(model_type mt, const product& product, const numerical_paramete
 
 model::model(const product& product, const numerical_parameters& np) : product_(product), numerical_parameters_(np)
 {
+	initialize();
 }
 
 static
