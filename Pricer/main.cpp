@@ -60,8 +60,9 @@ void test4()
 	auto fxo1 = fx_option(expiry, amount_asset, -amount_asset.strike_countervalue(currency_code::JPY, 100.0));
 	std::cout << fxo1.pv(fxo1.base_currency()) << std::endl;
 
-	auto model = model::get_model(model_type::BLACK_SCHOLES, fxo1);
-	model->set_numerical_method(numerical_method::CLOSED_F);
+	auto num_params = numerical_parameters(0);
+
+	auto model = model::get_model(model_type::BLACK_SCHOLES, fxo1, num_params);
 
 	std::cout << enumToText(model->get_model_type()) << std::endl;
 }

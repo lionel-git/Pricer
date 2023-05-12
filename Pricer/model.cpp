@@ -1,4 +1,6 @@
 #include "model.h"
+#include "numerical_parameters_edp.h"
+#include "numerical_parameters_mc.h"
 #include "pricer_exception.h"
 #include "black_scholes.h"
 #include "normal.h"
@@ -18,37 +20,21 @@ enumToText(model_type mt)
 
 }
 
-std::string 
-enumToText(numerical_method nm)
-{
-	switch (nm)
-	{
-	case numerical_method::CLOSED_F:
-		return "CLOSED_F";
-	case numerical_method::MC:
-		return "MC";
-	case numerical_method::EDP:
-		return "EDP";
-	default:
-		THROW("Unkown numerical method?");
-	}
-}
-
 std::unique_ptr<model> 
-model::get_model(model_type mt, const product& product)
+model::get_model(model_type mt, const product& product, const numerical_parameters& np)
 {
 	switch (mt)
 	{
 	case model_type::BLACK_SCHOLES:
-		return std::make_unique<black_scholes>(product);
+		return std::make_unique<black_scholes>(product, np);
 	case model_type::NORMAL:
-		return std::make_unique<normal>(product);
+		return std::make_unique<normal>(product, np);
 	default:
 		THROW("Unkown numerical method?");
 	}
 }
 
-model::model(const product& product) : product_(product)
+model::model(const product& product, const numerical_parameters& np) : product_(product), numerical_parameters_(np)
 {
 }
 
@@ -66,14 +52,15 @@ void initialize_points(std::vector<double>& v, double min, double max, int nb_po
 void
 model::initialize_common()
 {
-	initialize_points(t_, 0.0, product_.get_expiry(), time_points_);
+	initialize_points(t_, 0.0, product_.get_expiry(), numerical_parameters_.time_points_);
 }
 
 void 
 model::initialize_edp()
 {
 	initialize_common();
-	initialize_points(x_, x_min_, x_max_, x_points_);
+	const numerical_parameters_edp& params = dynamic_cast<const numerical_parameters_edp&>(numerical_parameters_);
+	initialize_points(x_, params.x_min_, params.x_max_, params.x_points_);
 }
 
 void 
@@ -85,7 +72,7 @@ model::initialize_mc()
 void 
 model::initialize()
 {
-	switch (numerical_method_)
+	switch (numerical_parameters_.get_numerical_method())
 	{
 	case numerical_method::CLOSED_F:
 		return;

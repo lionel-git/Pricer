@@ -77,6 +77,15 @@
     <ClCompile Include="pricer_exception.cpp">
       <Filter>Source Files\utils</Filter>
     </ClCompile>
+    <ClCompile Include="numerical_parameters.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="numerical_parameters_edp.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="numerical_parameters_mc.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="product.h">
@@ -123,6 +132,15 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="numerical_parameters.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="numerical_parameters_edp.h">
+      <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="numerical_parameters_mc.h">
+      <Filter>Header Files\model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

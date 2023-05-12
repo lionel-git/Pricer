@@ -142,6 +142,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="model.cpp" />
     <ClCompile Include="normal.cpp" />
+    <ClCompile Include="numerical_parameters.cpp" />
+    <ClCompile Include="numerical_parameters_edp.cpp" />
+    <ClCompile Include="numerical_parameters_mc.cpp" />
     <ClCompile Include="pricer_exception.cpp" />
     <ClCompile Include="product.cpp" />
     <ClCompile Include="utils.cpp" />
@@ -158,6 +161,9 @@
     <ClInclude Include="fx_option.h" />
     <ClInclude Include="model.h" />
     <ClInclude Include="normal.h" />
+    <ClInclude Include="numerical_parameters.h" />
+    <ClInclude Include="numerical_parameters_edp.h" />
+    <ClInclude Include="numerical_parameters_mc.h" />
     <ClInclude Include="pricer_exception.h" />
     <ClInclude Include="product.h" />
     <ClInclude Include="resource.h" />
