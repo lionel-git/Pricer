@@ -20,20 +20,6 @@ enumToText(model_type mt)
 
 }
 
-std::unique_ptr<model> 
-model::get_model(model_type mt, const product& product, const numerical_parameters& np)
-{
-	switch (mt)
-	{
-	case model_type::BLACK_SCHOLES:
-		return std::make_unique<black_scholes>(product, np);
-	case model_type::NORMAL:
-		return std::make_unique<normal>(product, np);
-	default:
-		THROW("Unkown numerical method?");
-	}
-}
-
 model::model(const product& product, const numerical_parameters& np) : product_(product), numerical_parameters_(np)
 {
 	initialize();

@@ -3,8 +3,11 @@
 #include "fx_manager.h"
 #include "fx_forward.h"
 #include "fx_option.h"
-#include "model.h"
+#include "black_scholes.h"
+#include "normal.h"
 #include "pricer_exception.h"
+#include "numerical_parameters_edp.h"
+#include "numerical_parameters_mc.h"
 
 void test1()
 {
@@ -60,11 +63,11 @@ void test4()
 	auto fxo1 = fx_option(expiry, amount_asset, -amount_asset.strike_countervalue(currency_code::JPY, 100.0));
 	std::cout << fxo1.pv(fxo1.base_currency()) << std::endl;
 
-	auto num_params = numerical_parameters(0);
+	auto num_params = numerical_parameters_edp(100, 0.0, 300.0, 1000);
 
-	auto model = model::get_model(model_type::BLACK_SCHOLES, fxo1, num_params);
+	auto model = black_scholes(fxo1, num_params);
 
-	std::cout << enumToText(model->get_model_type()) << std::endl;
+	std::cout << enumToText(model.get_model_type()) << std::endl;
 }
 
 int main(int /*argc*/, char** /*argv*/)

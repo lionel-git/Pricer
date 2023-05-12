@@ -14,13 +14,10 @@ class model
 {
 public:
 	virtual ~model() = default;
-
-	static std::unique_ptr<model> get_model(model_type mt, const product& product, const numerical_parameters& np);
 	virtual model_type get_model_type() const = 0;
 
-	void initialize();
-
 private:
+	void initialize();
 	void initialize_common();
 	void initialize_edp();
 	void initialize_mc();
