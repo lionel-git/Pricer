@@ -8,12 +8,23 @@ fx_forward::fx_forward(date_t expiry, amount asset_amount, amount base_amount) :
 	asset_amount_(asset_amount), asset_ccy_(currency_manager::get_currency(asset_amount)),
 	fx_(fx_manager::get_fx(asset_amount.currency_, base_amount.currency_))
 {
-	check_opposite_signs(asset_amount.notional_, base_amount.notional_);
+	// On paie a  maturite : Na (AAA) + Nb (BBB) (Na & Nb should have oposite signs) 
+	// spot S = AAABBB
+	// en base currency, pv_forward = Na.S + Nb = Na. (S + Nb/Na)
+	// pv_forward = Na. (S - K) avec K = -Nb/Na
+	strike_ = -base_amount.notional_ / asset_amount_.notional_; // should be positive
 }
 
 amount
 fx_forward::pv(currency_code target_ccy) const
 {
-	return (asset_amount_ * asset_ccy_.getDF(expiry_)).countervalue(target_ccy) +
-		   (base_amount_  * base_ccy_.getDF(expiry_)).countervalue(target_ccy);
+	double spot_payoff = payoff(fx_.get_fwd(expiry_));
+	auto amount_base_ccy = asset_amount_.strike_countervalue(base_currency(), spot_payoff) * base_ccy_.getDF(expiry_);
+	return amount_base_ccy.countervalue(target_ccy);
+}
+
+double
+fx_forward::payoff(double St) const
+{
+	return St - strike_;
 }

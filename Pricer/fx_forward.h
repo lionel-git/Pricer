@@ -10,8 +10,11 @@ public:
 
 	amount pv(currency_code target_ccy) const override;
 
+	double payoff(double St) const override;
+
 protected:
 	const fx& fx_;
 	amount asset_amount_;
 	const currency& asset_ccy_;
+	double strike_;
 };

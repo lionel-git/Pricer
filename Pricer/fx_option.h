@@ -7,9 +7,9 @@ public:
 	fx_option(date_t expiry, amount asset_amount, amount base_amount);
 
 	amount pv(currency_code target_ccy) const override;
+	double payoff(double St) const override;
 
-private:
-	double strike_;
+protected:
 	double sign_;
 };
 

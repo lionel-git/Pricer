@@ -12,3 +12,10 @@ product::pv(currency_code target_ccy) const
 {
 	return (base_amount_ * base_ccy_.getDF(expiry_)).countervalue(target_ccy);
 }
+
+double 
+product::payoff(double /*St*/) const
+{
+	THROW("Should be derived!");
+}
+
