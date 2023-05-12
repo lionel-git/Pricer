@@ -19,8 +19,8 @@ amount
 fx_forward::pv(currency_code target_ccy) const
 {
 	double spot_payoff = payoff(fx_.get_fwd(expiry_));
-	auto amount_base_ccy = asset_amount_.strike_countervalue(base_currency(), spot_payoff) * base_ccy_.getDF(expiry_);
-	return amount_base_ccy.countervalue(target_ccy);
+	auto amount_base_ccy = asset_amount_.strike_countervalue(base_currency(), spot_payoff) * base_ccy_.get_df(expiry_);
+	return amount_base_ccy.spot_countervalue(target_ccy);
 }
 
 double

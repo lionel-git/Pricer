@@ -11,9 +11,9 @@ void test1()
 	double expiry = 1.0;
 
 	auto ccy_usd = currency_manager::get_currency(currency_code::USD);
-	std::cout << ccy_usd.getDF(expiry) << std::endl;
+	std::cout << ccy_usd.get_df(expiry) << std::endl;
 	auto ccy_jpy = currency_manager::get_currency(currency_code::JPY);
-	std::cout << ccy_jpy.getDF(expiry) << std::endl;
+	std::cout << ccy_jpy.get_df(expiry) << std::endl;
 }
 
 void test2()

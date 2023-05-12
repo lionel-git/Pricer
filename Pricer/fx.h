@@ -12,7 +12,7 @@ public:
 
 	double get_spot() const { return fxspot_; }
 	double get_fwd(date_t expiry) const;
-	double get_bs_Vol() const { return fxvol_; }
+	double get_bs_vol() const { return fxvol_; }
 	double get_normal_vol() const;
 
 private:

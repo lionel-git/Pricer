@@ -20,8 +20,8 @@ fx_option::pv(currency_code target_ccy) const
 	// pv_option = |Na| . E[(sign.(S - K))+]
 	// instric value for now
 	double spot_payoff = payoff(fx_.get_fwd(expiry_));
-	auto amount_base_ccy = asset_amount_.strike_countervalue(base_currency(), sign_ * spot_payoff) * base_ccy_.getDF(expiry_);
-	return amount_base_ccy.countervalue(target_ccy);
+	auto amount_base_ccy = asset_amount_.strike_countervalue(base_currency(), sign_ * spot_payoff) * base_ccy_.get_df(expiry_);
+	return amount_base_ccy.spot_countervalue(target_ccy);
 }
 
 double

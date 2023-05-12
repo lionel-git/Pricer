@@ -10,7 +10,7 @@ struct amount
 	amount operator+(amount value) const;
 	amount operator-() const;
 
-	amount countervalue(currency_code target_ccy) const;
+	amount spot_countervalue(currency_code target_ccy) const;
 
 	amount strike_countervalue(currency_code target_ccy, double strike) const;
 

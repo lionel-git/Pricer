@@ -16,7 +16,7 @@ fx::fx(fx_key fx_key, double fxspot, double fxvol):
 double 
 fx::get_fwd(date_t expiry) const
 {
-	return get_spot() * asset_.getDF(expiry) / basis_.getDF(expiry);
+	return get_spot() * asset_.get_df(expiry) / basis_.get_df(expiry);
 }
 
 double 

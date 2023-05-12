@@ -21,7 +21,7 @@ enumToText(currency_code ccy)
 }
 
 double
-currency::getDF(date_t t) const
+currency::get_df(date_t t) const
 {
 	return std::exp(-exp_discount_rate_ * t);
 }

@@ -8,7 +8,7 @@ std::string enumToText(currency_code ccy);
 class currency
 {
 public:
-	double getDF(date_t t) const;
+	double get_df(date_t t) const;
 
 	friend class currency_manager;
 private:

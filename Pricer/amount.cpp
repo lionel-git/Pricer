@@ -28,7 +28,7 @@ amount::operator-() const
 }
 
 amount
-amount::countervalue(currency_code target_ccy) const
+amount::spot_countervalue(currency_code target_ccy) const
 {
 	double spot = 1.0;
 	if (target_ccy != currency_)
