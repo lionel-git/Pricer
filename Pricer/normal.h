@@ -11,5 +11,7 @@ public:
 	virtual double evaluate_edp() const override;
 
 private:
+	virtual double get_dS_mc(double S, double dt) const override;
+
 	double vol_n_;
 };

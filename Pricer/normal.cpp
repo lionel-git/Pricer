@@ -19,3 +19,8 @@ normal::evaluate_edp() const
 
 }
 
+double 
+normal::get_dS_mc(double S, double dt) const
+{
+	return 0.0;
+}

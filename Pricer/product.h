@@ -18,7 +18,7 @@ public:
 
 	date_t get_expiry() const { return expiry_; }
 
-	virtual const fx& get_fx() const { throw pricer_exception("Not an fx product"); }
+	virtual const fx& get_fx() const { THROW("Not an fx product"); }
 
 protected:
 	date_t expiry_;
