@@ -20,11 +20,10 @@ enumToText(model_type mt)
 
 }
 
-model::model(const product& product, const numerical_parameters& np) : product_(product), numerical_parameters_(np)
+model::model(const product& product, const numerical_parameters& np) : 
+	product_(product), numerical_parameters_(np), asset_(product.get_fx().get_asset()), basis_(product.get_fx().get_basis())
 {
 	initialize();
-
-
 }
 
 static

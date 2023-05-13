@@ -15,6 +15,9 @@ public:
 	double get_bs_vol() const { return fxvol_; }
 	double get_normal_vol() const;
 
+	const currency& get_asset() const { return asset_; }
+	const currency& get_basis() const { return basis_; }
+
 private:
 	fx_key fx_key_;
 	const currency& asset_;

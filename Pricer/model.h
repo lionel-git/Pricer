@@ -35,6 +35,10 @@ protected:
 
 	const numerical_parameters& numerical_parameters_;
 
+	// market data
+	const currency& asset_;
+	const currency& basis_;
+
 	// common
 	const product& product_;
 	std::vector<double> t_;
