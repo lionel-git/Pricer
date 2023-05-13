@@ -23,6 +23,8 @@ enumToText(model_type mt)
 model::model(const product& product, const numerical_parameters& np) : product_(product), numerical_parameters_(np)
 {
 	initialize();
+
+
 }
 
 static

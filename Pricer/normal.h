@@ -10,4 +10,7 @@ public:
 	virtual double evaluate_closed_f() const override;
 	virtual double evaluate_edp() const override;
 	virtual double evaluate_mc() const override;
+
+private:
+	double vol_n_;
 };

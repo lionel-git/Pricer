@@ -1,5 +1,7 @@
 #pragma once
 #include "amount.h"
+#include "fx.h"
+#include "pricer_exception.h"
 
 class product
 {
@@ -15,6 +17,8 @@ public:
 	virtual double payoff(double St) const;
 
 	date_t get_expiry() const { return expiry_; }
+
+	virtual const fx& get_fx() const { throw pricer_exception("Not an fx product"); }
 
 protected:
 	date_t expiry_;
