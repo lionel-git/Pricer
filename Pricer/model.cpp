@@ -45,11 +45,13 @@ model::initialize_common()
 	// On a: S(t) = S0.Dfa(t)/Dfb(t)
 	// On a: S(t+dt)/S(t) = [Dfa(t+dt)/Dfb(t+dt)] / [Dfa(t)/Dfb(t)] = q(t) 
 	// On a: S(t+dt)  = S(t).q(t)
-	// dS = S(t+dt)-S(t) = S(t).(q(t)-1) = S(t).r(t) avec r(t)=q(t)-1
+	// dS = S(t+dt)-S(t) = S(t).(q(t)-1) = S(t).r(t).dt avec r(t).dt = q(t)-1 donc r(t)=(q(t)-1)/dt
 	//
 	// Si Df(t)=exp(-r.t)
 	// alors S(t) = S0.exp((-ra+rb).t)
-	// alors S(t+dt) = S(t).exp((-ra+rb).dt)
+	// alors S(t+dt) = S(t).exp((-ra+rb).dt) 
+	// ca donne r(t) = -ra + rb
+
 
 	r_.resize(t_.size());
 	double prev_ratio = 1.0;
@@ -57,7 +59,7 @@ model::initialize_common()
 	for (int i = 1; i < r_.size(); ++i)
 	{
 		double ratio = asset_.get_df(t_[i]) / basis_.get_df(t_[i]);
-		r_[i] = ratio / prev_ratio - 1.0;
+		r_[i] = (ratio / prev_ratio - 1.0) / (t_[i] - t_[i - 1]);
 		prev_ratio = ratio;
 	}
 }
@@ -116,11 +118,11 @@ model::evaluate_mc() const
 	for (int simul = 0; simul < params.simuls_; ++simul)
 	{
 		double St = product_.get_fx().get_spot();
-		for (int i = 0; i < t_.size() - 1; ++i)
+		for (int i = 1; i < t_.size(); ++i)
 		{
-			double dt = t_[i + 1] - t_[i];
-			// on diffuse le spot entre t[i] et t[i+1]
-			double dS_deter = St * r_[i + 1];
+			// on diffuse le spot entre t[i-1] et t[i]
+			double dt = t_[i] - t_[i - 1];
+			double dS_deter = St * r_[i] * dt;
 			double dS_stochastic = get_dS_mc(St, dt);
 			St += dS_deter + dS_stochastic;
 		}

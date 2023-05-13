@@ -143,4 +143,9 @@
       <Filter>Header Files\model</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="doc.txt">
+      <Filter>Source Files\model</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

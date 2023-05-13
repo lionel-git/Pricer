@@ -1,0 +1,23 @@
+Pour le modele Black-Scholes (s = vol BS)
+S=spot
+
+on dit dS/S = r(t).dt + s.dW
+
+
+
+si s=0 (cas deterministe)
+d (ln(S)) = r(t).dt
+ln(S) = integral(r(t).dt)
+S = S0.exp(integral(r(t).dt))
+
+si s<>0 et r constant
+S = S0.exp(r.t + s.Wt - 0.5*s*t^2))
+
+dS_stochastic = S.s.dW
+
+Formule BS, cf Alternative formulation
+https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model
+
+Attention pour l'EDP, le taux r apparait, il faudrait le calculer pour la defintion:
+a priori =  dS = S(t).r(t).dt
+
