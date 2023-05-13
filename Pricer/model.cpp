@@ -59,7 +59,7 @@ model::initialize_mc()
 void 
 model::initialize()
 {
-	switch (numerical_parameters_.get_numerical_method())
+	switch (get_numerical_method())
 	{
 	case numerical_method::CLOSED_F:
 		return;
@@ -67,6 +67,22 @@ model::initialize()
 		return initialize_edp();
 	case numerical_method::MC:
 		return initialize_mc();
+	default:
+		THROW("Unkown numerical method?");
+	}
+}
+
+double
+model::evaluate() const
+{
+	switch (get_numerical_method())
+	{
+	case numerical_method::CLOSED_F:
+		return evaluate_closed_f();
+	case numerical_method::EDP:
+		return evaluate_edp();
+	case numerical_method::MC:
+		return evaluate_mc();
 	default:
 		THROW("Unkown numerical method?");
 	}

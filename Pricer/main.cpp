@@ -63,11 +63,14 @@ void test4()
 	auto fxo1 = fx_option(expiry, amount_asset, -amount_asset.strike_countervalue(currency_code::JPY, 100.0));
 	std::cout << fxo1.pv(fxo1.base_currency()) << std::endl;
 
-	auto num_params = numerical_parameters_edp(100, 0.0, 300.0, 1000);
+	auto num_params_edp = numerical_parameters_edp(100, 0.0, 300.0, 1000);
+	auto model_edp = black_scholes(fxo1, num_params_edp);
 
-	auto model = black_scholes(fxo1, num_params);
+	auto num_params_mc = numerical_parameters_mc(100, 1000);
+	auto model_mc = black_scholes(fxo1, num_params_mc);
 
-	std::cout << enumToText(model.get_model_type()) << std::endl;
+	std::cout << enumToText(model_mc.get_model_type()) << std::endl;
+	std::cout << "Valo mc: " << model_mc.evaluate() << std::endl;
 }
 
 int main(int /*argc*/, char** /*argv*/)
