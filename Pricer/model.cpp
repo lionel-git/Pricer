@@ -41,9 +41,25 @@ void
 model::initialize_common()
 {
 	initialize_points(t_, 0.0, product_.get_expiry(), numerical_parameters_.time_points_);
+	
+	// On a: S(t) = S0.Dfa(t)/Dfb(t)
+	// On a: S(t+dt)/S(t) = [Dfa(t+dt)/Dfb(t+dt)] / [Dfa(t)/Dfb(t)] = q(t) 
+	// On a: S(t+dt)  = S(t).q(t)
+	// dS = S(t+dt)-S(t) = S(t).(q(t)-1) = S(t).r(t) avec r(t)=q(t)-1
+	//
+	// Si Df(t)=exp(-r.t)
+	// alors S(t) = S0.exp((-ra+rb).t)
+	// alors S(t+dt) = S(t).exp((-ra+rb).dt)
+
 	r_.resize(t_.size());
-	for (int i = 0; i < r_.size(); ++i)
-		r_[i] = asset_.get_df(t_[i]) / basis_.get_df(t_[i]);
+	double prev_ratio = 1.0;
+	r_[0] = 0.0;
+	for (int i = 1; i < r_.size(); ++i)
+	{
+		double ratio = asset_.get_df(t_[i]) / basis_.get_df(t_[i]);
+		r_[i] = ratio / prev_ratio - 1.0;
+		prev_ratio = ratio;
+	}
 }
 
 void 
@@ -91,3 +107,25 @@ model::evaluate() const
 		THROW("Unkown numerical method?");
 	}
 }
+
+double
+model::evaluate_mc() const
+{
+	const numerical_parameters_mc& params = dynamic_cast<const numerical_parameters_mc&>(numerical_parameters_);
+	double sum_payoffs = 0.0;
+	for (int simul = 0; simul < params.simuls_; ++simul)
+	{
+		double St = product_.get_fx().get_spot();
+		for (int i = 0; i < t_.size() - 1; ++i)
+		{
+			double dt = t_[i + 1] - t_[i];
+			// on diffuse le spot entre t[i] et t[i+1]
+			double dS_deter = St * r_[i + 1];
+			double dS_stochastic = get_dS_mc(St, dt);
+			St += dS_deter + dS_stochastic;
+		}
+		sum_payoffs += product_.payoff(St);
+	}
+	return (sum_payoffs / params.simuls_) * basis_.get_df(product_.get_expiry());
+}
+

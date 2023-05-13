@@ -71,6 +71,11 @@ void test4()
 
 	std::cout << enumToText(model_mc.get_model_type()) << std::endl;
 	std::cout << "Valo mc: " << model_mc.evaluate() << std::endl;
+
+	auto model_normal_mc = normal(fxo1, num_params_mc);
+	std::cout << enumToText(model_normal_mc.get_model_type()) << std::endl;
+	std::cout << "Valo mc: " << model_normal_mc.evaluate() << std::endl;
+
 }
 
 int main(int /*argc*/, char** /*argv*/)

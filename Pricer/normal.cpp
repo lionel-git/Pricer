@@ -19,9 +19,3 @@ normal::evaluate_edp() const
 
 }
 
-double 
-normal::evaluate_mc() const
-{
-	return 0.0;
-}
-

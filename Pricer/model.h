@@ -29,9 +29,13 @@ private:
 protected:
 	model(const product& product, const numerical_parameters& np);
 
-	virtual double evaluate_closed_f() const { throw pricer_exception("Closed Formulae not implemented"); }
-	virtual double evaluate_edp() const { throw pricer_exception("Edp Formulae not implemented"); }
-	virtual double evaluate_mc() const { throw pricer_exception("MC Formulae not implemented"); }
+	std::string get_error_string(const std::string& msg) const { return "model "+ enumToText(get_model_type()) + ": " + msg; }
+
+	virtual double evaluate_closed_f() const { THROW(get_error_string("Closed Formulae not implemented")); }
+	virtual double evaluate_edp() const { THROW(get_error_string("Edp Formulae not implemented")); }
+	virtual double evaluate_mc() const;
+
+	virtual double get_dS_mc(double /*S*/, double /*dt*/) const { THROW(get_error_string("MC Formulae not implemented")); }
 
 	const numerical_parameters& numerical_parameters_;
 

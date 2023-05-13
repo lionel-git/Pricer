@@ -9,8 +9,9 @@ public:
 
 	virtual double evaluate_closed_f() const override;
 	virtual double evaluate_edp() const override;
-	virtual double evaluate_mc() const override;
 
 private:
+	virtual double get_dS_mc(double S, double dt) const override;
+
 	double vol_bs_;
 };
