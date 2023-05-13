@@ -42,6 +42,7 @@ protected:
 	// common
 	const product& product_;
 	std::vector<double> t_;
+	std::vector<double> r_; // ratio of df(ti) or ln() ?
 
 	// edp
 	std::vector<double> x_;

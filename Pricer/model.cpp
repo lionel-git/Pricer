@@ -41,6 +41,9 @@ void
 model::initialize_common()
 {
 	initialize_points(t_, 0.0, product_.get_expiry(), numerical_parameters_.time_points_);
+	r_.resize(t_.size());
+	for (int i = 0; i < r_.size(); ++i)
+		r_[i] = asset_.get_df(t_[i]) / basis_.get_df(t_[i]);
 }
 
 void 
