@@ -8,6 +8,7 @@
 #include "pricer_exception.h"
 #include "numerical_parameters_edp.h"
 #include "numerical_parameters_mc.h"
+#include "brownian.h"
 
 void test1()
 {
@@ -78,11 +79,21 @@ void test4()
 
 }
 
+
+void test5()
+{
+	for (double x = -5.0; x <= 5.0; x += 0.05)
+	{
+		std::cout << x << ": " << brownian::cdf(x) << std::endl;
+	}
+}
+
 int main(int /*argc*/, char** /*argv*/)
 {
 	try
 	{
 //		test1();
+//		test5();
 		test2();
 		test3();
 		test4();

@@ -6,6 +6,7 @@ class brownian
 public:
 	brownian();
 	double normal_value();
+	static double cdf(double x);
 
 private:
 	std::default_random_engine generator_; // mersenne twister by default

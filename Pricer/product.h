@@ -17,6 +17,7 @@ public:
 	virtual double payoff(double St) const;
 
 	date_t get_expiry() const { return expiry_; }
+	double get_strike() const { return strike_; }
 
 	virtual const fx& get_fx() const { THROW("Not an fx product"); }
 
@@ -24,4 +25,5 @@ protected:
 	date_t expiry_;
 	amount base_amount_;
 	const currency& base_ccy_;
+	double strike_;
 };

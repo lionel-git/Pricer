@@ -18,5 +18,5 @@ protected:
 	const fx& fx_;
 	amount asset_amount_;
 	const currency& asset_ccy_;
-	double strike_;
+
 };

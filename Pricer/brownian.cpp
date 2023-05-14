@@ -10,3 +10,9 @@ brownian::normal_value()
 {
 	return distribution_(generator_);
 }
+
+double 
+brownian::cdf(double x)
+{
+	return 0.5 * std::erfc(-x * sqrt(0.5));
+}

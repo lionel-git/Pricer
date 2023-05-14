@@ -3,7 +3,7 @@
 #include "pricer_exception.h"
 
 product::product(date_t expiry, amount base_amount) :
-	expiry_(expiry), base_amount_(base_amount), base_ccy_(currency_manager::get_currency(base_amount))
+	expiry_(expiry), base_amount_(base_amount), base_ccy_(currency_manager::get_currency(base_amount)), strike_(0.0)
 {
 }
 
