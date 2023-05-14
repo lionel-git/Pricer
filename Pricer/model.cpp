@@ -11,6 +11,8 @@ enumToText(model_type mt)
 {
 	switch (mt)
 	{
+	case model_type::INVALID:
+		return "INVALID";
 	case model_type::BLACK_SCHOLES:
 		return "BS";
 	case model_type::NORMAL:

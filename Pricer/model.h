@@ -8,19 +8,17 @@
 #include <memory>
 #include <vector>
 
-enum class model_type { BLACK_SCHOLES, NORMAL };
+enum class model_type { INVALID, BLACK_SCHOLES, NORMAL };
 std::string enumToText(model_type);
 
 class model
 {
 public:
 	virtual ~model() = default;
-	virtual model_type get_model_type() const = 0;
+	virtual model_type get_model_type() const { return model_type::INVALID; }
 	numerical_method get_numerical_method() const { return numerical_parameters_.get_numerical_method(); }
 
 	double evaluate() const;
-
-	virtual void get_edp_xbounds(double& /*x_min*/, double& /*x_max*/) const { THROW(get_error_string("Edp Formulae not implemented")); }
 
 private:
 	void initialize_common();
@@ -34,9 +32,11 @@ protected:
 	std::string get_error_string(const std::string& msg) const { return "model "+ enumToText(get_model_type()) + ": " + msg; }
 
 	virtual double evaluate_closed_f() const { THROW(get_error_string("Closed Formulae not implemented")); }
-	virtual double evaluate_edp() const { THROW(get_error_string("Edp Formulae not implemented")); }
-	virtual double evaluate_mc() const;
 
+	virtual double evaluate_edp() const { THROW(get_error_string("Edp Formulae not implemented")); }
+	virtual void get_edp_xbounds(double& /*x_min*/, double& /*x_max*/) const { THROW(get_error_string("Edp Formulae not implemented")); }
+
+	double evaluate_mc() const;
 	// normal_value is random value from distrib with mean=0, std_dev=1
 	virtual double get_dS_mc(double /*normal_value*/, double /*S*/, double /*dt*/) const { THROW(get_error_string("MC Formulae not implemented")); }
 
