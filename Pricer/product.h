@@ -18,6 +18,7 @@ public:
 
 	date_t get_expiry() const { return expiry_; }
 	double get_strike() const { return strike_; }
+	double get_sign() const { return sign_;  }
 
 	virtual const fx& get_fx() const { THROW("Not an fx product"); }
 
@@ -26,4 +27,5 @@ protected:
 	amount base_amount_;
 	const currency& base_ccy_;
 	double strike_;
+	double sign_;
 };

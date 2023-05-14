@@ -21,7 +21,11 @@ black_scholes::evaluate_closed_f() const
 	double d_plus = std::log(F / K) / vol_time + 0.5 * vol_time;
 	double d_minus = d_plus - vol_time;
 
-	return (brownian::cdf(d_plus) - brownian::cdf(d_minus)) * basis_.get_df(T);
+	if (product_.get_sign() > 0)
+		return (brownian::cdf(d_plus) * F - brownian::cdf(d_minus) * K) * basis_.get_df(T); // call
+	else if (product_.get_sign() < 0)
+		return (brownian::cdf(-d_minus) * K - brownian::cdf(-d_plus) * F) * basis_.get_df(T); // put
+	THROW("Bad sign");
 }
 
 double

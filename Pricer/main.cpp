@@ -77,6 +77,12 @@ void test4()
 	std::cout << enumToText(model_normal_mc.get_model_type()) << std::endl;
 	std::cout << "Valo mc: " << model_normal_mc.evaluate() << std::endl;
 
+	auto num_params_closed_f = numerical_parameters();
+	auto model_closed_f = black_scholes(fxo1, num_params_closed_f);
+
+	std::cout << enumToText(model_closed_f.get_model_type()) << std::endl;
+	std::cout << "Valo closed f: " << model_closed_f.evaluate() << std::endl;
+
 }
 
 

@@ -12,7 +12,9 @@ fx_forward::fx_forward(date_t expiry, amount asset_amount, amount base_amount) :
 	// spot S = AAABBB
 	// en base currency, pv_forward = Na.S + Nb = Na. (S + Nb/Na)
 	// pv_forward = Na. (S - K) avec K = -Nb/Na
+	// pv_forward = |Na| . (sign.(S - K)) avec sign = sign(Na), rem : |Na| = sign * Na
 	strike_ = -base_amount.notional_ / asset_amount_.notional_; // should be positive
+	sign_ = check_sign(asset_amount.notional_); // Eqv to call/put
 }
 
 amount

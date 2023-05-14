@@ -11,7 +11,6 @@ fx_option::fx_option(date_t expiry, amount asset_amount, amount base_amount) :
 	// pv_forward = Na. (S - K) avec K = -Nb/Na
 	// pv_forward = |Na| . (sign.(S - K)) avec sign = sign(Na), rem : |Na| = sign * Na
 	// pv_option = |Na| . E[(sign.(S - K))+]
-	sign_ = check_sign(asset_amount.notional_); // Eqv to call/put
 }
 
 amount 

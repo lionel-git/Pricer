@@ -8,8 +8,5 @@ public:
 
 	amount pv(currency_code target_ccy) const override;
 	double payoff(double St) const override;
-
-protected:
-	double sign_;
 };
 
