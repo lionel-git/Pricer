@@ -33,6 +33,12 @@
     <Filter Include="Source Files\model">
       <UniqueIdentifier>{84f99740-7451-4304-aa04-e63a10fc2173}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\numerics">
+      <UniqueIdentifier>{43bb8191-465f-46d1-8b99-4a6894de19a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\numerics">
+      <UniqueIdentifier>{24e4f4f7-55d2-49c8-8c1a-b2cb9ba55bda}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -85,6 +91,9 @@
     </ClCompile>
     <ClCompile Include="numerical_parameters_mc.cpp">
       <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="brownian.cpp">
+      <Filter>Source Files\numerics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +150,9 @@
     </ClInclude>
     <ClInclude Include="numerical_parameters_mc.h">
       <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="brownian.h">
+      <Filter>Header Files\numerics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

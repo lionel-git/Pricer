@@ -4,6 +4,7 @@
 #include "pricer_exception.h"
 #include "black_scholes.h"
 #include "normal.h"
+#include "brownian.h"
 
 std::string 
 enumToText(model_type mt)
@@ -115,6 +116,7 @@ model::evaluate_mc() const
 {
 	const numerical_parameters_mc& params = dynamic_cast<const numerical_parameters_mc&>(numerical_parameters_);
 	double sum_payoffs = 0.0;
+	brownian b;
 	for (int simul = 0; simul < params.simuls_; ++simul)
 	{
 		double St = product_.get_fx().get_spot();
@@ -123,7 +125,7 @@ model::evaluate_mc() const
 			// on diffuse le spot entre t[i-1] et t[i]
 			double dt = t_[i] - t_[i - 1];
 			double dS_deter = St * r_[i] * dt;
-			double dS_stochastic = get_dS_mc(St, dt);
+			double dS_stochastic = get_dS_mc(b.normal_value(), St, dt);
 			St += dS_deter + dS_stochastic;
 		}
 		sum_payoffs += product_.payoff(St);
