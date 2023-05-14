@@ -8,7 +8,7 @@ std::string enumToText(numerical_method);
 class numerical_parameters
 {
 public:
-	numerical_parameters(int time_points = 0) { time_points_ = time_points; }
+	numerical_parameters(int time_points) { time_points_ = time_points; }
 	virtual numerical_method get_numerical_method() const { return numerical_method::CLOSED_F; }	
 
 public:

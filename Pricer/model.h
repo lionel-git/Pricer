@@ -20,14 +20,16 @@ public:
 
 	double evaluate() const;
 
+	virtual void get_edp_xbounds(double& /*x_min*/, double& /*x_max*/) const { THROW(get_error_string("Edp Formulae not implemented")); }
+
 private:
-	void initialize();
 	void initialize_common();
 	void initialize_edp();
 	void initialize_mc();
 
 protected:
 	model(const product& product, const numerical_parameters& np);
+	void initialize();
 
 	std::string get_error_string(const std::string& msg) const { return "model "+ enumToText(get_model_type()) + ": " + msg; }
 

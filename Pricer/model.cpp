@@ -24,7 +24,7 @@ enumToText(model_type mt)
 model::model(const product& product, const numerical_parameters& np) : 
 	product_(product), numerical_parameters_(np), asset_(product.get_fx().get_asset()), basis_(product.get_fx().get_basis())
 {
-	initialize();
+	//do not call intialize as the real model has not finished initializing
 }
 
 static
@@ -70,7 +70,9 @@ model::initialize_edp()
 {
 	initialize_common();
 	const numerical_parameters_edp& params = dynamic_cast<const numerical_parameters_edp&>(numerical_parameters_);
-	initialize_points(x_, params.x_min_, params.x_max_, params.x_points_);
+	double x_min, x_max;
+	get_edp_xbounds(x_min, x_max);
+	initialize_points(x_, x_min, x_max, params.x_points_);
 }
 
 void 

@@ -3,8 +3,6 @@ S=spot
 
 on dit dS/S = r(t).dt + s.dW
 
-
-
 si s=0 (cas deterministe)
 d (ln(S)) = r(t).dt
 ln(S) = integral(r(t).dt)
@@ -20,4 +18,37 @@ https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model
 
 Attention pour l'EDP, le taux r apparait, il faudrait le calculer pour la defintion:
 a priori =  dS = S(t).r(t).dt
+
+EDP formulae:
+V(S,t) : prix du put ou call
+
+dV/dt + 0.5*s^2*d2V/dS2 + r.S.dV/dS - r.V = 0
+
+Commencer par un schema de euler explicite
+Voir les valeurs sur les cotés  
+
+temps 
+======================> S=Smax , V = payoff() pour tout t
+                      |
+ -------------------- | Fwd
+                      |
+                      | Payoff final = (S-K)+
+                      |
+ -------------------- | K
+                      |
+                      |
+======================> S=0 , V = payoff() pour tout t
+
+en espace on a besoin de V(x-1, t) et V(x+1, t) pour la derivee et la derive seconde
+
+on a juste besoin de stocker un vecteur a la position ti et on remplace les valeurs (schema explicite)
+attention il faut que dt ~ dx^2
+
+schema implicite, on a un systeme lineaire a resoudre par ti (matrice tridiagonale)
+
+schema cranck-nicholson : moyenne explicite/implicite, on a un systeme lineaire a resoudre par ti (matrice tridiagonale)
+
+Choisir SMax = Fwd + 3 * Fwd*vol_bs*sqrt(T) , SMin=0
+         
+Pour modele normal Smax = Fwd + 3 * vol_n*sqrt(T) , SMin = Fwd - 3 * vol_n*sqrt(T)
 

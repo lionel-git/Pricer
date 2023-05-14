@@ -8,6 +8,7 @@
 black_scholes::black_scholes(const product& product, const numerical_parameters& np) :
 	model(product, np), vol_bs_(product_.get_fx().get_bs_vol())
 {
+	initialize();
 }
 
 double
@@ -26,6 +27,16 @@ black_scholes::evaluate_closed_f() const
 	else if (product_.get_sign() < 0)
 		return (brownian::cdf(-d_minus) * K - brownian::cdf(-d_plus) * F) * basis_.get_df(T); // put
 	THROW("Bad sign");
+}
+
+void 
+black_scholes::get_edp_xbounds(double& x_min, double& x_max) const
+{
+	double T = product_.get_expiry();
+	double F = product_.get_fx().get_fwd(T);
+	double vol_time = vol_bs_ * sqrt(T);
+	x_max = F + 3 * F * vol_time;
+	x_min = 0.0;
 }
 
 double
