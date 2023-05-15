@@ -39,14 +39,31 @@ black_scholes::get_edp_xbounds(double& x_min, double& x_max) const
 	x_min = 0.0;
 }
 
+// input: V at t+dt
 void
-black_scholes::back_propagate_explicit(std::vector<double>& /*V*/, double /*dt*/, double /*r*/) const
+black_scholes::back_propagate_explicit(std::vector<double>& V, double dt, double r) const
 {
 	// EDP: dV/dt + 0.5*s^2*d2V/dS2 + r.S.dV/dS - r.V = 0
 	// dV/dt = r.V - 0.5*s^2*d2V/dS2 - r.S.dV/dS
 	// V(t+dt)-V(t) = dt.(r.V - 0.5*s^2*d2V/dS2 - r.S.dV/dS )
+	// V(t) = V(t+dt) - dt.(r.V - 0.5*s^2*d2V/dS2 - r.S.dV/dS )
 
+	// Rem S=x[i], V et x ont meme dimension
 
+	size_t N = V.size();
+	std::vector<double> V2(N);
+	// The first and last values are unchanged
+	V2[0] = V[0];
+	V2[N - 1] = V[N - 1];
+	for (int i = 1; i <= N - 2; ++i)
+	{
+		double dx = x_[i + 1] - x_[i - 1];
+		double value1 = r * V[i];
+		double value2 = -0.5 * vol_bs_ * vol_bs_ * (V[i + 1] - 2 * V[i] + V[i - 1]) * (4.0 / (dx * dx)); // attention au 4
+		double value3 = -r * x_[i] * (V[i + 1] - V[i - 1]) / dx;
+		V2[i] = V[i] - dt * (value1 + value2 + value3);
+	}
+	V = V2;
 }
 
 void

@@ -84,10 +84,10 @@ model::evaluate_edp() const
 	const numerical_parameters_edp& params = dynamic_cast<const numerical_parameters_edp&>(numerical_parameters_);
 	std::vector<double> V;
 	initialize_terminal_payoff(V);
-	for (int i = (int)t_.size() - 2; i >= 0; --i)
+	for (int j = (int)t_.size() - 2; j >= 0; --j)
 	{
-		double dt = t_[i + 1] - t_[i];
-		double r = r_[i + 1]; // ou r_[i] ? ou la moyenne ?
+		double dt = t_[j + 1] - t_[j];
+		double r = r_[j + 1]; // rem r[0] est indefini
 		// on back-propagate : V(i+1) => V(i)
 		switch (params.schema_)
 		{
