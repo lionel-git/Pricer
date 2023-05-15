@@ -25,13 +25,6 @@ normal::get_edp_xbounds(double& x_min, double& x_max) const
 }
 
 double 
-normal::evaluate_edp() const
-{
-	return 0.0;
-
-}
-
-double 
 normal::get_dS_mc(double normal_value, double /*S*/, double dt) const
 {
 	// dS = s.dWt

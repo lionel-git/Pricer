@@ -5,8 +5,9 @@
 #include "black_scholes.h"
 #include "normal.h"
 #include "brownian.h"
+#include <algorithm>
 
-std::string 
+std::string
 enumToText(model_type mt)
 {
 	switch (mt)
@@ -23,7 +24,7 @@ enumToText(model_type mt)
 
 }
 
-model::model(const product& product, const numerical_parameters& np) : 
+model::model(const product& product, const numerical_parameters& np) :
 	product_(product), numerical_parameters_(np), asset_(product.get_fx().get_asset()), basis_(product.get_fx().get_basis())
 {
 	//do not call intialize as the real model has not finished initializing
@@ -44,7 +45,7 @@ void
 model::initialize_common()
 {
 	initialize_points(t_, 0.0, product_.get_expiry(), numerical_parameters_.time_points_);
-	
+
 	// On a: S(t) = S0.Dfa(t)/Dfb(t)
 	// On a: S(t+dt)/S(t) = [Dfa(t+dt)/Dfb(t+dt)] / [Dfa(t)/Dfb(t)] = q(t) 
 	// On a: S(t+dt)  = S(t).q(t)
@@ -67,7 +68,7 @@ model::initialize_common()
 	}
 }
 
-void 
+void
 model::initialize_edp()
 {
 	initialize_common();
@@ -77,13 +78,55 @@ model::initialize_edp()
 	initialize_points(x_, x_min, x_max, params.x_points_);
 }
 
-void 
+double
+model::evaluate_edp() const
+{
+	const numerical_parameters_edp& params = dynamic_cast<const numerical_parameters_edp&>(numerical_parameters_);
+	std::vector<double> V;
+	initialize_terminal_payoff(V);
+	for (int i = (int)t_.size() - 2; i >= 0; --i)
+	{
+		double dt = t_[i + 1] - t_[i];
+		double r = r_[i + 1]; // ou r_[i] ? ou la moyenne ?
+		// on back-propagate : V(i+1) => V(i)
+		switch (params.schema_)
+		{
+		case schema_type::EXPLICIT:
+			back_propagate_explicit(V, dt, r);
+			break;
+		case schema_type::IMPLICIT:
+			back_propagate_implicit(V, dt, r);
+			break;
+		case schema_type::CRANK_NICHOLSON:
+			back_propagate_cranck_nicholson(V, dt, r);
+			break;
+		default:
+			THROW("Unkwon schema");
+		}
+	}
+	// On renvoie V[t=0, x=Spot]
+	auto it = std::lower_bound(x_.begin(), x_.end(), product_.get_fx().get_spot());
+	if (it == x_.end())
+		THROW("Cannot fidn spot value");
+	int index = (int)(it - x_.begin());
+	return V[index]; // Interpoler , rajouter spot dans grid ?
+}
+
+void
+model::initialize_terminal_payoff(std::vector<double>& V) const
+{
+	V.resize(x_.size());
+	for (int i = 0; i < x_.size(); ++i)
+		V[i] = product_.payoff(x_[i]);
+}
+
+void
 model::initialize_mc()
 {
 	initialize_common();
 }
 
-void 
+void
 model::initialize()
 {
 	switch (get_numerical_method())

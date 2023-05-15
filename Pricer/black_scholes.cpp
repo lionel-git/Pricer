@@ -39,10 +39,28 @@ black_scholes::get_edp_xbounds(double& x_min, double& x_max) const
 	x_min = 0.0;
 }
 
-double
-black_scholes::evaluate_edp() const
+void
+black_scholes::back_propagate_explicit(std::vector<double>& /*V*/, double /*dt*/, double /*r*/) const
 {
-	return 0.0;
+	// EDP: dV/dt + 0.5*s^2*d2V/dS2 + r.S.dV/dS - r.V = 0
+	// dV/dt = r.V - 0.5*s^2*d2V/dS2 - r.S.dV/dS
+	// V(t+dt)-V(t) = dt.(r.V - 0.5*s^2*d2V/dS2 - r.S.dV/dS )
+
+
+}
+
+void
+black_scholes::back_propagate_implicit(std::vector<double>& /*V*/, double /*dt*/, double /*r*/) const
+{
+
+
+}
+
+void
+black_scholes::back_propagate_cranck_nicholson(std::vector<double>& /*V*/, double /*dt*/, double /*r*/) const
+{
+
+
 }
 
 double
