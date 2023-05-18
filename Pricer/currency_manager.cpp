@@ -33,7 +33,7 @@ currency_manager::add_currency(currency_code ccy, double discount_rate)
 
 currency_manager::currency_manager()
 {
-	add_currency(currency_code::USD, 25.5 / 100.0);
+	add_currency(currency_code::USD, 3.5 / 100.0);
 	add_currency(currency_code::JPY, 0.6 / 100.0);
 	add_currency(currency_code::EUR, 2.9 / 100.0);
 	add_currency(currency_code::HKD, 3.1 / 100.0);

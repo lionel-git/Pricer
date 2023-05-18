@@ -64,5 +64,24 @@ f''(b) ~ [ (f(c)-f(b))/(c-b) - (f(b)-f(a))/(b-a) ] / [(c-a)/2] on prend la deriv
 
 f''(b) ~ f(a). 2/[(a-b)*(a-c)] + f(b). 2/[(b-a)*(b-c)] + f(c). 2/[(c-a)*(c-b)]
 
+Eq: dV/dt + 0.5*s^2*S^2*d2V/dS2 + r.S.dV/dS - r.V = 0
+Sur les bornes
+on peut dire 
+d2V/dS2 = 0
+et
+Up : dV/dS= 1
+Down dV/dS= 0
+
+Up:
+dV/dt + r.S.1 - r.V = 0
+V(t+dt)-V(t) = dt.(rV-rS)
+V(t) = V(t+dt) - dt.(rV-rS)
+V(t) = V(t+dt) - r.dt.(V-S)
+
+Down:
+dV/dt + r.S.0 - r.V = 0
+donc V reste à 0
+
+Attention depend du payoff
 
 

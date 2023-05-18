@@ -108,7 +108,7 @@ void test6()
 	auto model_mc = black_scholes(fxo1, num_params_mc);
 	std::cout << "Valo mc: " << model_mc.evaluate() << std::endl;
 
-	auto num_params_edp = numerical_parameters_edp(100000, 500, schema_type::EXPLICIT);
+	auto num_params_edp = numerical_parameters_edp(1000000, 5000, schema_type::EXPLICIT);
 	auto model_edp = black_scholes(fxo1, num_params_edp);
 	std::cout << "Valo edp: " << model_edp.evaluate() << std::endl;
 }
