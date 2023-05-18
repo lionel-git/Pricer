@@ -68,6 +68,33 @@ model::initialize_common()
 	}
 }
 
+void 
+model::initialize_edp_coeffs()
+{
+	// A l'ordre 1 ou 2, on doit approximer la derivee et derive seconde
+	// on connait 3 points a<b<c et f(a), f(b), f(c)
+	// on doit approximer f'(b) et f''(b)
+	// f'(b) ~ (f(c)-f(a))/(c-a) = f(a)/(a-c) + 0*f(b) + f(c)/(c-a) 
+	// f''(b) ~ [(f(c) - f(b)) / (c - b) - (f(b) - f(a)) / (b - a)] / [(c - a) / 2] on considere la derivee en (c+b)/2 et (a+b)/2
+	// f''(b) ~ f(a). 2 / [(a - b) * (a - c)] + f(b). 2 / [(b - a) * (b - c)] + f(c). 2 / [(c - a) * (c - b)]
+
+	edp_coeffs_.resize(x_.size());
+	for (int i = 1; i < x_.size() - 1; ++i)
+	{
+		double a = x_[i - 1];
+		double b = x_[i];
+		double c = x_[i + 1];
+
+		edp_coeffs_[i].c1a_ = 1.0 / (a - c);
+		edp_coeffs_[i].c1b_ = 0.0;
+		edp_coeffs_[i].c1c_ = 1.0 / (c - a);
+
+		edp_coeffs_[i].c2a_ = 2.0 / ((a - b) * (a - c));
+		edp_coeffs_[i].c2b_ = 2.0 / ((b - a) * (b - c));
+		edp_coeffs_[i].c2c_ = 2.0 / ((c - a) * (c - b));
+	}
+}
+
 void
 model::initialize_edp()
 {
@@ -76,6 +103,7 @@ model::initialize_edp()
 	double x_min, x_max;
 	get_edp_xbounds(x_min, x_max);
 	initialize_points(x_, x_min, x_max, params.x_points_);
+	initialize_edp_coeffs();
 }
 
 double

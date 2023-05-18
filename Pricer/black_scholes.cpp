@@ -46,9 +46,9 @@ black_scholes::back_propagate_explicit(std::vector<double>& V, double dt, double
 	// EDP: dV/dt + 0.5*s^2*d2V/dS2 + r.S.dV/dS - r.V = 0
 	// dV/dt = r.V - 0.5*s^2*d2V/dS2 - r.S.dV/dS
 	// V(t+dt)-V(t) = dt.(r.V - 0.5*s^2*d2V/dS2 - r.S.dV/dS )
-	// V(t) = V(t+dt) - dt.(r.V - 0.5*s^2*d2V/dS2 - r.S.dV/dS )
+	// V(t) = V(t+dt) - dt.(r.V - r.S.dV/dS - 0.5*s^2*d2V/dS2 )
 
-	// Rem S=x[i], V et x ont meme dimension
+	// Rem S=x[i], V and x have same length
 
 	size_t N = V.size();
 	std::vector<double> V2(N);
@@ -57,11 +57,11 @@ black_scholes::back_propagate_explicit(std::vector<double>& V, double dt, double
 	V2[N - 1] = V[N - 1];
 	for (int i = 1; i <= N - 2; ++i)
 	{
-		double dx = x_[i + 1] - x_[i - 1];
-		double value1 = r * V[i];
-		double value2 = -0.5 * vol_bs_ * vol_bs_ * (V[i + 1] - 2 * V[i] + V[i - 1]) * (4.0 / (dx * dx)); // attention au 4
-		double value3 = -r * x_[i] * (V[i + 1] - V[i - 1]) / dx;
-		V2[i] = V[i] - dt * (value1 + value2 + value3);
+		
+		double value0 = r * V[i];
+		double value1 = -r * x_[i] * (edp_coeffs_[i].c1a_ * V[i - 1] + edp_coeffs_[i].c1b_ * V[i] + edp_coeffs_[i].c1c_ * V[i + 1]);
+		double value2 = -0.5 * vol_bs_ * vol_bs_ * (edp_coeffs_[i].c2a_ * V[i - 1] + edp_coeffs_[i].c2b_ * V[i] + edp_coeffs_[i].c2c_ * V[i + 1]);
+		V2[i] = V[i] - dt * (value0 + value1 + value2);
 	}
 	V = V2;
 }

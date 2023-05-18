@@ -3,6 +3,7 @@
 #include "product.h"
 #include "numerical_parameters.h"
 #include "pricer_exception.h"
+#include "edp_coeffs.h"
 
 #include <string>
 #include <memory>
@@ -23,6 +24,7 @@ public:
 private:
 	void initialize_common();
 	void initialize_edp();
+	void initialize_edp_coeffs();
 	void initialize_mc();
 
 protected:
@@ -63,4 +65,5 @@ protected:
 
 	// edp
 	std::vector<double> x_;
+	std::vector<edp_coeffs> edp_coeffs_;
 };

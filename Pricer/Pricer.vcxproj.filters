@@ -95,6 +95,9 @@
     <ClCompile Include="brownian.cpp">
       <Filter>Source Files\numerics</Filter>
     </ClCompile>
+    <ClCompile Include="edp_coeffs.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="product.h">
@@ -153,6 +156,9 @@
     </ClInclude>
     <ClInclude Include="brownian.h">
       <Filter>Header Files\numerics</Filter>
+    </ClInclude>
+    <ClInclude Include="edp_coeffs.h">
+      <Filter>Header Files\model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

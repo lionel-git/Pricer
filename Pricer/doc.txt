@@ -52,3 +52,17 @@ Choisir SMax = Fwd + 3 * Fwd*vol_bs*sqrt(T) , SMin=0
          
 Pour modele normal Smax = Fwd + 3 * vol_n*sqrt(T) , SMin = Fwd - 3 * vol_n*sqrt(T)
 
+
+====================================================================
+
+Grid non uniform:
+on a trois points a < b < c
+
+f'(b) ~ (f(c)-f(a))/(c-a) = f(a)/(a-c) + 0*f(b) + f(c)/(c-a) 
+
+f''(b) ~ [ (f(c)-f(b))/(c-b) - (f(b)-f(a))/(b-a) ] / [(c-a)/2] on prend la derive au milieu
+
+f''(b) ~ f(a). 2/[(a-b)*(a-c)] + f(b). 2/[(b-a)*(b-c)] + f(c). 2/[(c-a)*(c-b)]
+
+
+
