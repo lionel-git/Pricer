@@ -108,7 +108,7 @@ void test6()
 	auto model_closed_f = black_scholes(fxo1, num_params_closed_f);
 	std::cout << "Valo closed f: " << model_closed_f.evaluate() << std::endl;
 
-	auto num_params_edp = numerical_parameters_edp(1000, 100, schema_type::EXPLICIT);
+	auto num_params_edp = numerical_parameters_edp(10000, 100, schema_type::EXPLICIT);
 	auto model_edp = black_scholes(fxo1, num_params_edp);
 	std::cout << "Valo edp: " << model_edp.evaluate() << std::endl;
 }

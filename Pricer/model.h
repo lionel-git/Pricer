@@ -33,6 +33,7 @@ protected:
 
 	std::string get_error_string(const std::string& msg) const { return "model "+ enumToText(get_model_type()) + ": " + msg; }
 
+
 	// === Closed formula ====
 	virtual double evaluate_closed_f() const { THROW(get_error_string("Closed Formulae not implemented")); }
 	// =======================
@@ -44,6 +45,7 @@ protected:
 	virtual void back_propagate_explicit(std::vector<double>& /*V*/, double /*dt*/, double /*r*/) const { THROW(get_error_string("Edp Formulae not implemented")); }
 	virtual void back_propagate_implicit(std::vector<double>& /*V*/, double /*dt*/, double /*r*/) const { THROW(get_error_string("Edp Formulae not implemented")); }
 	virtual void back_propagate_cranck_nicholson(std::vector<double>& /*V*/, double /*dt*/, double /*r*/) const { THROW(get_error_string("Edp Formulae not implemented")); }
+	void check_edp_params() const;
 	// =======================
 	 
 	// === MC ===
@@ -61,7 +63,11 @@ protected:
 	// common
 	const product& product_;
 	std::vector<double> t_;
-	std::vector<double> r_; // ratio of df(ti) or ln() ?
+	// taux instantane
+	std::vector<double> r_;
+	std::vector<double> r_log_;
+	std::vector<double> r_asset_;
+	std::vector<double> r_basis_;
 
 	// edp
 	std::vector<double> x_;

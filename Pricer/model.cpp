@@ -6,6 +6,7 @@
 #include "normal.h"
 #include "brownian.h"
 #include <algorithm>
+#include <format>
 
 std::string
 enumToText(model_type mt)
@@ -58,13 +59,19 @@ model::initialize_common()
 
 
 	r_.resize(t_.size());
+	r_log_.resize(t_.size());
+	r_basis_.resize(t_.size());
+	r_asset_.resize(t_.size());
 	double prev_ratio = 1.0;
 	r_[0] = 0.0;
 	for (int i = 1; i < r_.size(); ++i)
 	{
 		double ratio = asset_.get_df(t_[i]) / basis_.get_df(t_[i]);
 		r_[i] = (ratio / prev_ratio - 1.0) / (t_[i] - t_[i - 1]);
+		r_log_[i] = std::log(ratio / prev_ratio) / (t_[i] - t_[i - 1]);
 		prev_ratio = ratio;
+		r_basis_[i] = (basis_.get_df(t_[i]) / basis_.get_df(t_[i - 1]) - 1.0) / (t_[i] - t_[i - 1]);
+		r_asset_[i] = (asset_.get_df(t_[i]) / asset_.get_df(t_[i - 1]) - 1.0) / (t_[i] - t_[i - 1]);
 	}
 }
 
@@ -96,6 +103,27 @@ model::initialize_edp_coeffs()
 }
 
 void
+model::check_edp_params() const
+{
+	const numerical_parameters_edp& params = dynamic_cast<const numerical_parameters_edp&>(numerical_parameters_);
+	if (params.schema_ == schema_type::EXPLICIT)
+	{
+		// We must have dt <= 0.5*dx^2
+		// We check max(dt) <= 0.5 * min(dx^2)
+		double max_dt = 0.0;
+		for (int i = 0; i < t_.size() - 1; i++)
+			max_dt = std::max(max_dt, t_[i + 1] - t_[i]);
+		double min_dx = 100000.0;
+		for (int i = 0; i < x_.size() - 1; i++)
+			min_dx = std::min(min_dx, x_[i + 1] - x_[i]);
+		if (max_dt >= 0.5 * min_dx * min_dx)
+		{
+			THROW(std::format("dt/dx invalides, dt={}, dx^2={}", max_dt, min_dx*min_dx));
+		}
+	}
+}
+
+void
 model::initialize_edp()
 {
 	initialize_common();
@@ -104,6 +132,7 @@ model::initialize_edp()
 	get_edp_xbounds(x_min, x_max);
 	initialize_points(x_, x_min, x_max, params.x_points_);
 	initialize_edp_coeffs();
+	check_edp_params();
 }
 
 double
@@ -135,7 +164,7 @@ model::evaluate_edp() const
 	// On renvoie V[t=0, x=Spot]
 	auto it = std::lower_bound(x_.begin(), x_.end(), product_.get_fx().get_spot());
 	if (it == x_.end())
-		THROW("Cannot fidn spot value");
+		THROW("Cannot find spot value");
 	int index = (int)(it - x_.begin());
 	return V[index] * basis_.get_df(product_.get_expiry()); // Interpoler , rajouter spot dans grid ?
 }
