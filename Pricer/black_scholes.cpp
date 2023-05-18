@@ -43,10 +43,10 @@ black_scholes::get_edp_xbounds(double& x_min, double& x_max) const
 void
 black_scholes::back_propagate_explicit(std::vector<double>& V, double dt, double r) const
 {
-	// EDP: dV/dt + 0.5*s^2*d2V/dS2 + r.S.dV/dS - r.V = 0
-	// dV/dt = r.V - 0.5*s^2*d2V/dS2 - r.S.dV/dS
-	// V(t+dt)-V(t) = dt.(r.V - 0.5*s^2*d2V/dS2 - r.S.dV/dS )
-	// V(t) = V(t+dt) - dt.(r.V - r.S.dV/dS - 0.5*s^2*d2V/dS2 )
+	// EDP: dV/dt + 0.5*s^2*S^2*d2V/dS2 + r.S.dV/dS - r.V = 0
+	// dV/dt = r.V - 0.5*s^2*S^2*d2V/dS2 - r.S.dV/dS
+	// V(t+dt)-V(t) = dt.(r.V - 0.5*s^2*S^2*d2V/dS2 - r.S.dV/dS )
+	// V(t) = V(t+dt) - dt.(r.V - r.S.dV/dS - 0.5*s^2*S^2*d2V/dS2 )
 
 	// Rem S=x[i], V and x have same length
 
@@ -60,7 +60,7 @@ black_scholes::back_propagate_explicit(std::vector<double>& V, double dt, double
 		
 		double value0 = r * V[i];
 		double value1 = -r * x_[i] * (edp_coeffs_[i].c1a_ * V[i - 1] + edp_coeffs_[i].c1b_ * V[i] + edp_coeffs_[i].c1c_ * V[i + 1]);
-		double value2 = -0.5 * vol_bs_ * vol_bs_ * (edp_coeffs_[i].c2a_ * V[i - 1] + edp_coeffs_[i].c2b_ * V[i] + edp_coeffs_[i].c2c_ * V[i + 1]);
+		double value2 = -0.5 * vol_bs_ * vol_bs_ * x_[i]* x_[i]* (edp_coeffs_[i].c2a_ * V[i - 1] + edp_coeffs_[i].c2b_ * V[i] + edp_coeffs_[i].c2c_ * V[i + 1]);
 		V2[i] = V[i] - dt * (value0 + value1 + value2);
 	}
 	V = V2;

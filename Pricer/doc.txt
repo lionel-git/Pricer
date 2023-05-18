@@ -22,7 +22,7 @@ a priori =  dS = S(t).r(t).dt
 EDP formulae:
 V(S,t) : prix du put ou call
 
-dV/dt + 0.5*s^2*d2V/dS2 + r.S.dV/dS - r.V = 0
+dV/dt + 0.5*s^2*S^2*d2V/dS2 + r.S.dV/dS - r.V = 0
 
 Commencer par un schema de euler explicite
 Voir les valeurs sur les cotés  
