@@ -141,11 +141,11 @@ model::evaluate_edp() const
 	const numerical_parameters_edp& params = dynamic_cast<const numerical_parameters_edp&>(numerical_parameters_);
 	std::vector<double> V;
 	initialize_terminal_payoff(V);
-	for (int j = (int)t_.size() - 2; j >= 0; --j)
+	for (size_t j = t_.size() - 1; j >= 1; --j)
 	{
-		double dt = t_[j + 1] - t_[j];
-		double r = r_[j + 1]; // rem r[0] est indefini
-		// on back-propagate : V(i+1) => V(i)
+		double dt = t_[j] - t_[j-1];
+		double r = r_[j]; // rem r[0] est indefini
+		// on back-propagate : V(j) => V(j-1)
 		switch (params.schema_)
 		{
 		case schema_type::EXPLICIT:
@@ -224,11 +224,11 @@ model::evaluate_mc() const
 	for (int simul = 0; simul < params.simuls_; ++simul)
 	{
 		double St = product_.get_fx().get_spot();
-		for (int i = 1; i < t_.size(); ++i)
+		for (size_t j = 1; j < t_.size(); ++j)
 		{
-			// on diffuse le spot entre t[i-1] et t[i]
-			double dt = t_[i] - t_[i - 1];
-			double dS_deter = St * r_[i] * dt;
+			// on diffuse le spot entre t[j-1] et t[j]
+			double dt = t_[j] - t_[j - 1];
+			double dS_deter = St * r_[j] * dt;
 			double dS_stochastic = get_dS_mc(b.normal_value(), St, dt);
 			St += dS_deter + dS_stochastic;
 		}
