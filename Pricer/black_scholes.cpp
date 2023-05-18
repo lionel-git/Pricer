@@ -35,7 +35,7 @@ black_scholes::get_edp_xbounds(double& x_min, double& x_max) const
 	double T = product_.get_expiry();
 	double F = product_.get_fx().get_fwd(T);
 	double vol_time = vol_bs_ * sqrt(T);
-	x_max = F + 3 * F * vol_time;
+	x_max = std::max(F + 3 * F * vol_time, product_.get_fx().get_spot() * 1.1);
 	x_min = 0.0;
 }
 

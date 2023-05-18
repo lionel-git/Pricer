@@ -137,7 +137,7 @@ model::evaluate_edp() const
 	if (it == x_.end())
 		THROW("Cannot fidn spot value");
 	int index = (int)(it - x_.begin());
-	return V[index]; // Interpoler , rajouter spot dans grid ?
+	return V[index] * basis_.get_df(product_.get_expiry()); // Interpoler , rajouter spot dans grid ?
 }
 
 void

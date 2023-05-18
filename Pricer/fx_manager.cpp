@@ -17,7 +17,7 @@ fx_manager::add_fx(currency_code asset, currency_code basis, double fxspot, doub
 
 fx_manager::fx_manager()
 {
-	add_fx(currency_code::USD, currency_code::JPY, 135.0, 10.0 / 100.0);
+	add_fx(currency_code::USD, currency_code::JPY, 135.0, 0.001 / 100.0);
 	add_fx(currency_code::USD, currency_code::EUR, 0.91, 10.0 / 100.0);
 	add_fx(currency_code::USD, currency_code::HKD, 7.84, 10.0 / 100.0);
 }
