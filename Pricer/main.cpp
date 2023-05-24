@@ -9,6 +9,7 @@
 #include "numerical_parameters_edp.h"
 #include "numerical_parameters_mc.h"
 #include "brownian.h"
+#include <cfenv>
 
 void test1()
 {
@@ -108,13 +109,15 @@ void test6()
 	auto model_mc = black_scholes(fxo1, num_params_mc);
 	std::cout << "Valo mc: " << model_mc.evaluate() << std::endl;
 
-	auto num_params_edp = numerical_parameters_edp(1000000, 5000, schema_type::EXPLICIT);
+	auto num_params_edp = numerical_parameters_edp(1000, 50, schema_type::EXPLICIT);
 	auto model_edp = black_scholes(fxo1, num_params_edp);
 	std::cout << "Valo edp: " << model_edp.evaluate() << std::endl;
 }
 
 int main(int /*argc*/, char** /*argv*/)
 {
+	_controlfp_s(NULL, 0, _EM_ZERODIVIDE | _EM_INVALID | _EM_DENORMAL);
+
 	try
 	{
 //		test1();
@@ -127,5 +130,9 @@ int main(int /*argc*/, char** /*argv*/)
 	catch (const std::exception& e)
 	{
 		std::cerr << e.what() << std::endl;
+	}
+	catch (...)
+	{
+		std::cerr << "SEH exception?" << std::endl;
 	}
 }
