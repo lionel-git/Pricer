@@ -5,6 +5,14 @@ normal::normal(const product& product, const numerical_parameters& np) :
 	model(product, np), vol_n_(product_.get_fx().get_normal_vol())
 {
 	initialize();
+	check_parameters();
+}
+
+void
+normal::check_parameters() const
+{
+	if (vol_n_ < -1e-10)
+		THROW("Vol cannot be negative");
 }
 
 double
@@ -13,6 +21,8 @@ normal::evaluate_closed_f() const
 	return 0.0;
 
 }
+
+
 
 void
 normal::get_edp_xbounds(double& x_min, double& x_max) const

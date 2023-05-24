@@ -19,6 +19,8 @@ public:
 	virtual model_type get_model_type() const { return model_type::INVALID; }
 	numerical_method get_numerical_method() const { return numerical_parameters_.get_numerical_method(); }
 
+	virtual void check_parameters() const = 0;
+
 	double evaluate() const;
 
 private:

@@ -9,6 +9,17 @@ black_scholes::black_scholes(const product& product, const numerical_parameters&
 	model(product, np), vol_bs_(product_.get_fx().get_bs_vol())
 {
 	initialize();
+	check_parameters();
+}
+
+void 
+black_scholes::check_parameters() const
+{
+	// some checks
+	if (product_.get_strike() < -1e-10)
+		THROW("Strike cannot be negative");
+	if (vol_bs_ < -1e-10)
+		THROW("Vol cannot be negative");
 }
 
 double
@@ -16,8 +27,8 @@ black_scholes::evaluate_closed_f() const
 {
 	double T = product_.get_expiry();
 	double F = product_.get_fx().get_fwd(T);
-	double K = product_.get_strike();
-	double vol_time = vol_bs_ * sqrt(T);
+	double K = std::max(1e-10, product_.get_strike());
+	double vol_time = std::max(1e-10, vol_bs_ * sqrt(T));
 
 	double d_plus = std::log(F / K) / vol_time + 0.5 * vol_time;
 	double d_minus = d_plus - vol_time;

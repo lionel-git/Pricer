@@ -161,12 +161,23 @@ model::evaluate_edp() const
 			THROW("Unkwon schema");
 		}
 	}
+	// Interpoler , rajouter spot dans grid ?
 	// On renvoie V[t=0, x=Spot]
-	auto it = std::lower_bound(x_.begin(), x_.end(), product_.get_fx().get_spot());
+	auto it = std::lower_bound(x_.begin(), x_.end(), product_.get_fx().get_spot()); // value >= spot
 	if (it == x_.end())
 		THROW("Cannot find spot value");
 	int index = (int)(it - x_.begin());
-	return V[index] * basis_.get_df(product_.get_expiry()); // Interpoler , rajouter spot dans grid ?
+	if (index > 0)
+	{
+		double lambda = (x_[index] - product_.get_fx().get_spot()) / (x_[index] - x_[index - 1]);
+		double value = V[index] + lambda * (V[index - 1] - V[index]);
+		// l'EDP "discounte" a fxspot rate donc fwd => spot, donc on remultiplie par fwd * df_base = df_asset
+		return value * asset_.get_df(product_.get_expiry()); 
+	}
+	else
+	{
+		THROW("Bad bounds?");
+	}
 }
 
 void

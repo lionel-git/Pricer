@@ -7,6 +7,7 @@ public:
 	black_scholes(const product& product, const numerical_parameters& np);
 	virtual model_type get_model_type() const override { return model_type::BLACK_SCHOLES; }
 
+	virtual void check_parameters() const override;
 	virtual double evaluate_closed_f() const override;
 
 private:
