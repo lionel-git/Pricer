@@ -84,4 +84,7 @@ donc V reste à 0
 
 Attention depend du payoff
 
+=================================
+Rajouter les points critiques
+calculer les valeurs sur les bornes de l'edp
 

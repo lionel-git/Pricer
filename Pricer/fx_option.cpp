@@ -29,3 +29,14 @@ fx_option::payoff(double St) const
 	return relu(sign_ * (St - strike_));
 }
 
+std::set<double> 
+fx_option::get_critical_strikes(pde_underlying underlying) const
+{
+	switch (underlying)
+	{
+	case pde_underlying::FXSPOT:
+		return { strike_, fx_.get_spot(), fx_.get_fwd(expiry_) };
+	default:
+		return {};
+	}
+}

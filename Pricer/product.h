@@ -2,6 +2,9 @@
 #include "amount.h"
 #include "fx.h"
 #include "pricer_exception.h"
+#include <set>
+
+enum class pde_underlying { FXSPOT, VOLATILITY };
 
 class product
 {
@@ -21,6 +24,9 @@ public:
 	double get_sign() const { return sign_;  }
 
 	virtual const fx& get_fx() const { THROW("Not an fx product"); }
+
+	virtual std::set<double> get_critical_times() const { return {}; }
+	virtual std::set<double> get_critical_strikes(pde_underlying /*underlying*/) const { return {}; }
 
 protected:
 	date_t expiry_;
