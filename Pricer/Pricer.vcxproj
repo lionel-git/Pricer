@@ -145,6 +145,8 @@
     <ClCompile Include="fx_option.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="model.cpp" />
+    <ClCompile Include="model_edp.cpp" />
+    <ClCompile Include="model_mc.cpp" />
     <ClCompile Include="normal.cpp" />
     <ClCompile Include="numerical_parameters.cpp" />
     <ClCompile Include="numerical_parameters_edp.cpp" />

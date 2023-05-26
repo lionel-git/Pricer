@@ -29,6 +29,8 @@ private:
 	void initialize_edp_coeffs();
 	void initialize_mc();
 
+	static void initialize_points(std::vector<double>& v, double min, double max, int nb_points, const std::set<double>& critical_points, double percent_dx);
+
 protected:
 	model(const product& product, const numerical_parameters& np);
 	void initialize();
