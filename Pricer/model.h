@@ -65,6 +65,7 @@ protected:
 	// common
 	const product& product_;
 	std::vector<double> t_;
+	double eps_percent_dt_;
 	// taux instantane
 	std::vector<double> r_;
 	std::vector<double> r_log_;
@@ -74,4 +75,5 @@ protected:
 	// edp
 	std::vector<double> x_;
 	std::vector<edp_coeffs> edp_coeffs_;
+	double eps_percent_dx_;
 };

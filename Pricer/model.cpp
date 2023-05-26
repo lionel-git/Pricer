@@ -26,26 +26,44 @@ enumToText(model_type mt)
 }
 
 model::model(const product& product, const numerical_parameters& np) :
-	product_(product), numerical_parameters_(np), asset_(product.get_fx().get_asset()), basis_(product.get_fx().get_basis())
+	product_(product), numerical_parameters_(np), asset_(product.get_fx().get_asset()), basis_(product.get_fx().get_basis()),
+	eps_percent_dt_(0.01), eps_percent_dx_(0.01)
 {
 	//do not call intialize as the real model has not finished initializing
 }
 
+static bool 
+is_near_critical_point(double x, const std::set<double>& critical_points, double eps)
+{
+	for (const auto cx : critical_points)
+		if (std::fabs(x - cx) < eps)
+			return true;
+	return false;
+}
+
 static
-void initialize_points(std::vector<double>& v, double min, double max, int nb_points)
+void initialize_points(std::vector<double>& v, double min, double max, int nb_points, const std::set<double>& critical_points, double percent_dx)
 {
 	if (nb_points < 2)
 		THROW("Not enough points");
-	v.resize(nb_points);
-	double dx = (max - min) / (v.size() - 1);
-	for (int i = 0; i < v.size(); ++i)
-		v[i] = min + i * dx; // x0=min, x_end=max
+	double dx = (max - min) / (nb_points - 1);
+	std::set<double> s;
+	for (int i = 0; i < nb_points; ++i)
+	{
+		double x = min + i * dx;
+		if (!is_near_critical_point(x, critical_points, dx*percent_dx))
+			s.insert(x);
+	}
+	for (const auto cx : critical_points)
+		s.insert(cx);
+	v.resize(s.size());
+	std::copy(s.begin(), s.end(), v.begin());
 }
 
 void
 model::initialize_common()
 {
-	initialize_points(t_, 0.0, product_.get_expiry(), numerical_parameters_.time_points_);
+	initialize_points(t_, 0.0, product_.get_expiry(), numerical_parameters_.time_points_, product_.get_critical_times(), eps_percent_dt_);
 
 	// On a: S(t) = S0.Dfa(t)/Dfb(t)
 	// On a: S(t+dt)/S(t) = [Dfa(t+dt)/Dfb(t+dt)] / [Dfa(t)/Dfb(t)] = q(t) 
@@ -130,7 +148,7 @@ model::initialize_edp()
 	const numerical_parameters_edp& params = dynamic_cast<const numerical_parameters_edp&>(numerical_parameters_);
 	double x_min, x_max;
 	get_edp_xbounds(x_min, x_max);
-	initialize_points(x_, x_min, x_max, params.x_points_);
+	initialize_points(x_, x_min, x_max, params.x_points_, product_.get_critical_strikes(pde_underlying::FXSPOT), eps_percent_dx_);
 	initialize_edp_coeffs();
 	check_edp_params();
 }
