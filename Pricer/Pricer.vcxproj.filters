@@ -148,9 +148,6 @@
     <ClInclude Include="pricer_exception.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="numerical_parameters.h">
       <Filter>Header Files\model</Filter>
     </ClInclude>
