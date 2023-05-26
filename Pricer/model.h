@@ -43,7 +43,7 @@ protected:
 	// === EDP ====
 	double evaluate_edp() const;
 	virtual void get_edp_xbounds(double& /*x_min*/, double& /*x_max*/) const { THROW(get_error_string("Edp Formulae not implemented")); }
-	void initialize_terminal_payoff(std::vector<double>& V) const;
+	void initialize_terminal_payoff_and_bounds();
 	virtual void back_propagate_explicit(std::vector<double>& /*V*/, double /*dt*/, double /*r*/) const { THROW(get_error_string("Edp Formulae not implemented")); }
 	virtual void back_propagate_implicit(std::vector<double>& /*V*/, double /*dt*/, double /*r*/) const { THROW(get_error_string("Edp Formulae not implemented")); }
 	virtual void back_propagate_cranck_nicholson(std::vector<double>& /*V*/, double /*dt*/, double /*r*/) const { THROW(get_error_string("Edp Formulae not implemented")); }
@@ -76,4 +76,7 @@ protected:
 	std::vector<double> x_;
 	std::vector<edp_coeffs> edp_coeffs_;
 	double eps_percent_dx_;
+	std::vector<double> V_terminal_;   // same size as x_ and V
+	std::vector<double> V_bound_up_;   // same size as t_
+	std::vector<double> V_bound_down_; // same size as t_
 };

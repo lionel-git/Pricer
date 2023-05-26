@@ -120,6 +120,12 @@ model::initialize_edp_coeffs()
 	}
 }
 
+static double 
+get_dv_avg(const std::vector<double>& v)
+{
+	return (*v.rbegin() - *v.begin()) / (v.size() - 1);
+}
+
 void
 model::check_edp_params() const
 {
@@ -127,16 +133,11 @@ model::check_edp_params() const
 	if (params.schema_ == schema_type::EXPLICIT)
 	{
 		// We must have dt <= 0.5*dx^2
-		// We check max(dt) <= 0.5 * min(dx^2)
-		double max_dt = 0.0;
-		for (int i = 0; i < t_.size() - 1; i++)
-			max_dt = std::max(max_dt, t_[i + 1] - t_[i]);
-		double min_dx = 100000.0;
-		for (int i = 0; i < x_.size() - 1; i++)
-			min_dx = std::min(min_dx, x_[i + 1] - x_[i]);
-		if (max_dt >= 0.5 * min_dx * min_dx)
+		double dt_avg = get_dv_avg(t_);
+		double dx_avg = get_dv_avg(x_);
+		if (dt_avg >= 0.5 * dx_avg * dx_avg)
 		{
-			THROW(std::format("dt/dx invalides, dt={}, dx^2={}", max_dt, min_dx*min_dx));
+			THROW(std::format("dt/dx invalides, dt={}, dx^2={}", dt_avg, dx_avg * dx_avg));
 		}
 	}
 }
@@ -150,6 +151,7 @@ model::initialize_edp()
 	get_edp_xbounds(x_min, x_max);
 	initialize_points(x_, x_min, x_max, params.x_points_, product_.get_critical_strikes(pde_underlying::FXSPOT), eps_percent_dx_);
 	initialize_edp_coeffs();
+	initialize_terminal_payoff_and_bounds();
 	check_edp_params();
 }
 
@@ -157,8 +159,7 @@ double
 model::evaluate_edp() const
 {
 	const numerical_parameters_edp& params = dynamic_cast<const numerical_parameters_edp&>(numerical_parameters_);
-	std::vector<double> V;
-	initialize_terminal_payoff(V);
+	std::vector<double> V = V_terminal_;	
 	for (size_t j = t_.size() - 1; j >= 1; --j)
 	{
 		double dt = t_[j] - t_[j-1];
@@ -199,11 +200,32 @@ model::evaluate_edp() const
 }
 
 void
-model::initialize_terminal_payoff(std::vector<double>& V) const
+model::initialize_terminal_payoff_and_bounds()
 {
-	V.resize(x_.size());
+	V_terminal_.resize(x_.size());
 	for (int i = 0; i < x_.size(); ++i)
-		V[i] = product_.payoff(x_[i]);
+		V_terminal_[i] = product_.payoff(x_[i]);
+
+	V_bound_up_.resize(t_.size());
+	V_bound_down_.resize(t_.size());
+
+	// On suppose que aux bornes up et down, la vol n'a plus d'importance sur le payoff
+    // reste a determiner dV/dS aux bornes
+    // V(t) = V(t + dt) - dt.(r.V - r.S.dV / dS)
+	// V(t) = V(t + dt) - r.dt.(V - S . dV/dS)
+	V_bound_up_[t_.size() - 1] = V_terminal_[x_.size() - 1];
+	V_bound_down_[t_.size() - 1] = V_terminal_[0];
+	double S_up = x_[x_.size() - 1];
+	double dvds_up = (V_terminal_[x_.size() - 1] - V_terminal_[x_.size() - 2]) / (x_[x_.size() - 1] - x_[x_.size() - 2]);
+	double S_down = x_[0];
+	double dvds_down = (V_terminal_[1] - V_terminal_[0]) / (x_[1] - x_[0]);
+	for (size_t j = t_.size() - 1; j >= 1; --j)
+	{
+		double dt = t_[j] - t_[j - 1];
+		double r = r_[j]; // rem r[0] est indefini
+		V_bound_up_[j - 1] = V_bound_up_[j] - r * dt * (V_bound_up_[j] - S_up * dvds_up);
+		V_bound_down_[j - 1] = V_bound_down_[j] - r * dt * (V_bound_down_[j] - S_down * dvds_down);
+	}
 }
 
 void
