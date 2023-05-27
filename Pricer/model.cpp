@@ -34,7 +34,7 @@ is_near_critical_point(double x, const std::set<double>& critical_points, double
 }
 
 void 
-model::initialize_points(std::vector<double>& v, double min, double max, int nb_points, const std::set<double>& critical_points, double percent_dx)
+model::initialize_grid_axis(std::vector<double>& v, double min, double max, int nb_points, const std::set<double>& critical_points, double percent_dx)
 {
 	if (nb_points < 2)
 		THROW("Not enough points");
@@ -55,7 +55,7 @@ model::initialize_points(std::vector<double>& v, double min, double max, int nb_
 void
 model::initialize_common()
 {
-	initialize_points(t_, 0.0, product_.get_expiry(), numerical_parameters_.time_points_, product_.get_critical_times(), eps_percent_dt_);
+	initialize_grid_axis(t_, 0.0, product_.get_expiry(), numerical_parameters_.time_points_, product_.get_critical_times(), eps_percent_dt_);
 
 	// On a: S(t) = S0.Dfa(t)/Dfb(t)
 	// On a: S(t+dt)/S(t) = [Dfa(t+dt)/Dfb(t+dt)] / [Dfa(t)/Dfb(t)] = q(t) 

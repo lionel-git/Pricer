@@ -4,6 +4,19 @@
 #include <format>
 
 void
+model::initialize_edp()
+{
+	initialize_common();
+	const numerical_parameters_edp& params = dynamic_cast<const numerical_parameters_edp&>(numerical_parameters_);
+	double x_min, x_max;
+	get_edp_xbounds(x_min, x_max);
+	initialize_grid_axis(x_, x_min, x_max, params.x_points_, product_.get_critical_strikes(pde_underlying::FXSPOT), eps_percent_dx_);
+	initialize_edp_coeffs();
+	initialize_terminal_payoff_and_bounds();
+	check_edp_params();
+}
+
+void
 model::initialize_edp_coeffs()
 {
 	// A l'ordre 1 ou 2, on doit approximer la derivee et derive seconde
@@ -51,19 +64,6 @@ model::check_edp_params() const
 			THROW(std::format("dt/dx invalides, dt={}, dx^2={}", dt_avg, dx_avg * dx_avg));
 		}
 	}
-}
-
-void
-model::initialize_edp()
-{
-	initialize_common();
-	const numerical_parameters_edp& params = dynamic_cast<const numerical_parameters_edp&>(numerical_parameters_);
-	double x_min, x_max;
-	get_edp_xbounds(x_min, x_max);
-	initialize_points(x_, x_min, x_max, params.x_points_, product_.get_critical_strikes(pde_underlying::FXSPOT), eps_percent_dx_);
-	initialize_edp_coeffs();
-	initialize_terminal_payoff_and_bounds();
-	check_edp_params();
 }
 
 double

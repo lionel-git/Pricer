@@ -43,12 +43,16 @@ black_scholes::evaluate_closed_f() const
 void 
 black_scholes::get_edp_xbounds(double& x_min, double& x_max) const
 {
-	// a une date t, on a fwd(t) et la vol:  sigma*sqrt(t)
-	// calculer max sur la periode de fwd(t) + 5 *sigma*sqrt(t)
 	double T = product_.get_expiry();
-	double F = product_.get_fx().get_fwd(T);
-	double vol_time = vol_bs_ * sqrt(T);
-	x_max = std::max(F + 5 * F * vol_time, product_.get_fx().get_spot() * 1.1);
+	x_max = 0.0;
+	double dt = T / 100.0;
+	for (double t = 0.0; t <= T * (1.0 + 1e-6); t += dt)
+	{
+		double Ft = product_.get_fx().get_fwd(t);
+		double vol_t = vol_bs_ * sqrt(t);
+		x_max = std::max(x_max, Ft + 5 * Ft * vol_t);
+	}
+	x_max = std::max(x_max, product_.get_fx().get_spot() * 1.1);	
 	x_min = 0.0;
 }
 
