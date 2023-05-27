@@ -10,6 +10,26 @@ known::known(double m) :
 {
 }
 
+// ===  Forward to unknown operator ===
+unknown
+known::operator*(const unknown& rhs) const
+{
+	return rhs * (*this);
+}
+
+unknown
+known::operator+(const unknown& rhs) const
+{
+	return rhs + (*this);
+}
+
+unknown
+known::operator-(const unknown& rhs) const
+{
+	return rhs - (*this);
+}
+// ===  End Forward  ===
+
 known 
 known::operator*(const known& rhs) const
 {
@@ -22,10 +42,24 @@ known::operator*(const known& rhs) const
 	return known(std::format("{}*{}", name_, rhs.name_)); // parentheses?
 }
 
-unknown 
-known::operator*(const unknown& rhs) const
+known
+known::operator+(const known& rhs) const
 {
-	return rhs * (*this);
+	if (*this == Zero)
+		return rhs;
+	if (rhs == Zero)
+		return *this;
+	return known(std::format("{}+{}", name_, rhs.name_)); // parentheses?
+}
+
+known
+known::operator-(const known& rhs) const
+{
+	if (*this == Zero)
+		return rhs;
+	if (rhs == Zero)
+		return *this;
+	return known(std::format("{}-{}", name_, rhs.name_)); // parentheses?
 }
 
 std::ostream& 

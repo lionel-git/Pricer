@@ -5,6 +5,8 @@
 
 class known;
 
+enum class Operation {Mult, Add, Sub};
+
 class unknown : public element
 {
 public:
@@ -14,17 +16,17 @@ public:
 	static void end_registering();
 
 	unknown operator*(const known& rhs) const;
+	unknown operator+(const known& rhs) const;
+	unknown operator-(const known& rhs) const;
 
 	friend std::ostream& operator<<(std::ostream& os, const unknown& u);
 
 private:
-	void init_coeffs();
-	unknown(const unknown& src, const known& rhs);
+	unknown(const unknown& src, const known& rhs, Operation operation);
 
 private:
 	static bool registering_open_;
-	static int cur_variable_idx_;
 	static int max_variables_;
-	static std::set<std::string> names_;
+	static std::vector<std::string> names_;
 	std::vector<known> coeffs_;
 };
