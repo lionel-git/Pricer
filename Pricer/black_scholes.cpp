@@ -57,8 +57,14 @@ black_scholes::get_edp_xbounds(double& x_min, double& x_max) const
 }
 
 // input: V at t+dt
+// V_up, V_down: V at t
+//  u V    u=V_up
+//  . V
+//  . V    V connu, . = inconnu
+//  . V
+//  d V    d=V_Down
 void
-black_scholes::back_propagate_explicit(std::vector<double>& V, double dt, double r) const
+black_scholes::back_propagate_explicit(std::vector<double>& V, double dt, double r, double V_up, double V_down) const
 {
 	// EDP: dV/dt + 0.5*s^2*S^2*d2V/dS2 + r.S.dV/dS - r.V = 0
 	// dV/dt = r.V - 0.5*s^2*S^2*d2V/dS2 - r.S.dV/dS
@@ -69,9 +75,8 @@ black_scholes::back_propagate_explicit(std::vector<double>& V, double dt, double
 
 	size_t N = V.size();
 	std::vector<double> V2(N);
-	// The first and last values are unchanged
-	V2[0] = V[0];
-	V2[N - 1] = V[N - 1] - dt * r * (V[N - 1] - x_[N - 1]); // mieux gerer techniquement les valurs aux bornes + valeurs ?
+    V2[N-1] = V_up;
+	V2[0] = V_down;
 	for (int i = 1; i <= N - 2; ++i)
 	{
 
@@ -84,14 +89,14 @@ black_scholes::back_propagate_explicit(std::vector<double>& V, double dt, double
 }
 
 void
-black_scholes::back_propagate_implicit(std::vector<double>& /*V*/, double /*dt*/, double /*r*/) const
+black_scholes::back_propagate_implicit(std::vector<double>& /*V*/, double /*dt*/, double /*r*/, double /*V_up*/, double /*V_down*/) const
 {
 
 
 }
 
 void
-black_scholes::back_propagate_cranck_nicholson(std::vector<double>& /*V*/, double /*dt*/, double /*r*/) const
+black_scholes::back_propagate_cranck_nicholson(std::vector<double>& /*V*/, double /*dt*/, double /*r*/, double /*V_up*/, double /*V_down*/) const
 {
 
 

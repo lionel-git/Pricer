@@ -73,19 +73,23 @@ model::evaluate_edp() const
 	std::vector<double> V = V_terminal_;
 	for (size_t j = t_.size() - 1; j >= 1; --j)
 	{
-		double dt = t_[j] - t_[j - 1];
-		double r = r_[j]; // rem r[0] est indefini
-		// on back-propagate : V(j) => V(j-1)
+		// j   => t+dt
+		// j-1 => t
+		double dt = t_[j] - t_[j - 1];        // dt>0
+		double r = r_[j];                     // rem: r[0] est indefini
+		double V_up = V_bound_up_[j - 1];     // at t
+		double V_down = V_bound_down_[j - 1]; // at t
+		// on back-propagate : V(t+dt) (j) => V(t) (j-1)
 		switch (params.schema_)
 		{
 		case schema_type::EXPLICIT:
-			back_propagate_explicit(V, dt, r);
+			back_propagate_explicit(V, dt, r, V_up, V_down);
 			break;
 		case schema_type::IMPLICIT:
-			back_propagate_implicit(V, dt, r);
+			back_propagate_implicit(V, dt, r, V_up, V_down);
 			break;
 		case schema_type::CRANK_NICHOLSON:
-			back_propagate_cranck_nicholson(V, dt, r);
+			back_propagate_cranck_nicholson(V, dt, r, V_up, V_down);
 			break;
 		default:
 			THROW("Unkwon schema");
@@ -93,7 +97,7 @@ model::evaluate_edp() const
 	}
 	// Interpoler , rajouter spot dans grid ?
 	// On renvoie V[t=0, x=Spot]
-	auto it = std::lower_bound(x_.begin(), x_.end(), product_.get_fx().get_spot()); // value >= spot
+	auto it = std::lower_bound(x_.begin(), x_.end(), product_.get_fx().get_spot()); // get first value >= spot
 	if (it == x_.end())
 		THROW("Cannot find spot value");
 	int index = (int)(it - x_.begin());

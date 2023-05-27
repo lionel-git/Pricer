@@ -2,7 +2,6 @@
 #include "defines.h"
 #include "product.h"
 #include "numerical_parameters.h"
-#include "pricer_exception.h"
 #include "edp_coeffs.h"
 
 #include <string>
@@ -39,23 +38,23 @@ protected:
 
 
 	// === Closed formula ====
-	virtual double evaluate_closed_f() const { THROW(get_error_string("Closed Formulae not implemented")); }
+	virtual double evaluate_closed_f() const;
 	// =======================
 
 	// === EDP ====
 	double evaluate_edp() const;
-	virtual void get_edp_xbounds(double& /*x_min*/, double& /*x_max*/) const { THROW(get_error_string("Edp Formulae not implemented")); }
+	virtual void get_edp_xbounds(double& /*x_min*/, double& /*x_max*/) const;
 	void initialize_terminal_payoff_and_bounds();
-	virtual void back_propagate_explicit(std::vector<double>& /*V*/, double /*dt*/, double /*r*/) const { THROW(get_error_string("Edp Formulae not implemented")); }
-	virtual void back_propagate_implicit(std::vector<double>& /*V*/, double /*dt*/, double /*r*/) const { THROW(get_error_string("Edp Formulae not implemented")); }
-	virtual void back_propagate_cranck_nicholson(std::vector<double>& /*V*/, double /*dt*/, double /*r*/) const { THROW(get_error_string("Edp Formulae not implemented")); }
+	virtual void back_propagate_explicit(std::vector<double>& /*V*/, double /*dt*/, double /*r*/, double /*V_up*/, double /*V_down*/) const;
+	virtual void back_propagate_implicit(std::vector<double>& /*V*/, double /*dt*/, double /*r*/, double /*V_up*/, double /*V_down*/) const;
+	virtual void back_propagate_cranck_nicholson(std::vector<double>& /*V*/, double /*dt*/, double /*r*/, double /*V_up*/, double /*V_down*/) const;
 	void check_edp_params() const;
 	// =======================
 	 
 	// === MC ===
 	double evaluate_mc() const;
 	// normal_value is random value from distrib with mean=0, std_dev=1
-	virtual double get_dS_mc(double /*normal_value*/, double /*S*/, double /*dt*/) const { THROW(get_error_string("MC Formulae not implemented")); }
+	virtual double get_dS_mc(double /*normal_value*/, double /*S*/, double /*dt*/) const;
 	// =======================
 
 	const numerical_parameters& numerical_parameters_;

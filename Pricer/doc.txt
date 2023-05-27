@@ -88,3 +88,24 @@ Attention depend du payoff
 Rajouter les points critiques
 calculer les valeurs sur les bornes de l'edp
 
+==============================
+
+Kernel (3x2):
+. . x x
+. . a x
+. . b x
+. . b x
+. . b x
+. . a x
+. . x x
+
+Cas explicit:
+0 1
+1 1
+0 1
+
+Cas implicit, cas particulier sur premier et dernier
+1 1
+1 1
+1 1
+

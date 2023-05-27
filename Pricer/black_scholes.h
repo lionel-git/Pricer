@@ -12,9 +12,9 @@ public:
 
 private:
 	virtual void get_edp_xbounds(double& x_min, double& x_max) const override;
-	virtual void back_propagate_explicit(std::vector<double>& V, double dt, double r) const override;
-	virtual void back_propagate_implicit(std::vector<double>& V, double dt, double r) const override;
-	virtual void back_propagate_cranck_nicholson(std::vector<double>& V, double dt, double r) const override;
+	virtual void back_propagate_explicit(std::vector<double>& V, double dt, double r, double V_up, double V_down) const override;
+	virtual void back_propagate_implicit(std::vector<double>& V, double dt, double r, double V_up, double V_down) const override;
+	virtual void back_propagate_cranck_nicholson(std::vector<double>& V, double dt, double r, double V_up, double V_down) const override;
 
 	virtual double get_dS_mc(double normal_value, double S, double dt) const override;
 

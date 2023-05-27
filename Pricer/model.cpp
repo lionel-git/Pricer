@@ -24,7 +24,7 @@ model::model(const product& product, const numerical_parameters& np) :
 	//do not call intialize as the real model has not finished initializing
 }
 
-static bool 
+static bool
 is_near_critical_point(double x, const std::set<double>& critical_points, double eps)
 {
 	for (const auto cx : critical_points)
@@ -33,7 +33,7 @@ is_near_critical_point(double x, const std::set<double>& critical_points, double
 	return false;
 }
 
-void 
+void
 model::initialize_grid_axis(std::vector<double>& v, double min, double max, int nb_points, const std::set<double>& critical_points, double percent_dx)
 {
 	if (nb_points < 2)
@@ -43,7 +43,7 @@ model::initialize_grid_axis(std::vector<double>& v, double min, double max, int 
 	for (int i = 0; i < nb_points; ++i)
 	{
 		double x = min + i * dx;
-		if (!is_near_critical_point(x, critical_points, dx*percent_dx))
+		if (!is_near_critical_point(x, critical_points, dx * percent_dx))
 			s.insert(x);
 	}
 	for (const auto cx : critical_points)
