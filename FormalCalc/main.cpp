@@ -1,17 +1,47 @@
 #include <iostream>
+#include "known.h"
+#include "unknown.h"
 
 int main(int argc, char** argv)
 {
-	std::cout << "Hello world" << std::endl;
+	try
+	{
+		std::cout << "Hello world" << std::endl;
+
+		// Declare unknown variables
+		unknown::start_registering();
+		unknown Vim1("V[i-1]");
+		unknown Vi("V[i]");
+		unknown Vip1("V[i+1]");
+		unknown::end_registering();
+
+
+		// Declare known variables
+		known r("r");
+		known c1a("edp_coeffs_[i].c1a_");
+		known c1b("edp_coeffs_[i].c1b_");
+		known c1c("edp_coeffs_[i].c1c_");
+		known xi("x[i]");
+		known vol_bs("vol_bs_");
+
+		element value0 = known(0.5) * r;
+	}
+	catch (const std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
+	catch (...)
+	{
+		std::cerr << "SEH exception?" << std::endl;
+	}
 }
 
 /*
 EX of code :
 	size_t N = V.size();
-	std::vector<double> V2(N);
-	// The first and last values are unchanged
-	V2[0] = V[0];
-	V2[N - 1] = V[N - 1] - dt * r * (V[N - 1] - x_[N - 1]); // mieux gerer techniquement les valurs aux bornes + valeurs ?
+	std::vector<double> V2(N);²²
+    V2[N-1] = V_up;
+	V2[0] = V_down;
 	for (int i = 1; i <= N - 2; ++i)
 	{
 
@@ -21,5 +51,5 @@ EX of code :
 		V2[i] = V[i] - dt * (value0 + value1 + value2);
 	}
 	V = V2;
-
 */
+
