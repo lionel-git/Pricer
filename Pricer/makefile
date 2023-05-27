@@ -1,3 +1,6 @@
+#
+# Cf: https://arturtamborski.pl/2018/03/simple-generic-makefile
+#
 TARGET  = $(notdir $(CURDIR))
 
 SRCEXT	= .cpp
