@@ -57,15 +57,14 @@ protected:
 	virtual double get_dS_mc(double /*normal_value*/, double /*S*/, double /*dt*/) const;
 	// =======================
 
-	const numerical_parameters& numerical_parameters_;
-
 	// market data
 	const currency& asset_;
 	const currency& basis_;
 
 	// common
 	const product& product_;
-	std::vector<double> t_;
+	const numerical_parameters& numerical_parameters_;
+        std::vector<double> t_;
 	double eps_percent_dt_;
 	// taux instantane
 	std::vector<double> r_;

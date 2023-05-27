@@ -116,7 +116,9 @@ void test6()
 
 int main(int /*argc*/, char** /*argv*/)
 {
-	_controlfp_s(NULL, 0, _EM_ZERODIVIDE | _EM_INVALID | _EM_DENORMAL);
+#ifdef _WIN32
+  _controlfp_s(NULL, 0, _EM_ZERODIVIDE | _EM_INVALID | _EM_DENORMAL);
+#endif
 
 	try
 	{

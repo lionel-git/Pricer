@@ -1,4 +1,5 @@
 #include "model.h"
+#include <cmath>
 
 std::string
 enumToText(model_type mt)
@@ -18,7 +19,8 @@ enumToText(model_type mt)
 }
 
 model::model(const product& product, const numerical_parameters& np) :
-	product_(product), numerical_parameters_(np), asset_(product.get_fx().get_asset()), basis_(product.get_fx().get_basis()),
+        asset_(product.get_fx().get_asset()), basis_(product.get_fx().get_basis()),
+	product_(product), numerical_parameters_(np), 
 	eps_percent_dt_(0.01), eps_percent_dx_(0.01)
 {
 	//do not call intialize as the real model has not finished initializing

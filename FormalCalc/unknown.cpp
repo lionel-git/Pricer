@@ -2,6 +2,7 @@
 #include "known.h"
 #include <stdexcept>
 #include <format>
+#include <algorithm>
 
 bool unknown::registering_open_ = false;
 int unknown::max_variables_ = 0;

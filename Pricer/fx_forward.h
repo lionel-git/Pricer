@@ -15,8 +15,7 @@ public:
 	virtual const fx& get_fx() const { return fx_; }
 
 protected:
-	const fx& fx_;
 	amount asset_amount_;
 	const currency& asset_ccy_;
-
+  	const fx& fx_;
 };
