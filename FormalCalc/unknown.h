@@ -1,6 +1,8 @@
 #pragma once
 #include "element.h"
 
+class known;
+
 class unknown : public element
 {
 public:
@@ -9,7 +11,14 @@ public:
 	static void start_registering();
 	static void end_registering();
 
+	void init_coeffs(size_t idx);
+
+	unknown operator*(const known& rhs) const;
+
 private:
-	static std::vector<element> list_;
+	unknown(const unknown& src, const known& rhs);
+
+	static std::vector<unknown> base_elements_;
 	static bool registering_open_;
+	std::vector<known> coeffs_;
 };

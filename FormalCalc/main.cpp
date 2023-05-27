@@ -24,7 +24,10 @@ int main(int argc, char** argv)
 		known xi("x[i]");
 		known vol_bs("vol_bs_");
 
-		element value0 = known(0.5) * r;
+		auto value0 = known(0.5) * r;
+		auto value1 = value0 * r;
+		auto value2 = value1 * Vi;
+
 	}
 	catch (const std::exception& e)
 	{
