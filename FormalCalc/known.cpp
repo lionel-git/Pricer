@@ -72,8 +72,9 @@ std::ostream&
 operator<<(std::ostream& os, const known& k)
 {
 	std::string name = k.name_;
-	while (name.size() > 0 && name[0] == '(' && name[name.size() - 1] == ')')
-		name = name.substr(1, name.size() - 2);	
+	// marche pas sur cas : (1-x)*(y+1)
+	/*while (name.size() > 0 && name[0] == '(' && name[name.size() - 1] == ')')
+		name = name.substr(1, name.size() - 2);	*/
 	os << name;
 	return os;
 }

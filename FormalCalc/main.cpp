@@ -10,32 +10,53 @@ int main(int argc, char** argv)
 
 		// Declare unknown variables
 		unknown::start_registering(3);
-		const unknown Vim1("V[i-1]");
-		const unknown Vi("V[i]");
-		const unknown Vip1("V[i+1]");
+		// U represente le vecteur a t: inconnu
+		const unknown Uim1("U[i-1]");
+		const unknown Ui("U[i]");
+		const unknown Uip1("U[i+1]");
 		unknown::end_registering();
 
+		// V represente le vecteur a t+dt: connu
+		const known Vim1("V[i-1]");
+		const known Vi("V[i]");
+		const known Vip1("V[i+1]");
+
 		// Declare known variables
-		known r("r");
-		known dt("dt");
-		known c1a("edp_coeffs_[i].c1a_");
-		known c1b("edp_coeffs_[i].c1b_");
-		known c1c("edp_coeffs_[i].c1c_");
-		known c2a("edp_coeffs_[i].c2a_");
-		known c2b("edp_coeffs_[i].c2b_");
-		known c2c("edp_coeffs_[i].c2c_");
-		known xi("x[i]");
-		known vol_bs("vol_bs_");
+		const known r("r");
+		const known dt("dt");
+		const known c1a("c1a");
+		const known c1b("c1b");
+		const known c1c("c1c");
+		const known c2a("c2a");
+		const known c2b("c2b");
+		const known c2c("c2c");
+		const known xi("x[i]");
+		const known vol_bs("vol_bs");
+		const known theta("theta");
 
 		/*auto vv = Vi + known(5);
 		std::cout << "vv = " << std::endl << vv << std::endl;
 		return 1;*/
 
-		auto value0 = r * Vi;
-		auto value1 = -r * xi * (c1a * Vim1 + c1b * Vi + c1c * Vip1);
-		auto value2 = -known(0.5) * vol_bs * vol_bs * xi * xi * (c2a * Vim1 + c2b * Vi + c2c * Vip1);
-		auto res = Vi - dt * (value0 + value1 + value2);
-		std::cout << "res = " << std::endl << res << std::endl;
+		auto v0 = r * Vi;
+		auto v1 = -r * xi * (c1a * Vim1 + c1b * Vi + c1c * Vip1);
+		auto v2 = -known(0.5) * vol_bs * vol_bs * xi * xi * (c2a * Vim1 + c2b * Vi + c2c * Vip1);
+		auto res_explicit = Vi - dt * (v0 + v1 + v2);
+		std::cout << "res0 = " << std::endl << res_explicit << std::endl;
+
+		auto u0 = r * Ui;
+		auto u1 = -r * xi * (c1a * Uim1 + c1b * Ui + c1c * Uip1);
+		auto u2 = -known(0.5) * vol_bs * vol_bs * xi * xi * (c2a * Uim1 + c2b * Ui + c2c * Uip1);
+		auto res_implicit = Ui - dt * (u0 + u1 + u2);
+		std::cout << "res1 = " << std::endl << res_implicit << std::endl;
+
+		// theta=1 => explicit
+		auto res_zero = theta * res_explicit + (known::One - theta) * res_implicit - Ui;
+		std::cout << "res_zero = " << std::endl << res_zero << std::endl;
+
+		// Faire les cas up/down
+
+
 
 		
 	}

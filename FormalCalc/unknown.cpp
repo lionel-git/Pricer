@@ -47,7 +47,7 @@ unknown::unknown(const unknown& src, const known& rhs, Operation operation): ele
 		switch (operation)
 		{
 		case Operation::Mult:
-			coeffs_[i] = src.coeffs_[i] * rhs;
+			coeffs_[i] = rhs * src.coeffs_[i];
 			break;
 		case Operation::Add:
 			if (i == 0)
