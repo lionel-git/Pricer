@@ -54,7 +54,9 @@ int main(int argc, char** argv)
 		auto res_zero = theta * res_explicit + (known::One - theta) * res_implicit - Ui;
 		std::cout << "res_zero = " << std::endl << res_zero << std::endl;
 
-		// Faire les cas up/down
+		// Faire les cas limite up/down (0, N-1)
+		// Regarder resolution matrice tri diagonale (5 diag ?)
+		// decomp LU ?
 
 
 
