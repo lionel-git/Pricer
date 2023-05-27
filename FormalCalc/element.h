@@ -5,7 +5,6 @@
 class element
 {
 public:
-	bool operator==(const element& rhs) { return name_ == rhs.name_; }
 
 protected:
 	element(const std::string& name) : name_{ name } {}

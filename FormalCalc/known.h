@@ -9,8 +9,15 @@ public:
 	known(const std::string& name) : element(name) {}
 	known(double m);
 
+	bool operator==(const known& rhs) const { return name_ == rhs.name_; }
+
 	known operator*(const known& rhs) const;
 	unknown operator*(const unknown& rhs) const;
+
+	friend std::ostream& operator<<(std::ostream& os, const known& k);
+
+	static const known Zero;
+	static const known One;
 
 private:
 

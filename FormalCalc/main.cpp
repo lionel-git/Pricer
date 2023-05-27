@@ -9,7 +9,7 @@ int main(int argc, char** argv)
 		std::cout << "Hello world" << std::endl;
 
 		// Declare unknown variables
-		unknown::start_registering();
+		unknown::start_registering(3);
 		unknown Vim1("V[i-1]");
 		unknown Vi("V[i]");
 		unknown Vip1("V[i+1]");
@@ -27,6 +27,8 @@ int main(int argc, char** argv)
 		auto value0 = known(0.5) * r;
 		auto value1 = value0 * r;
 		auto value2 = value1 * Vi;
+
+		std::cout << value2 << std::endl;
 
 	}
 	catch (const std::exception& e)
