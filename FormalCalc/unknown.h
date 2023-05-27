@@ -5,8 +5,6 @@
 
 class known;
 
-enum class Operation {Mult, Add, Sub};
-
 class unknown : public element
 {
 public:
@@ -19,14 +17,20 @@ public:
 	unknown operator+(const known& rhs) const;
 	unknown operator-(const known& rhs) const;
 
+	unknown operator+(const unknown& rhs) const;
+	unknown operator-(const unknown& rhs) const;
+
 	friend std::ostream& operator<<(std::ostream& os, const unknown& u);
 
 private:
+	enum class Operation { Mult, Add, Sub };
+
 	unknown(const unknown& src, const known& rhs, Operation operation);
+	unknown(const unknown& src, const unknown& rhs, Operation operation);
 
 private:
 	static bool registering_open_;
 	static int max_variables_;
 	static std::vector<std::string> names_;
-	std::vector<known> coeffs_;
+	std::vector<known> coeffs_; // index 0 is the constant coefficient
 };

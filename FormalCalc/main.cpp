@@ -9,27 +9,35 @@ int main(int argc, char** argv)
 		std::cout << "Hello world" << std::endl;
 
 		// Declare unknown variables
-		unknown::start_registering(6);
-		unknown Vim1("V[i-1]");
-		unknown Vi("V[i]");
-		unknown Vip1("V[i+1]");
+		unknown::start_registering(3);
+		const unknown Vim1("V[i-1]");
+		const unknown Vi("V[i]");
+		const unknown Vip1("V[i+1]");
 		unknown::end_registering();
-
 
 		// Declare known variables
 		known r("r");
+		known dt("dt");
 		known c1a("edp_coeffs_[i].c1a_");
 		known c1b("edp_coeffs_[i].c1b_");
 		known c1c("edp_coeffs_[i].c1c_");
+		known c2a("edp_coeffs_[i].c2a_");
+		known c2b("edp_coeffs_[i].c2b_");
+		known c2c("edp_coeffs_[i].c2c_");
 		known xi("x[i]");
 		known vol_bs("vol_bs_");
 
+		/*auto vv = Vi + known(5);
+		std::cout << "vv = " << std::endl << vv << std::endl;
+		return 1;*/
+
 		auto value0 = r * Vi;
-		auto value1 = r * xi;
-		auto value2 = value1 * Vi;
+		auto value1 = -r * xi * (c1a * Vim1 + c1b * Vi + c1c * Vip1);
+		auto value2 = -known(0.5) * vol_bs * vol_bs * xi * xi * (c2a * Vim1 + c2b * Vi + c2c * Vip1);
+		auto res = Vi - dt * (value0 + value1 + value2);
+		std::cout << "res = " << std::endl << res << std::endl;
 
-		std::cout << "value2 = " << std::endl  << value2 << std::endl;
-
+		
 	}
 	catch (const std::exception& e)
 	{

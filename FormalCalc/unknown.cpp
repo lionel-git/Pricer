@@ -11,8 +11,9 @@ void
 unknown::start_registering(int max_variables)
 {
 	registering_open_ = true;
-	max_variables_ = max_variables;
+	max_variables_ = 1 + max_variables; // 1 constant + variables
 	names_.clear();
+	names_.push_back("_cst_");
 }
 
 void 
@@ -49,10 +50,41 @@ unknown::unknown(const unknown& src, const known& rhs, Operation operation): ele
 			coeffs_[i] = src.coeffs_[i] * rhs;
 			break;
 		case Operation::Add:
-			coeffs_[i] = src.coeffs_[i] + rhs;
+			if (i == 0)
+				coeffs_[i] = src.coeffs_[i] + rhs;
+			else
+				coeffs_[i] = src.coeffs_[i];
 			break;
 		case Operation::Sub:
-			coeffs_[i] = src.coeffs_[i] - rhs;
+			if (i == 0)
+				coeffs_[i] = src.coeffs_[i] - rhs;
+			else
+				coeffs_[i] = src.coeffs_[i];
+			break;
+		default:
+			throw std::runtime_error("Unhandeld case");
+			break;
+		}
+	}
+}
+
+unknown::unknown(const unknown& src, const unknown& rhs, Operation operation) : element("titi")
+{
+	if (src.coeffs_.size() != rhs.coeffs_.size())
+		throw std::runtime_error("Sizes do not match");
+	coeffs_.resize(src.coeffs_.size());
+	for (int i = 0; i < coeffs_.size(); ++i)
+	{
+		switch (operation)
+		{
+		case Operation::Mult:
+			throw std::runtime_error("Invalid, mult between 2 unknown!");
+			break;
+		case Operation::Add:
+			coeffs_[i] = src.coeffs_[i] + rhs.coeffs_[i];
+			break;
+		case Operation::Sub:
+			coeffs_[i] = src.coeffs_[i] - rhs.coeffs_[i];
 			break;
 		default:
 			throw std::runtime_error("Unhandeld case");
@@ -63,13 +95,12 @@ unknown::unknown(const unknown& src, const known& rhs, Operation operation): ele
 
 std::ostream& operator<<(std::ostream& os, const unknown& u)
 {
-	int nb_var = std::min(u.coeffs_.size(), u.names_.size());
-	for (int i = 0; i < nb_var; ++i)
+	size_t nb_var = std::min(u.coeffs_.size(), u.names_.size());
+	for (size_t i = 0; i < nb_var; ++i)
 	{
-		os << u.coeffs_[i] << " * " << u.names_[i];
+		os << "mult of " << u.names_[i] << "\t: " << u.coeffs_[i];
 		if (i < nb_var - 1)
-			os << std::endl;
-		
+			os << std::endl;	
 	}
 	return os;
 }
@@ -91,3 +122,18 @@ unknown::operator-(const known& rhs) const
 {
 	return unknown(*this, rhs, Operation::Sub);
 }
+
+
+unknown 
+unknown::operator+(const unknown& rhs) const
+{
+	return unknown(*this, rhs, Operation::Add);
+}
+
+unknown 
+unknown::operator-(const unknown& rhs) const
+{
+	return unknown(*this, rhs, Operation::Sub);
+}
+
+// operator* not handled (non linear equations)

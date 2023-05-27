@@ -39,7 +39,7 @@ known::operator*(const known& rhs) const
 		return rhs;
 	if (rhs == One)
 		return *this;
-	return known(std::format("{}*{}", name_, rhs.name_)); // parentheses?
+	return known(std::format("{}*{}", name_, rhs.name_)); // '*' est prioritaire sur + / -
 }
 
 known
@@ -49,7 +49,7 @@ known::operator+(const known& rhs) const
 		return rhs;
 	if (rhs == Zero)
 		return *this;
-	return known(std::format("{}+{}", name_, rhs.name_)); // parentheses?
+	return known(std::format("({}+{})", name_, rhs.name_));
 }
 
 known
@@ -59,12 +59,21 @@ known::operator-(const known& rhs) const
 		return rhs;
 	if (rhs == Zero)
 		return *this;
-	return known(std::format("{}-{}", name_, rhs.name_)); // parentheses?
+	return known(std::format("({}-{})", name_, rhs.name_)); 
+}
+
+known
+known::operator-() const
+{
+	return known(std::format("(-{})", name_));
 }
 
 std::ostream& 
 operator<<(std::ostream& os, const known& k)
 {
-	os << k.name_;
+	std::string name = k.name_;
+	while (name.size() > 0 && name[0] == '(' && name[name.size() - 1] == ')')
+		name = name.substr(1, name.size() - 2);	
+	os << name;
 	return os;
 }

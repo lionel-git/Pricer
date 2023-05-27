@@ -20,6 +20,9 @@ public:
 	known operator-(const known& rhs) const;
 	unknown operator-(const unknown& rhs) const;
 
+	known operator-() const;
+
+
 	friend std::ostream& operator<<(std::ostream& os, const known& k);
 
 	static const known Zero;
