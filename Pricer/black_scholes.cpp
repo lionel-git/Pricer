@@ -95,10 +95,39 @@ black_scholes::back_propagate_implicit(std::vector<double>& /*V*/, double /*dt*/
 
 }
 
+// n = vector size
+// a: 2 a n-1
+// b: 1 a n-1
+// c: 1 a n-2
+// r: 1 a n-1
+// out : 1 a n-1
 static std::vector<double>
-solve_tridiagonal_system(const std::vector<double>& a, const std::vector<double>& b, const std::vector<double>& c, const std::vector<double>& t)
+solve_tridiagonal_system(const std::vector<double>& a, const std::vector<double>& b, const std::vector<double>& c, const std::vector<double>& r)
 {
-	return std::vector<double>();
+	size_t n = a.size();
+
+	// g[i]: upper diag
+	// p[i]: new target vecteur
+	// x: output vector
+	std::vector<double> g(n); // 1 a n-2
+	std::vector<double> p(n); // 1 a n-1
+	std::vector<double> x(n); // 1 a n-1
+
+	// First stage
+	g[1] = c[1] / b[1];
+	p[1] = r[1] / b[1];
+	for (size_t i = 2; i <= n-2 ; ++i)
+	{
+		g[i] = c[i] / (b[i] - a[i] * g[i - 1]);
+		p[i] = (r[i] - a[i] * p[i - 1]) / (b[i] - a[i] * g[i - 1]);
+	}
+	p[n - 1] = (r[n - 1] - a[n - 1] * p[n - 2]) / (b[n - 1] - a[n - 1] * g[n - 2]);
+
+	// Second stage
+	x[n - 1] = p[n - 1];
+	for (size_t i = n - 2; i >= 1; --i)
+		x[i] = p[i] - g[i] * x[i + 1];
+	return x;
 }
 
 void
@@ -106,10 +135,10 @@ black_scholes::back_propagate_cranck_nicholson(std::vector<double>& V, double dt
 {
 	// matrix vectors
 	size_t N = V.size();
-	std::vector<double> a(N); // lower diag: 2 => N-2
-	std::vector<double> b(N); // diag: 1 => N-2
-	std::vector<double> c(N); // upper diag: 1 => N-3
-	std::vector<double> t(N); // target vector: 1 => N-2
+	std::vector<double> a(N - 1); // lower diag: 2 => N-2
+	std::vector<double> b(N - 1); // diag: 1 => N-2
+	std::vector<double> c(N - 1); // upper diag: 1 => N-3
+	std::vector<double> t(N - 1); // target vector: 1 => N-2
 
 	// ========= GENERATED CODE ===========
 	{
@@ -154,7 +183,10 @@ black_scholes::back_propagate_cranck_nicholson(std::vector<double>& V, double dt
 	}
 	// ========= END GENERATED CODE ===========
 
-	V = solve_tridiagonal_system(a, b, c, t);
+	auto x = solve_tridiagonal_system(a, b, c, t);
+	V[0] = U_down;
+	V[N - 1] = U_up;
+	std::copy(x.begin()++, x.end(), V.begin()++);
 }
 
 double
