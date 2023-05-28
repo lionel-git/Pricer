@@ -24,11 +24,6 @@ void generate_formula(TestCase test_case)
 {
 	std::cout << "Test case: " << enumToText(test_case) << std::endl;
 
-	// V represente le vecteur a t+dt: connu
-	const known Vim1("V[i-1]");
-	const known Vi("V[i]");
-	const known Vip1("V[i+1]");
-
 	// Declare known variables
 	const known r("r");
 	const known dt("dt");
@@ -41,8 +36,15 @@ void generate_formula(TestCase test_case)
 	const known xi("x[i]");
 	const known vol_bs("vol_bs");
 	const known theta("theta");
-	const known V_up("V_up");
-	const known V_down("V_down");
+
+	// V represente le vecteur a t+dt: connu
+	const known Vim1("V[i-1]");
+	const known Vi("V[i]");
+	const known Vip1("V[i+1]");
+	// U_up/U_down (connu a t)
+	const known U_up("U_up"); 
+	const known U_down("U_down");
+
 
 	// Declare unknown variables
 	unknown::start_registering(3);
@@ -53,10 +55,10 @@ void generate_formula(TestCase test_case)
 	unknown::end_registering();
 
 	if (test_case == TestCase::Down)
-		Uim1 = V_down;
+		Uim1 = U_down;
 
 	if (test_case == TestCase::Up)
-		Uip1 = V_up;
+		Uip1 = U_up;
 
 	auto v0 = r * Vi;
 	auto v1 = -r * xi * (c1a * Vim1 + c1b * Vi + c1c * Vip1);
@@ -82,7 +84,12 @@ int main(int argc, char** argv)
 		std::cout << "Hello world" << std::endl;
 		generate_formula(TestCase::Down);
 		generate_formula(TestCase::Regular);
-		generate_formula(TestCase::Up);		
+		generate_formula(TestCase::Up);
+
+		// regarder comment resoudre tri diag system
+
+
+
 	}
 	catch (const std::exception& e)
 	{
