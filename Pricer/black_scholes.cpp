@@ -126,7 +126,7 @@ black_scholes::back_propagate_cranck_nicholson(std::vector<double>& V, double dt
 		c[i] = (1 - theta_) * dt * ((-r) * x_[i] * c1c + (-0.5) * vol_bs_ * vol_bs_ * x_[i] * x_[i] * c2c);
 	}
 	{
-		for (size_t i = 2; i < N - 2; ++i) {
+		for (size_t i = 2; i <= N - 3; ++i) {
 			double c1a = edp_coeffs_[i].c1a_;
 			double c1b = edp_coeffs_[i].c1b_;
 			double c1c = edp_coeffs_[i].c1c_;

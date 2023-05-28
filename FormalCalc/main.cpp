@@ -95,7 +95,7 @@ void generate_formula(TestCase test_case)
 		start_code.push_back("size_t i = 1;");		
 		break;
 	case TestCase::Regular:
-		start_code.push_back("for (size_t i=2 ; i < N-2 ; ++i) {");
+		start_code.push_back("for (size_t i=2 ; i <= N-3 ; ++i) {");
 		end_code.push_back("}");
 		break;
 	case TestCase::Up:
