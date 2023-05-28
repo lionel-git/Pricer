@@ -43,18 +43,18 @@ protected:
 
 	// === EDP ====
 	double evaluate_edp() const;
-	virtual void get_edp_xbounds(double& /*x_min*/, double& /*x_max*/) const;
+	virtual void get_edp_xbounds(double& x_min, double& x_max) const;
 	void initialize_terminal_payoff_and_bounds();
-	virtual void back_propagate_explicit(std::vector<double>& /*V*/, double /*dt*/, double /*r*/, double /*U_up*/, double /*U_down*/) const;
-	virtual void back_propagate_implicit(std::vector<double>& /*V*/, double /*dt*/, double /*r*/, double /*U_up*/, double /*U_down*/) const;
-	virtual void back_propagate_cranck_nicholson(std::vector<double>& /*V*/, double /*dt*/, double /*r*/, double /*U_up*/, double /*U_down*/) const;
+	virtual void back_propagate_explicit(std::vector<double>& V, double dt, double r, double U_up, double U_down) const;
+	virtual void back_propagate_implicit(std::vector<double>& V, double dt, double r, double U_up, double U_down) const;
+	virtual void back_propagate_cranck_nicholson(std::vector<double>& V, double dt, double r, double U_up, double U_down) const;
 	void check_edp_params() const;
 	// =======================
 	 
 	// === MC ===
 	double evaluate_mc() const;
 	// normal_value is random value from distrib with mean=0, std_dev=1
-	virtual double get_dS_mc(double /*normal_value*/, double /*S*/, double /*dt*/) const;
+	virtual double get_dS_mc(double normal_value, double S, double dt) const;
 	// =======================
 
 	// market data
