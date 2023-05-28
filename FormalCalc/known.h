@@ -22,7 +22,7 @@ public:
 
 	known operator-() const;
 
-
+	friend class unknown;
 	friend std::ostream& operator<<(std::ostream& os, const known& k);
 
 	static const known Zero;

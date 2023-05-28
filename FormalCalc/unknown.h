@@ -10,6 +10,8 @@ class unknown : public element
 public:
 	unknown(const std::string& name);
 
+	unknown& operator=(const known& rhs);
+
 	static void start_registering(int max_variables);
 	static void end_registering();
 

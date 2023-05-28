@@ -138,3 +138,14 @@ unknown::operator-(const unknown& rhs) const
 }
 
 // operator* not handled (non linear equations)
+
+// Trasnform an unknown into a known element
+unknown& 
+unknown::operator=(const known& rhs)
+{
+	name_ = rhs.name_;
+	coeffs_[0] = rhs;
+	for (int i = 1; i < coeffs_.size(); ++i)
+		coeffs_[i] = known::Zero;
+	return *this;
+}
