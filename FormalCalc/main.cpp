@@ -24,14 +24,6 @@ void generate_formula(TestCase test_case)
 {
 	std::cout << "Test case: " << enumToText(test_case) << std::endl;
 
-	// Declare unknown variables
-	unknown::start_registering(3);
-	// U represente le vecteur a t: inconnu
-	const unknown Uim1("U[i-1]");
-	const unknown Ui("U[i]");
-	const unknown Uip1("U[i+1]");
-	unknown::end_registering();
-
 	// V represente le vecteur a t+dt: connu
 	const known Vim1("V[i-1]");
 	const known Vi("V[i]");
@@ -51,6 +43,20 @@ void generate_formula(TestCase test_case)
 	const known theta("theta");
 	const known V_up("V_up");
 	const known V_down("V_down");
+
+	// Declare unknown variables
+	unknown::start_registering(3);
+	// U represente le vecteur a t: inconnu
+	unknown Uim1("U[i-1]");
+	const unknown Ui("U[i]");
+    unknown Uip1("U[i+1]");
+	unknown::end_registering();
+
+	if (test_case == TestCase::Down)
+		Uim1 = V_down;
+
+	if (test_case == TestCase::Up)
+		Uip1 = V_up;
 
 	auto v0 = r * Vi;
 	auto v1 = -r * xi * (c1a * Vim1 + c1b * Vi + c1c * Vip1);

@@ -99,7 +99,11 @@ std::ostream& operator<<(std::ostream& os, const unknown& u)
 	size_t nb_var = std::min(u.coeffs_.size(), u.names_.size());
 	for (size_t i = 0; i < nb_var; ++i)
 	{
-		os << "mult of " << u.names_[i] << "\t: " << u.coeffs_[i];
+		if (i != 0)
+			os << "mult of ";
+		else
+			os << "        ";
+		os << u.names_[i] << "\t: " << u.coeffs_[i];
 		if (i < nb_var - 1)
 			os << std::endl;	
 	}
@@ -139,7 +143,7 @@ unknown::operator-(const unknown& rhs) const
 
 // operator* not handled (non linear equations)
 
-// Trasnform an unknown into a known element
+// Transform an unknown into a known element
 unknown& 
 unknown::operator=(const known& rhs)
 {
