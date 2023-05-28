@@ -77,19 +77,19 @@ model::evaluate_edp() const
 		// j-1 => t
 		double dt = t_[j] - t_[j - 1];        // dt>0
 		double r = r_[j];                     // rem: r[0] est indefini
-		double V_up = V_bound_up_[j - 1];     // at t
-		double V_down = V_bound_down_[j - 1]; // at t
+		double U_up = V_bound_up_[j - 1];     // at t
+		double U_down = V_bound_down_[j - 1]; // at t
 		// on back-propagate : V(t+dt) (j) => V(t) (j-1)
 		switch (params.schema_)
 		{
 		case schema_type::EXPLICIT:
-			back_propagate_explicit(V, dt, r, V_up, V_down);
+			back_propagate_explicit(V, dt, r, U_up, U_down);
 			break;
 		case schema_type::IMPLICIT:
-			back_propagate_implicit(V, dt, r, V_up, V_down);
+			back_propagate_implicit(V, dt, r, U_up, U_down);
 			break;
 		case schema_type::CRANK_NICHOLSON:
-			back_propagate_cranck_nicholson(V, dt, r, V_up, V_down);
+			back_propagate_cranck_nicholson(V, dt, r, U_up, U_down);
 			break;
 		default:
 			THROW("Unkwon schema");

@@ -57,14 +57,14 @@ black_scholes::get_edp_xbounds(double& x_min, double& x_max) const
 }
 
 // input: V at t+dt
-// V_up, V_down: V at t
-//  u V    u=V_up
+// U_up, U_down: V at t
+//  u V    u=U_up
 //  . V
 //  . V    V connu, . = inconnu
 //  . V
-//  d V    d=V_Down
+//  d V    d=U_down
 void
-black_scholes::back_propagate_explicit(std::vector<double>& V, double dt, double r, double V_up, double V_down) const
+black_scholes::back_propagate_explicit(std::vector<double>& V, double dt, double r, double U_up, double U_down) const
 {
 	// EDP: dV/dt + 0.5*s^2*S^2*d2V/dS2 + r.S.dV/dS - r.V = 0
 	// dV/dt = r.V - 0.5*s^2*S^2*d2V/dS2 - r.S.dV/dS
@@ -74,29 +74,29 @@ black_scholes::back_propagate_explicit(std::vector<double>& V, double dt, double
 	// Rem S=x[i], V and x have same length
 
 	size_t N = V.size();
-	std::vector<double> V2(N);
-    V2[N-1] = V_up;
-	V2[0] = V_down;
+	std::vector<double> U(N); // U vector at t, V vector at t+dt
+    U[N-1] = U_up;
+	U[0] = U_down;
 	for (int i = 1; i <= N - 2; ++i)
 	{
 
 		double value0 = r * V[i];
 		double value1 = -r * x_[i] * (edp_coeffs_[i].c1a_ * V[i - 1] + edp_coeffs_[i].c1b_ * V[i] + edp_coeffs_[i].c1c_ * V[i + 1]);
 		double value2 = -0.5 * vol_bs_ * vol_bs_ * x_[i] * x_[i] * (edp_coeffs_[i].c2a_ * V[i - 1] + edp_coeffs_[i].c2b_ * V[i] + edp_coeffs_[i].c2c_ * V[i + 1]);
-		V2[i] = V[i] - dt * (value0 + value1 + value2);
+		U[i] = V[i] - dt * (value0 + value1 + value2);
 	}
-	V = V2;
+	V = U;
 }
 
 void
-black_scholes::back_propagate_implicit(std::vector<double>& /*V*/, double /*dt*/, double /*r*/, double /*V_up*/, double /*V_down*/) const
+black_scholes::back_propagate_implicit(std::vector<double>& /*V*/, double /*dt*/, double /*r*/, double /*U_up*/, double /*U_down*/) const
 {
 
 
 }
 
 void
-black_scholes::back_propagate_cranck_nicholson(std::vector<double>& /*V*/, double /*dt*/, double /*r*/, double /*V_up*/, double /*V_down*/) const
+black_scholes::back_propagate_cranck_nicholson(std::vector<double>& /*V*/, double /*dt*/, double /*r*/, double /*U_up*/, double /*U_down*/) const
 {
 
 

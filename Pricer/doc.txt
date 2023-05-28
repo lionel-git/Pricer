@@ -91,13 +91,14 @@ calculer les valeurs sur les bornes de l'edp
 ==============================
 
 Kernel (3x2):
-. . x x
+    U V             U = V(t) inconnu sauf up/down   V = V(t+dt) connu
+. . x x  (up)
 . . a x
 . . b x
 . . b x
 . . b x
 . . a x
-. . x x
+. . x x  (down)
 
 Cas explicit:
 0 1
