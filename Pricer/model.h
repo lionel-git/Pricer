@@ -79,4 +79,5 @@ protected:
 	std::vector<double> V_terminal_;   // same size as x_ and V
 	std::vector<double> V_bound_up_;   // same size as t_
 	std::vector<double> V_bound_down_; // same size as t_
+	double theta_{ 0.5 };              // For cranck nicholson
 };

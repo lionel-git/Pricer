@@ -3,6 +3,7 @@
 #include <stdexcept>
 #include <format>
 #include <algorithm>
+#include <sstream>
 
 bool unknown::registering_open_ = false;
 int unknown::max_variables_ = 0;
@@ -153,3 +154,27 @@ unknown::operator=(const known& rhs)
 		coeffs_[i] = known::Zero;
 	return *this;
 }
+
+std::string
+unknown::get_code(const std::vector<std::string>& start_code, const std::vector<std::string>& end_code)
+{
+	std::ostringstream os;
+	for (const auto& line: start_code)
+		os  << line << std::endl;
+	// matrix row: a[i], b[i], c[i]
+	// First row: b[0], c[0]
+	// Last row : a[n-1], b[n-1]
+	// vecteur target : t[i]
+	os << "t[i] = - (" << coeffs_[0] << ");" << std::endl;
+	os << "a[i] = " << coeffs_[1] << ";" << std::endl;
+	os << "b[i] = " << coeffs_[2] << ";" << std::endl;
+	os << "c[i] = " << coeffs_[3] << ";" << std::endl;
+	for (size_t i = 0; i < end_code.size(); ++i)
+	{
+		os << end_code[i];
+		if (i < end_code.size() - 1)
+			os << std::endl;
+	}
+	return os.str();
+}
+

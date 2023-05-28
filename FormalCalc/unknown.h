@@ -24,6 +24,8 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& os, const unknown& u);
 
+	std::string get_code(const std::vector<std::string>& start_code, const std::vector<std::string>& end_code);
+
 private:
 	enum class Operation { Mult, Add, Sub };
 
