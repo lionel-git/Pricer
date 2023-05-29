@@ -1,6 +1,7 @@
 #include "matrix.h"
 #include "pricer_exception.h"
 #include <format>
+#include <cmath>
 
 // n = vector size
 // a: 2 a n-1
@@ -56,7 +57,7 @@ matrix::unit_test_solve_tridiagonal_system()
 			v = a[i] * x[i - 1] + b[i] * x[i];
 		else
 			v = a[i] * x[i - 1] + b[i] * x[i] + c[i] * x[i + 1];
-		if (fabs(v - r[i]) > 1e-8)
+		if (std::fabs(v - r[i]) > 1e-8)
 			THROW(std::format("diff at i={}", i));
 	}
 }
