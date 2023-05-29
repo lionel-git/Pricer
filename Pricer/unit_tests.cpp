@@ -1,6 +1,8 @@
 #include "unit_tests.h"
 #include "matrix.h"
 #include "brownian.h"
+#include "currency_manager.h"
+#include "fx_manager.h"
 
 #include <iostream>
 
@@ -23,10 +25,20 @@ void execute_test(void (*test_func)(void), const std::string& name)
 	}
 }
 
+void
+unit_tests::configure_market_data()
+{
+	currency_manager::instance(0);
+	fx_manager::instance(0);
+}
+
 void 
 unit_tests::do_all_tests()
 {
+	std::cout << " ==== Start unit tests ====" << std::endl;
+	configure_market_data();
 	execute_test(matrix::unit_test_solve_tridiagonal_system, "matrix::unit_test_solve_tridiagonal_system");
 	execute_test(brownian::unit_test_cdf, "brownian::unit_test_cdf");
+	std::cout << " ==== End unit tests ====" << std::endl;
 }
 

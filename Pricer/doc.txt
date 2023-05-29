@@ -114,3 +114,5 @@ Cas implicit, cas particulier sur premier et dernier
 Move trigonal solver to numerics
 Write unit tests => directory unit tests
 check tridiag solver + bs solver
+
+Rajouter possibilité de configurer les market datas pour les unit tests, taux vols
