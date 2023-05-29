@@ -22,6 +22,8 @@ public:
 
 	double evaluate() const;
 
+	void set_theta(double theta);
+
 private:
 	void initialize_common();
 	void initialize_edp();

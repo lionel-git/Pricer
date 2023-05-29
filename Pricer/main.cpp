@@ -114,6 +114,11 @@ void test6()
 	auto num_params_edp = numerical_parameters_edp(1000, 50, schema_type::EXPLICIT);
 	auto model_edp = black_scholes(fxo1, num_params_edp);
 	std::cout << "Valo edp: " << model_edp.evaluate() << std::endl;
+
+	auto num_params_edp_cn = numerical_parameters_edp(1000, 50, schema_type::CRANK_NICHOLSON);
+	auto model_edp_cn = black_scholes(fxo1, num_params_edp_cn);
+	model_edp_cn.set_theta(1.0); // Whould match explicit
+	std::cout << "Valo edp CN: " << model_edp_cn.evaluate() << std::endl;
 }
 
 void test7()
@@ -134,8 +139,8 @@ int main(int /*argc*/, char** /*argv*/)
 		//test2();
 		//test3();
 		//test4();
-		//test6();
-		test7();
+		test6();
+	//	test7();
 	}
 	catch (const std::exception& e)
 	{

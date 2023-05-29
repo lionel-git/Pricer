@@ -1,6 +1,7 @@
 // The edp specific methods for class model
 #include "model.h"
 #include "numerical_parameters_edp.h"
+
 #include <format>
 
 void
@@ -14,6 +15,14 @@ model::initialize_edp()
 	initialize_edp_coeffs();
 	initialize_terminal_payoff_and_bounds();
 	check_edp_params();
+}
+
+void 
+model::set_theta(double theta)
+{
+	if (theta<0.0 || theta>1.0)
+		THROW("Invalid theta value");
+	theta_ = theta;
 }
 
 void
