@@ -117,8 +117,12 @@ void test6()
 
 	auto num_params_edp_cn = numerical_parameters_edp(1000, 50, schema_type::CRANK_NICHOLSON);
 	auto model_edp_cn = black_scholes(fxo1, num_params_edp_cn);
-	model_edp_cn.set_theta(1.0); // Whould match explicit
-	std::cout << "Valo edp CN: " << model_edp_cn.evaluate() << std::endl;
+	model_edp_cn.set_theta(1.0); // Should match explicit
+	std::cout << "Valo edp Theta= " << model_edp_cn.get_theta() << " : " << model_edp_cn.evaluate() << std::endl;
+	model_edp_cn.set_theta(0.0); // Should match explicit
+	std::cout << "Valo edp Theta= " << model_edp_cn.get_theta() << " : " << model_edp_cn.evaluate() << std::endl;
+	model_edp_cn.set_theta(0.5); // Should match explicit
+	std::cout << "Valo edp Theta= " << model_edp_cn.get_theta() << " : " << model_edp_cn.evaluate() << std::endl;
 }
 
 void test7()

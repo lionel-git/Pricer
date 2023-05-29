@@ -113,10 +113,10 @@ black_scholes::back_propagate_cranck_nicholson(std::vector<double>& V, double dt
 		double c2a = edp_coeffs_[i].c2a_;
 		double c2b = edp_coeffs_[i].c2b_;
 		double c2c = edp_coeffs_[i].c2c_;
-		t[i] = -(((1 - theta_) * dt * ((-r) * x_[i] * c1a * U_down + (-0.5) * vol_bs_ * vol_bs_ * x_[i] * x_[i] * c2a * U_down) + theta_ * (V[i] - dt * ((r * V[i] + (-r) * x_[i] * ((c1a * V[i - 1] + c1b * V[i]) + c1c * V[i + 1])) + (-0.5) * vol_bs_ * vol_bs_ * x_[i] * x_[i] * ((c2a * V[i - 1] + c2b * V[i]) + c2c * V[i + 1])))));
+		t[i] = -(((1 - theta_) * (-dt * ((-r) * x_[i] * c1a * U_down + (-0.5) * vol_bs_ * vol_bs_ * x_[i] * x_[i] * c2a * U_down)) + theta_ * (V[i] - dt * ((r * V[i] + (-r) * x_[i] * ((c1a * V[i - 1] + c1b * V[i]) + c1c * V[i + 1])) + (-0.5) * vol_bs_ * vol_bs_ * x_[i] * x_[i] * ((c2a * V[i - 1] + c2b * V[i]) + c2c * V[i + 1])))));
 		a[i] = 0;
 		b[i] = ((1 - theta_) * (1 - dt * ((r + (-r) * x_[i] * c1b) + (-0.5) * vol_bs_ * vol_bs_ * x_[i] * x_[i] * c2b)) - 1);
-		c[i] = (1 - theta_) * dt * ((-r) * x_[i] * c1c + (-0.5) * vol_bs_ * vol_bs_ * x_[i] * x_[i] * c2c);
+		c[i] = (1 - theta_) * (-dt * ((-r) * x_[i] * c1c + (-0.5) * vol_bs_ * vol_bs_ * x_[i] * x_[i] * c2c));
 	}
 	{
 		for (size_t i = 2; i <= N - 3; ++i) {
@@ -127,9 +127,9 @@ black_scholes::back_propagate_cranck_nicholson(std::vector<double>& V, double dt
 			double c2b = edp_coeffs_[i].c2b_;
 			double c2c = edp_coeffs_[i].c2c_;
 			t[i] = -(theta_ * (V[i] - dt * ((r * V[i] + (-r) * x_[i] * ((c1a * V[i - 1] + c1b * V[i]) + c1c * V[i + 1])) + (-0.5) * vol_bs_ * vol_bs_ * x_[i] * x_[i] * ((c2a * V[i - 1] + c2b * V[i]) + c2c * V[i + 1]))));
-			a[i] = (1 - theta_) * dt * ((-r) * x_[i] * c1a + (-0.5) * vol_bs_ * vol_bs_ * x_[i] * x_[i] * c2a);
+			a[i] = (1 - theta_) * (-dt * ((-r) * x_[i] * c1a + (-0.5) * vol_bs_ * vol_bs_ * x_[i] * x_[i] * c2a));
 			b[i] = ((1 - theta_) * (1 - dt * ((r + (-r) * x_[i] * c1b) + (-0.5) * vol_bs_ * vol_bs_ * x_[i] * x_[i] * c2b)) - 1);
-			c[i] = (1 - theta_) * dt * ((-r) * x_[i] * c1c + (-0.5) * vol_bs_ * vol_bs_ * x_[i] * x_[i] * c2c);
+			c[i] = (1 - theta_) * (-dt * ((-r) * x_[i] * c1c + (-0.5) * vol_bs_ * vol_bs_ * x_[i] * x_[i] * c2c));
 		}
 	}
 	{
@@ -140,12 +140,17 @@ black_scholes::back_propagate_cranck_nicholson(std::vector<double>& V, double dt
 		double c2a = edp_coeffs_[i].c2a_;
 		double c2b = edp_coeffs_[i].c2b_;
 		double c2c = edp_coeffs_[i].c2c_;
-		t[i] = -(((1 - theta_) * dt * ((-r) * x_[i] * c1c * U_up + (-0.5) * vol_bs_ * vol_bs_ * x_[i] * x_[i] * c2c * U_up) + theta_ * (V[i] - dt * ((r * V[i] + (-r) * x_[i] * ((c1a * V[i - 1] + c1b * V[i]) + c1c * V[i + 1])) + (-0.5) * vol_bs_ * vol_bs_ * x_[i] * x_[i] * ((c2a * V[i - 1] + c2b * V[i]) + c2c * V[i + 1])))));
-		a[i] = (1 - theta_) * dt * ((-r) * x_[i] * c1a + (-0.5) * vol_bs_ * vol_bs_ * x_[i] * x_[i] * c2a);
+		t[i] = -(((1 - theta_) * (-dt * ((-r) * x_[i] * c1c * U_up + (-0.5) * vol_bs_ * vol_bs_ * x_[i] * x_[i] * c2c * U_up)) + theta_ * (V[i] - dt * ((r * V[i] + (-r) * x_[i] * ((c1a * V[i - 1] + c1b * V[i]) + c1c * V[i + 1])) + (-0.5) * vol_bs_ * vol_bs_ * x_[i] * x_[i] * ((c2a * V[i - 1] + c2b * V[i]) + c2c * V[i + 1])))));
+		a[i] = (1 - theta_) * (-dt * ((-r) * x_[i] * c1a + (-0.5) * vol_bs_ * vol_bs_ * x_[i] * x_[i] * c2a));
 		b[i] = ((1 - theta_) * (1 - dt * ((r + (-r) * x_[i] * c1b) + (-0.5) * vol_bs_ * vol_bs_ * x_[i] * x_[i] * c2b)) - 1);
 		c[i] = 0;
 	}
 	// ========= END GENERATED CODE ===========
+
+
+
+
+
 
 	auto x = matrix::solve_tridiagonal_system(a, b, c, t);
 	V[0] = U_down;

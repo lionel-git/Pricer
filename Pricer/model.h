@@ -23,6 +23,7 @@ public:
 	double evaluate() const;
 
 	void set_theta(double theta);
+	double get_theta() const { return theta_; }
 
 private:
 	void initialize_common();
