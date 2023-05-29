@@ -27,7 +27,7 @@ model::initialize_edp_coeffs()
 	// f''(b) ~ f(a). 2 / [(a - b) * (a - c)] + f(b). 2 / [(b - a) * (b - c)] + f(c). 2 / [(c - a) * (c - b)]
 
 	edp_coeffs_.resize(x_.size());
-	for (int i = 1; i < x_.size() - 1; ++i)
+	for (size_t i = 1; i < x_.size() - 1; ++i)
 	{
 		double a = x_[i - 1];
 		double b = x_[i];
@@ -118,7 +118,7 @@ void
 model::initialize_terminal_payoff_and_bounds()
 {
 	V_terminal_.resize(x_.size());
-	for (int i = 0; i < x_.size(); ++i)
+	for (size_t i = 0; i < x_.size(); ++i)
 		V_terminal_[i] = product_.payoff(x_[i]);
 
 	V_bound_up_.resize(t_.size());

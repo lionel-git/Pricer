@@ -76,7 +76,7 @@ model::initialize_common()
 	r_asset_.resize(t_.size());
 	double prev_ratio = 1.0;
 	r_[0] = 0.0;
-	for (int i = 1; i < r_.size(); ++i)
+	for (size_t i = 1; i < r_.size(); ++i)
 	{
 		double ratio = asset_.get_df(t_[i]) / basis_.get_df(t_[i]);
 		r_[i] = (ratio / prev_ratio - 1.0) / (t_[i] - t_[i - 1]);

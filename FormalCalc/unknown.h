@@ -34,7 +34,7 @@ private:
 
 private:
 	static bool registering_open_;
-	static int max_variables_;
+	static size_t max_variables_;
 	static std::vector<std::string> names_;
 	std::vector<known> coeffs_; // index 0 is the constant coefficient
 };

@@ -107,7 +107,7 @@ void generate_formula(TestCase test_case)
 	std::cout << res_zero.get_code(start_code, end_code) << std::endl;
 }
 
-int main(int argc, char** argv)
+int main(int /*argc*/, char** /*argv*/)
 {
 	try
 	{

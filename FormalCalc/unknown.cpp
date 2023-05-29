@@ -6,7 +6,7 @@
 #include <sstream>
 
 bool unknown::registering_open_ = false;
-int unknown::max_variables_ = 0;
+size_t unknown::max_variables_ = 0;
 std::vector<std::string> unknown::names_;
 
 void 
@@ -44,7 +44,7 @@ unknown::unknown(const std::string& name): element(name)
 unknown::unknown(const unknown& src, const known& rhs, Operation operation): element("toto")
 {
 	coeffs_.resize(src.coeffs_.size());
-	for (int i = 0; i < coeffs_.size(); ++i)
+	for (size_t i = 0; i < coeffs_.size(); ++i)
 	{
 		switch (operation)
 		{
@@ -75,7 +75,7 @@ unknown::unknown(const unknown& src, const unknown& rhs, Operation operation) : 
 	if (src.coeffs_.size() != rhs.coeffs_.size())
 		throw std::runtime_error("Sizes do not match");
 	coeffs_.resize(src.coeffs_.size());
-	for (int i = 0; i < coeffs_.size(); ++i)
+	for (size_t i = 0; i < coeffs_.size(); ++i)
 	{
 		switch (operation)
 		{
@@ -150,7 +150,7 @@ unknown::operator=(const known& rhs)
 {
 	name_ = rhs.name_;
 	coeffs_[0] = rhs;
-	for (int i = 1; i < coeffs_.size(); ++i)
+	for (size_t i = 1; i < coeffs_.size(); ++i)
 		coeffs_[i] = known::Zero;
 	return *this;
 }

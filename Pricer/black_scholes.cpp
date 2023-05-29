@@ -78,7 +78,7 @@ black_scholes::back_propagate_explicit(std::vector<double>& V, double dt, double
 	std::vector<double> U(N); // U vector at t, V vector at t+dt
     U[N-1] = U_up;
 	U[0] = U_down;
-	for (int i = 1; i <= N - 2; ++i)
+	for (size_t i = 1; i <= N - 2; ++i)
 	{
 
 		double value0 = r * V[i];
