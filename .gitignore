@@ -399,4 +399,4 @@ FodyWeavers.xsd
 
 # specific
 _objs/
-
+*.bak
