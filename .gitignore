@@ -399,5 +399,4 @@ FodyWeavers.xsd
 
 # specific
 _objs/
-Pricer
-FormalCalc
+
