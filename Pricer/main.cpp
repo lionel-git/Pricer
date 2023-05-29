@@ -9,6 +9,8 @@
 #include "numerical_parameters_edp.h"
 #include "numerical_parameters_mc.h"
 #include "brownian.h"
+#include "unit_tests.h"
+
 #include <cfenv>
 
 void test1()
@@ -114,6 +116,11 @@ void test6()
 	std::cout << "Valo edp: " << model_edp.evaluate() << std::endl;
 }
 
+void test7()
+{
+	unit_tests::do_all_tests();
+}
+
 int main(int /*argc*/, char** /*argv*/)
 {
 #ifdef _WIN32
@@ -127,7 +134,8 @@ int main(int /*argc*/, char** /*argv*/)
 		//test2();
 		//test3();
 		//test4();
-		test6();
+		//test6();
+		test7();
 	}
 	catch (const std::exception& e)
 	{

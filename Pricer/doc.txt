@@ -110,3 +110,7 @@ Cas implicit, cas particulier sur premier et dernier
 1 1
 1 1
 
+================================================================
+Move trigonal solver to numerics
+Write unit tests => directory unit tests
+check tridiag solver + bs solver

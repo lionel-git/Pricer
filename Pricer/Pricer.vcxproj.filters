@@ -107,6 +107,12 @@
     <ClCompile Include="model_unimplemented.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
+    <ClCompile Include="matrix.cpp">
+      <Filter>Source Files\numerics</Filter>
+    </ClCompile>
+    <ClCompile Include="unit_tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="product.h">
@@ -165,6 +171,12 @@
     </ClInclude>
     <ClInclude Include="edp_coeffs.h">
       <Filter>Header Files\model</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix.h">
+      <Filter>Header Files\numerics</Filter>
+    </ClInclude>
+    <ClInclude Include="unit_tests.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
