@@ -73,7 +73,7 @@ void generate_formula(TestCase test_case)
 	//std::cout << "res1 = " << std::endl << res_implicit << std::endl;
 
 	// theta=1 => explicit
-	auto res_zero = theta * res_explicit + (known::One - theta) * res_implicit - Ui;
+	auto res_zero = (theta * res_explicit + (known::One - theta) * res_implicit) - Ui;
 	//std::cout << "0 = SUM" << std::endl << res_zero << std::endl << std::endl;
 	//std::cout << "==========" << std::endl;
 
@@ -111,17 +111,11 @@ int main(int /*argc*/, char** /*argv*/)
 {
 	try
 	{
-		std::cout << "Hello world" << std::endl;
 		std::cout << "// ========= GENERATED CODE ===========" << std::endl;
 		generate_formula(TestCase::Down);
 		generate_formula(TestCase::Regular);
 		generate_formula(TestCase::Up);
 		std::cout << "// ========= END GENERATED CODE ===========" << std::endl;
-
-		// regarder comment resoudre tri diag system
-
-
-
 	}
 	catch (const std::exception& e)
 	{
