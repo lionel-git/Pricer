@@ -56,7 +56,7 @@ known
 known::operator-(const known& rhs) const
 {
 	if (*this == Zero)
-		return rhs;
+		return -rhs; // Warning: 0-x = -x !
 	if (rhs == Zero)
 		return *this;
 	return known(std::format("({}-{})", name_, rhs.name_)); 
@@ -65,6 +65,8 @@ known::operator-(const known& rhs) const
 known
 known::operator-() const
 {
+	if (*this == Zero)
+		return Zero;
 	return known(std::format("(-{})", name_));
 }
 
