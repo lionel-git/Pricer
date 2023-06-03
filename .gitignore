@@ -400,3 +400,4 @@ FodyWeavers.xsd
 # specific
 _objs/
 *.bak
+warnings.txt

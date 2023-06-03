@@ -11,11 +11,11 @@ SRCDIR	= .
 INCDIR	= .
 OBJDIR	= _objs
 
-CC	= g++
-LD	= g++
+CC	= clang++
+LD	= clang++
 
 LDFLAGS	= -lm
-CCFLAGS	= -std=c++20 -g -ggdb -Og -Wall -Wextra -pedantic
+CCFLAGS	= -std=c++20 -g -ggdb -Og -Wall -Wextra -pedantic -Weverything -Wno-c++98-compat -Wno-padded -Werror=non-virtual-dtor
 
 SRCTREE	= $(shell find $(SRCDIR) -type d)
 INCS	= $(shell find $(INCDIR) -type f -name '*$(INCEXT)')
