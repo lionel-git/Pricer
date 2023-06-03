@@ -12,7 +12,7 @@ public:
 
 	double payoff(double St) const override;
 
-	virtual const fx& get_fx() const { return fx_; }
+	virtual const fx& get_fx() const override { return fx_; }
 
 protected:
 	amount asset_amount_;
