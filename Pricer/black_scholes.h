@@ -10,13 +10,13 @@ public:
     virtual void check_parameters() const override;
     virtual double evaluate_closed_f() const override;
 
-private:
+protected:
     virtual void get_edp_xbounds(double& x_min, double& x_max) const override;
     virtual void back_propagate_explicit(std::vector<double>& V, double dt, double r, double U_up, double U_down) const override;
-    virtual void back_propagate_implicit(std::vector<double>& V, double dt, double r, double U_up, double U_down) const override;
     virtual void back_propagate_cranck_nicholson(std::vector<double>& V, double dt, double r, double U_up, double U_down) const override;
 
     virtual double get_dS_mc(double normal_value, double S, double dt) const override;
 
+protected:
     double vol_bs_;
 };

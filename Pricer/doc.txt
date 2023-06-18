@@ -129,3 +129,43 @@ dV/dt = r (V - S.dV/dS)
 si r = 0 V est constante, 
 le schema implicit doit retropropager V
 V(t) = V(t+dt)
+
+dV/dt = r (V - S.dV/dS)
+
+Solution par W alpha:
+V(x,t) = x.c1.( t - log(x)/r )
+
+dV/dt = x.c1
+dV/dx = c1.t - c1.(ln(x)+1) / r
+x.dV/dx = x.c1.t - c1.x.(ln(x)+1) / r
+x.dV/dx = x.c1.t - c1.x.ln(x) /r - c1.x/r
+x.dV/dx = V(x,t) - c1.x/r
+V(x,t) - x.dV/dx = c1.x/r
+
+===================================================
+
+si on passe a la diffusion de log(S) (S = spot>0)
+
+on pose u=log(S)
+on a: S=exp(u) donc dS/du = exp(u) = S
+
+W(u) = V(S)
+
+dW/du = (dV/dS).(dS/du)
+dW/du = S.(dV/dS)
+
+d2W/du2 = d(S.(dV/dS))/dS.(dS/du)
+        = (1.(dV/dS)+S.(d2V/dS2)).S
+        = S.(dV/dS) + S^2.(d2V/dS2))
+        = dW/du + S^2.(d2V/dS2))
+S^2.(d2V/dS2)) = d2W/du2 - dW/du
+
+dV/dt + 0.5*s^2*(S^2*d2V/dS2) + r.S.dV/dS - r.V = 0
+=>
+dW/dt + 0.5*s^2*( d2W/du2 - dW/du ) + r.dW/du - r.W = 0
+dW/dt + 0.5*s^2*d2W/du2 + (r - 0.5*s^2).dW/du - r.W = 0
+
+=> passer en u=log(S) pour MC et EDP
+
+
+

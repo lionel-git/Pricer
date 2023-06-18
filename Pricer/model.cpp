@@ -10,6 +10,8 @@ enumToText(model_type mt)
         return "INVALID";
     case model_type::BLACK_SCHOLES:
         return "BS";
+    case model_type::BLACK_SCHOLES2:
+        return "BS2";
     case model_type::NORMAL:
         return "NORMAL";
     default:

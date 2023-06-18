@@ -116,6 +116,9 @@
     <ClCompile Include="Formal.out.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
+    <ClCompile Include="black_scholes2.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="product.h">
@@ -180,6 +183,9 @@
     </ClInclude>
     <ClInclude Include="unit_tests.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="black_scholes2.h">
+      <Filter>Header Files\model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

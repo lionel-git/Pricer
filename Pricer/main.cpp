@@ -4,6 +4,7 @@
 #include "fx_forward.h"
 #include "fx_option.h"
 #include "black_scholes.h"
+#include "black_scholes2.h"
 #include "normal.h"
 #include "pricer_exception.h"
 #include "numerical_parameters_edp.h"
@@ -155,6 +156,24 @@ void test8()
     std::cout << "Valo edp implicit : " << model_edp_cn.evaluate() << std::endl;
 }
 
+void test_bs2()
+{
+    double expiry = 1.0;
+    amount amount_asset(10'000, currency_code::USD);
+    auto fxo1 = fx_option(expiry, amount_asset, -amount_asset.strike_countervalue(currency_code::JPY, 100.0));
+    std::cout << fxo1.pv(fxo1.base_currency()) << std::endl;
+
+    std::cout << "==== Testing BS2 =======" << std::endl;
+
+    auto num_params_closed_f = numerical_parameters(0);
+    auto model_closed_f = black_scholes2(fxo1, num_params_closed_f);
+    std::cout << "Valo closed f: " << model_closed_f.evaluate() << std::endl;
+
+    auto num_params_mc = numerical_parameters_mc(100, 10000);
+    auto model_mc = black_scholes2(fxo1, num_params_mc);
+    std::cout << "Valo mc: " << model_mc.evaluate() << std::endl;
+}
+
 int main(int /*argc*/, char** /*argv*/)
 {
 #ifdef _WIN32
@@ -170,6 +189,7 @@ int main(int /*argc*/, char** /*argv*/)
                 //test4();
         //test_unit();
         test6();
+        test_bs2();
         
     }
     catch (const std::exception& e)

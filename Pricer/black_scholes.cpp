@@ -90,11 +90,6 @@ black_scholes::back_propagate_explicit(std::vector<double>& V, double dt, double
 }
 
 void
-black_scholes::back_propagate_implicit(std::vector<double>& /*V*/, double /*dt*/, double /*r*/, double /*U_up*/, double /*U_down*/) const
-{
-}
-
-void
 black_scholes::back_propagate_cranck_nicholson(std::vector<double>& V, double dt, double r, double U_up, double U_down) const
 {
     // matrix vectors

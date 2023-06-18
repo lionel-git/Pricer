@@ -1,7 +1,7 @@
 #pragma once
 #include "numerical_parameters.h"
 
-enum class schema_type { EXPLICIT, IMPLICIT, CRANK_NICHOLSON };
+enum class schema_type { EXPLICIT, CRANK_NICHOLSON };
 
 class numerical_parameters_edp : public numerical_parameters
 {

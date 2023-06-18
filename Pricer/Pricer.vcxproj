@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClCompile Include="amount.cpp" />
     <ClCompile Include="black_scholes.cpp" />
+    <ClCompile Include="black_scholes2.cpp" />
     <ClCompile Include="brownian.cpp" />
     <ClCompile Include="currency.cpp" />
     <ClCompile Include="currency_manager.cpp" />
@@ -165,6 +166,7 @@
   <ItemGroup>
     <ClInclude Include="amount.h" />
     <ClInclude Include="black_scholes.h" />
+    <ClInclude Include="black_scholes2.h" />
     <ClInclude Include="brownian.h" />
     <ClInclude Include="currency.h" />
     <ClInclude Include="currency_manager.h" />

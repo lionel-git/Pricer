@@ -11,7 +11,8 @@ model::initialize_edp()
     const numerical_parameters_edp& params = dynamic_cast<const numerical_parameters_edp&>(numerical_parameters_);
     double x_min, x_max;
     get_edp_xbounds(x_min, x_max);
-    initialize_grid_axis(x_, x_min, x_max, params.x_points_, product_.get_critical_strikes(pde_underlying::FXSPOT), eps_percent_dx_);
+    auto critical_points = product_.get_critical_strikes(pde_underlying::FXSPOT);
+    initialize_grid_axis(x_, x_min, x_max, params.x_points_, convert_strikes(critical_points), eps_percent_dx_);
     initialize_edp_coeffs();
     initialize_terminal_payoff_and_bounds();
     check_edp_params();
@@ -93,9 +94,6 @@ model::evaluate_edp() const
         {
         case schema_type::EXPLICIT:
             back_propagate_explicit(V, dt, r, U_up, U_down);
-            break;
-        case schema_type::IMPLICIT:
-            back_propagate_implicit(V, dt, r, U_up, U_down);
             break;
         case schema_type::CRANK_NICHOLSON:
             back_propagate_cranck_nicholson(V, dt, r, U_up, U_down);
