@@ -72,7 +72,7 @@ black_scholes2::get_dS_mc(double normal_value, double /*log_S*/, double dt) cons
 {
     // dS/S = s.dWt
     // d(log(S)) = s.dWt
-    return vol_bs_ * normal_value * sqrt(dt);
+    return vol_bs_ * normal_value * sqrt(dt) - 0.5 * vol_bs_ * vol_bs_* dt; // A voir ???
 }
 
 double
@@ -93,7 +93,7 @@ black_scholes2::evaluate_mc() const
             double du_stochastic = get_dS_mc(b.normal_value(), ut, dt);
             ut += du_deter + du_stochastic;
         }
-        sum_payoffs += product_.payoff(std::exp(ut - 0.5 * vol_bs_ * vol_bs_ * 1.0));  // A voir !!
+        sum_payoffs += product_.payoff(std::exp(ut)); 
     }
     return (sum_payoffs / params.simuls_) * basis_.get_df(product_.get_expiry());
 }
