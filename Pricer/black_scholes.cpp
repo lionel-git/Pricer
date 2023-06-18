@@ -99,7 +99,7 @@ black_scholes::back_propagate_cranck_nicholson(std::vector<double>& V, double dt
     std::vector<double> c(N - 1); // upper diag: 1 => N-3
     std::vector<double> t(N - 1); // target vector: 1 => N-2
 
-    #include "Formal.out.cpp"
+    #include "Formal.out.cxx"
 
     auto x = matrix::solve_tridiagonal_system(a, b, c, t);
     V[0] = U_down;

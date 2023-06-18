@@ -140,7 +140,7 @@
     <ClCompile Include="currency.cpp" />
     <ClCompile Include="currency_manager.cpp" />
     <ClCompile Include="edp_coeffs.cpp" />
-    <ClCompile Include="Formal.out.cpp">
+    <ClCompile Include="Formal.out.cxx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
