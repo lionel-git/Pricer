@@ -119,9 +119,9 @@ void test6()
     auto model_edp_cn = black_scholes(fxo1, num_params_edp_cn);
     model_edp_cn.set_theta(1.0); // Should match explicit
     std::cout << "Valo edp Theta= " << model_edp_cn.get_theta() << " : " << model_edp_cn.evaluate() << std::endl;
-    model_edp_cn.set_theta(0.0); // Should match explicit
+    model_edp_cn.set_theta(0.0); // implicit
     std::cout << "Valo edp Theta= " << model_edp_cn.get_theta() << " : " << model_edp_cn.evaluate() << std::endl;
-    model_edp_cn.set_theta(0.5); // Should match explicit
+    model_edp_cn.set_theta(0.5); // mixte
     std::cout << "Valo edp Theta= " << model_edp_cn.get_theta() << " : " << model_edp_cn.evaluate() << std::endl;
 }
 
@@ -147,12 +147,12 @@ void test8()
 
     auto num_params_edp = numerical_parameters_edp(1000, 50, schema_type::EXPLICIT);
     auto model_edp = black_scholes(fxo1, num_params_edp);
-    std::cout << "Valo edp: " << model_edp.evaluate() << std::endl;
+    std::cout << "Valo edp explicit: " << model_edp.evaluate() << std::endl;
 
     auto num_params_edp_cn = numerical_parameters_edp(1000, 50, schema_type::CRANK_NICHOLSON);
     auto model_edp_cn = black_scholes(fxo1, num_params_edp_cn);
-    model_edp_cn.set_theta(0.0); // Should match explicit
-    std::cout << "Valo edp Theta= " << model_edp_cn.get_theta() << " : " << model_edp_cn.evaluate() << std::endl;
+    model_edp_cn.set_theta(0.0); // implicit
+    std::cout << "Valo edp implicit : " << model_edp_cn.evaluate() << std::endl;
 }
 
 int main(int /*argc*/, char** /*argv*/)
@@ -169,7 +169,7 @@ int main(int /*argc*/, char** /*argv*/)
                 //test3();
                 //test4();
         //test_unit();
-        test8();
+        test6();
         
     }
     catch (const std::exception& e)

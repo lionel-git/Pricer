@@ -26,7 +26,7 @@ fx_manager::fx_manager(int setup_idx)
     switch (setup_idx)
     {
     case 0:
-        add_fx(currency_code::USD, currency_code::JPY, 135.0, 0.0 / 100.0);
+        add_fx(currency_code::USD, currency_code::JPY, 135.0, 10.0 / 100.0);
         add_fx(currency_code::USD, currency_code::EUR, 0.91, 10.0 / 100.0);
         add_fx(currency_code::USD, currency_code::HKD, 7.84, 10.0 / 100.0);
         break;
