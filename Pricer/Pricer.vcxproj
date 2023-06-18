@@ -139,6 +139,10 @@
     <ClCompile Include="currency.cpp" />
     <ClCompile Include="currency_manager.cpp" />
     <ClCompile Include="edp_coeffs.cpp" />
+    <ClCompile Include="Formal.out.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="fx.cpp" />
     <ClCompile Include="fx_forward.cpp" />
     <ClCompile Include="fx_manager.cpp" />

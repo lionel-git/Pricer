@@ -116,3 +116,16 @@ Write unit tests => directory unit tests
 check tridiag solver + bs solver
 
 Rajouter possibilité de configurer les market datas pour les unit tests, taux vols
+
+================================================================
+
+Rem:
+si vol=0
+alors eq devient:
+
+dV/dt + r.S.dV/dS - r.V = 0
+dV/dt = r (V - S.dV/dS)
+
+si r = 0 V est constante, 
+le schema implicit doit retropropager V
+V(t) = V(t+dt)

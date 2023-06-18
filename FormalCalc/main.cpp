@@ -1,6 +1,10 @@
+#define _CRT_SECURE_NO_WARNINGS 1
 #include <iostream>
 #include "known.h"
 #include "unknown.h"
+
+#include <chrono>
+#include <ctime>    
 
 enum class TestCase { Down, Regular, Up };
 std::string enumToText(TestCase test_case);
@@ -66,10 +70,10 @@ void generate_formula(TestCase test_case)
     auto res_explicit = Vi - dt * (v0 + v1 + v2);
     //std::cout << "res0 = " << std::endl << res_explicit << std::endl;
 
-    auto u0 = r * Ui;
+    auto u0 = r * Vi;
     auto u1 = -r * xi * (c1a * Uim1 + c1b * Ui + c1c * Uip1);
     auto u2 = -known(0.5) * vol_bs * vol_bs * xi * xi * (c2a * Uim1 + c2b * Ui + c2c * Uip1);
-    auto res_implicit = Ui - dt * (u0 + u1 + u2);
+    auto res_implicit = Vi - dt * (u0 + u1 + u2);
     //std::cout << "res1 = " << std::endl << res_implicit << std::endl;
 
     // theta=1 => explicit
@@ -107,11 +111,22 @@ void generate_formula(TestCase test_case)
     std::cout << res_zero.get_code(start_code, end_code) << std::endl;
 }
 
+std::string
+get_timestamp()
+{
+    std::ostringstream os;
+    auto end = std::chrono::system_clock::now();
+    std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+    os << std::ctime(&end_time);
+    return os.str();
+}
+
 int main(int /*argc*/, char** /*argv*/)
 {
     try
     {
-        std::cout << "// ========= GENERATED CODE ===========" << std::endl;
+        std::cout << "// ========= GENERATED CODE =========== " << std::endl;
+        std::cout << "// " << get_timestamp() << std::endl;
         generate_formula(TestCase::Down);
         generate_formula(TestCase::Regular);
         generate_formula(TestCase::Up);
