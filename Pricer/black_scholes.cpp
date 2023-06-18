@@ -149,13 +149,10 @@ black_scholes::back_propagate_cranck_nicholson(std::vector<double>& V, double dt
 
 
 
-
-
-
     auto x = matrix::solve_tridiagonal_system(a, b, c, t);
     V[0] = U_down;
     V[N - 1] = U_up;
-    std::copy(x.begin()++, x.end(), V.begin()++);
+    std::copy(++x.begin(), x.end(), ++V.begin());
 }
 
 double
