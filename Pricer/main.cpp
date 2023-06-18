@@ -125,9 +125,34 @@ void test6()
     std::cout << "Valo edp Theta= " << model_edp_cn.get_theta() << " : " << model_edp_cn.evaluate() << std::endl;
 }
 
-void test7()
+void test_unit()
 {
     unit_tests::do_all_tests();
+}
+
+void test8()
+{
+    double expiry = 1.0;
+    amount amount_asset(10'000, currency_code::USD);
+    auto fxo1 = fx_option(expiry, amount_asset, -amount_asset.strike_countervalue(currency_code::JPY, 100.0));
+    std::cout << fxo1.pv(fxo1.base_currency()) << std::endl;
+
+    auto num_params_closed_f = numerical_parameters(0);
+    auto model_closed_f = black_scholes(fxo1, num_params_closed_f);
+    std::cout << "Valo closed f: " << model_closed_f.evaluate() << std::endl;
+
+    auto num_params_mc = numerical_parameters_mc(100, 10000);
+    auto model_mc = black_scholes(fxo1, num_params_mc);
+    std::cout << "Valo mc: " << model_mc.evaluate() << std::endl;
+
+    auto num_params_edp = numerical_parameters_edp(1000, 50, schema_type::EXPLICIT);
+    auto model_edp = black_scholes(fxo1, num_params_edp);
+    std::cout << "Valo edp: " << model_edp.evaluate() << std::endl;
+
+    auto num_params_edp_cn = numerical_parameters_edp(1000, 50, schema_type::CRANK_NICHOLSON);
+    auto model_edp_cn = black_scholes(fxo1, num_params_edp_cn);
+    model_edp_cn.set_theta(0.0); // Should match explicit
+    std::cout << "Valo edp Theta= " << model_edp_cn.get_theta() << " : " << model_edp_cn.evaluate() << std::endl;
 }
 
 int main(int /*argc*/, char** /*argv*/)
@@ -143,8 +168,9 @@ int main(int /*argc*/, char** /*argv*/)
                 //test2();
                 //test3();
                 //test4();
-        test6();
-        //	test7();
+        //test_unit();
+        test8();
+        
     }
     catch (const std::exception& e)
     {
