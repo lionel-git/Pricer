@@ -50,6 +50,11 @@ void generate_formula(TestCase test_case)
     const known U_down("U_down");
 
 
+    //// DEBUG, remove const before activating
+    //r = known::Zero;
+    //vol_bs = known::Zero;
+    //// =====
+    
     // Declare unknown variables
     unknown::start_registering(3);
     // U represente le vecteur a t: inconnu

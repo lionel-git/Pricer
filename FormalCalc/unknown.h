@@ -26,6 +26,8 @@ public:
 
 	std::string get_code(const std::vector<std::string>& start_code, const std::vector<std::string>& end_code);
 
+    explicit unknown(const known& src);
+
 private:
 	enum class Operation { Mult, Add, Sub };
 

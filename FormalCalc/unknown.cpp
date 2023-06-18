@@ -95,6 +95,14 @@ unknown::unknown(const unknown& src, const unknown& rhs, Operation operation) : 
     }
 }
 
+unknown::unknown(const known& src) : element("tutu")
+{
+    coeffs_.resize(max_variables_);
+    coeffs_[0] = src;
+    for (size_t i = 1; i < max_variables_; ++i)
+        coeffs_[i] = known::Zero;
+}
+
 std::ostream& operator<<(std::ostream& os, const unknown& u)
 {
     size_t nb_var = std::min(u.coeffs_.size(), u.names_.size());

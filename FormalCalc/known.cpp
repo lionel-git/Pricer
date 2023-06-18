@@ -26,7 +26,7 @@ known::operator+(const unknown& rhs) const
 unknown
 known::operator-(const unknown& rhs) const
 {
-    return rhs - (*this);
+    return unknown(*this) - rhs;
 }
 // ===  End Forward  ===
 
