@@ -2,7 +2,7 @@
 #include "model.h"
 #include "numerical_parameters_edp.h"
 
-#include <format>
+#include "my_format.h"
 
 void
 model::initialize_edp()
@@ -71,7 +71,7 @@ model::check_edp_params() const
         double dx_avg = get_dv_avg(x_);
         if (dt_avg >= 0.5 * dx_avg * dx_avg)
         {
-            THROW(std::format("dt/dx invalides, dt={}, dx^2={}", dt_avg, dx_avg * dx_avg));
+            THROW(myfmt::format("dt/dx invalides, dt={}, dx^2={}", dt_avg, dx_avg * dx_avg));
         }
     }
 }

@@ -1,7 +1,7 @@
 #include "unknown.h"
 #include "known.h"
 #include <stdexcept>
-#include <format>
+#include "my_format.h"
 #include <algorithm>
 #include <sstream>
 
@@ -27,10 +27,10 @@ unknown::end_registering()
 unknown::unknown(const std::string& name) : element(name)
 {
     if (!registering_open_)
-        throw std::runtime_error(std::format("registering unknown '{}', while registering closed", name));
+        throw std::runtime_error(myfmt::format("registering unknown '{}', while registering closed", name));
     auto it = std::find(names_.begin(), names_.end(), name);
     if (it != names_.end())
-        throw std::runtime_error(std::format("duplicate unknown: '{}'", name));
+        throw std::runtime_error(myfmt::format("duplicate unknown: '{}'", name));
 
     size_t cur_variable_idx = names_.size();
     if (cur_variable_idx >= max_variables_)

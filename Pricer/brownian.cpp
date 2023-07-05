@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <cmath>
-#include <format>
+#include "my_format.h"
 
 brownian::brownian():
 	generator_(), distribution_(0.0, 1.0) // mean, stddev
@@ -37,6 +37,6 @@ brownian::unit_test_cdf()
 	for (const auto& test : test_cases)
 	{
 		if (std::fabs(brownian::cdf(test.first) - test.second) > 1e-5)
-			THROW(std::format("Diff found: x={} {} vs {}", test.first, test.second, brownian::cdf(test.first)));
+			THROW(myfmt::format("Diff found: x={} {} vs {}", test.first, test.second, brownian::cdf(test.first)));
 	}
 }

@@ -136,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="known.h" />
+    <ClInclude Include="my_format.h" />
     <ClInclude Include="unknown.h" />
     <ClInclude Include="element.h" />
   </ItemGroup>

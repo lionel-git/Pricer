@@ -1,6 +1,6 @@
 #include "matrix.h"
 #include "pricer_exception.h"
-#include <format>
+#include "my_format.h"
 #include <cmath>
 #include <algorithm>
 #include <iostream>
@@ -83,6 +83,6 @@ matrix::unit_test_solve_tridiagonal_system()
         else
             v = a[i] * x[i - 1] + b[i] * x[i];
         if (std::fabs(v - r[i]) > 1e-8)
-            THROW(std::format("diff at i={}", i));
+            THROW(myfmt::format("diff at i={}", i));
     }
 }

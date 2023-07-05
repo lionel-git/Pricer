@@ -178,6 +178,7 @@
     <ClInclude Include="fx_option.h" />
     <ClInclude Include="matrix.h" />
     <ClInclude Include="model.h" />
+    <ClInclude Include="my_format.h" />
     <ClInclude Include="normal.h" />
     <ClInclude Include="numerical_parameters.h" />
     <ClInclude Include="numerical_parameters_edp.h" />

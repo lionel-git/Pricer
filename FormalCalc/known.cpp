@@ -1,12 +1,12 @@
 #include "known.h"
-#include <format>
+#include "my_format.h"
 
 const known known::Zero("0");
 const known known::One("1");
 
 
 known::known(double m) :
-    element(std::format("{}", m))
+    element(myfmt::format("{}", m))
 {
 }
 
@@ -39,7 +39,7 @@ known::operator*(const known& rhs) const
         return rhs;
     if (rhs == One)
         return *this;
-    return known(std::format("{}*{}", name_, rhs.name_)); // '*' est prioritaire sur + / -
+    return known(myfmt::format("{}*{}", name_, rhs.name_)); // '*' est prioritaire sur + / -
 }
 
 known
@@ -49,7 +49,7 @@ known::operator+(const known& rhs) const
         return rhs;
     if (rhs == Zero)
         return *this;
-    return known(std::format("({}+{})", name_, rhs.name_));
+    return known(myfmt::format("({}+{})", name_, rhs.name_));
 }
 
 known
@@ -59,7 +59,7 @@ known::operator-(const known& rhs) const
         return -rhs; // Warning: 0-x = -x !
     if (rhs == Zero)
         return *this;
-    return known(std::format("({}-{})", name_, rhs.name_));
+    return known(myfmt::format("({}-{})", name_, rhs.name_));
 }
 
 known
@@ -67,7 +67,7 @@ known::operator-() const
 {
     if (*this == Zero)
         return Zero;
-    return known(std::format("(-{})", name_));
+    return known(myfmt::format("(-{})", name_));
 }
 
 std::ostream&

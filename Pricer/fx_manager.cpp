@@ -1,7 +1,7 @@
 #include "fx_manager.h"
 #include "pricer_exception.h"
 
-#include <format>
+#include "my_format.h"
 #include <iostream>
 
 const fx_manager&
@@ -9,7 +9,7 @@ fx_manager::instance(int setup_idx)
 {
     static const fx_manager manager(setup_idx);
     if (setup_idx != 0 && setup_idx != manager.setup_idx_)
-        THROW(std::format("Change of setup: {} => {}", manager.setup_idx_, setup_idx));
+        THROW(myfmt::format("Change of setup: {} => {}", manager.setup_idx_, setup_idx));
     return manager;
 }
 
@@ -36,7 +36,7 @@ fx_manager::fx_manager(int setup_idx)
         add_fx(currency_code::USD, currency_code::HKD, 7.84, 10.0 / 100.0);
         break;
     default:
-        THROW(std::format("Invalid setup_idx: {}", setup_idx));
+        THROW(myfmt::format("Invalid setup_idx: {}", setup_idx));
     }
     setup_idx_ = setup_idx;
 }

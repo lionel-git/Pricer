@@ -187,6 +187,9 @@
     <ClInclude Include="black_scholes2.h">
       <Filter>Header Files\model</Filter>
     </ClInclude>
+    <ClInclude Include="my_format.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="doc.txt">
