@@ -14,6 +14,9 @@ OBJDIR	= _objs
 CC	= clang++
 LD	= clang++
 
+# Add libfmt if needed
+FMTLIB	= $(shell [ -d /usr/include/fmt ] && echo -lfmt)
+
 LDFLAGS	= -lm
 CCFLAGS	= -std=c++20 -g -ggdb -Og -Wall -Wextra -pedantic -Weverything -Wno-c++98-compat -Wno-padded -Werror=non-virtual-dtor
 
