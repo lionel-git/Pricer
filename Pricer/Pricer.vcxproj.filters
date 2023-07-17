@@ -39,6 +39,12 @@
     <Filter Include="Header Files\numerics">
       <UniqueIdentifier>{24e4f4f7-55d2-49c8-8c1a-b2cb9ba55bda}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\lab">
+      <UniqueIdentifier>{950b38ac-1b41-4b61-b196-27f19f694fce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\lab">
+      <UniqueIdentifier>{065db92e-507a-4c09-ad77-2534da121687}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -119,6 +125,12 @@
     <ClCompile Include="black_scholes2.cpp">
       <Filter>Source Files\model</Filter>
     </ClCompile>
+    <ClCompile Include="lab.cpp">
+      <Filter>Source Files\lab</Filter>
+    </ClCompile>
+    <ClCompile Include="brownian_path.cpp">
+      <Filter>Source Files\numerics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="product.h">
@@ -189,6 +201,15 @@
     </ClInclude>
     <ClInclude Include="my_format.h">
       <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="lab.h">
+      <Filter>Header Files\lab</Filter>
+    </ClInclude>
+    <ClInclude Include="fct2v.h">
+      <Filter>Header Files\numerics</Filter>
+    </ClInclude>
+    <ClInclude Include="brownian_path.h">
+      <Filter>Header Files\numerics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

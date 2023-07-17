@@ -137,6 +137,7 @@
     <ClCompile Include="black_scholes.cpp" />
     <ClCompile Include="black_scholes2.cpp" />
     <ClCompile Include="brownian.cpp" />
+    <ClCompile Include="brownian_path.cpp" />
     <ClCompile Include="currency.cpp" />
     <ClCompile Include="currency_manager.cpp" />
     <ClCompile Include="edp_coeffs.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="fx_forward.cpp" />
     <ClCompile Include="fx_manager.cpp" />
     <ClCompile Include="fx_option.cpp" />
+    <ClCompile Include="lab.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="matrix.cpp" />
     <ClCompile Include="model.cpp" />
@@ -168,14 +170,17 @@
     <ClInclude Include="black_scholes.h" />
     <ClInclude Include="black_scholes2.h" />
     <ClInclude Include="brownian.h" />
+    <ClInclude Include="brownian_path.h" />
     <ClInclude Include="currency.h" />
     <ClInclude Include="currency_manager.h" />
     <ClInclude Include="defines.h" />
     <ClInclude Include="edp_coeffs.h" />
+    <ClInclude Include="fct2v.h" />
     <ClInclude Include="fx.h" />
     <ClInclude Include="fx_forward.h" />
     <ClInclude Include="fx_manager.h" />
     <ClInclude Include="fx_option.h" />
+    <ClInclude Include="lab.h" />
     <ClInclude Include="matrix.h" />
     <ClInclude Include="model.h" />
     <ClInclude Include="my_format.h" />

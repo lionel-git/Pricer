@@ -11,6 +11,7 @@
 #include "numerical_parameters_mc.h"
 #include "brownian.h"
 #include "unit_tests.h"
+#include "lab.h"
 
 #include <cfenv>
 
@@ -188,9 +189,9 @@ int main(int /*argc*/, char** /*argv*/)
                 //test3();
                 //test4();
         //test_unit();
-        test6();
-        test_bs2();
-        
+        //test6();
+        //test_bs2();
+        lab::test_integral();
     }
     catch (const std::exception& e)
     {
